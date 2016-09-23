@@ -7,7 +7,7 @@
 
 <p>
   <strong>Body:</strong>
-  <%= raw add_word_link(@word.body) %>
+  <%= raw markdown(add_word_link(@word.body)) %>
 </p>
 
 <%= link_to 'Edit', edit_word_path(@word) %> |
