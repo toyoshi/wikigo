@@ -29,8 +29,6 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'redcarpet', '3.3.4'
 
-gem 'materialize-sass'
-
 gem 'devise'
 
 group :development, :test do
