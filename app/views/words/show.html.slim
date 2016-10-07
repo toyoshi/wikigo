@@ -2,6 +2,7 @@
 
 p#notice = notice
 
-= raw markdown(add_word_link(@word.body))
+.markdown
+  = raw markdown(add_word_link(@word.body))
 
 = link_to 'Edit', edit_word_path(@word) 
