@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, path: '/-/users'
   root to: 'words#show', id: 1
-  resources :words, path: :wiki
+  resources :words, path: '/' 
 end
