@@ -1,0 +1,45 @@
+doctype html
+html lang="en" 
+  head
+    meta content=("text/html; charset=UTF-8") http-equiv="Content-Type" /
+    meta charset="utf-8" /
+    meta content="IE=Edge,chrome=1" http-equiv="X-UA-Compatible" /
+    meta content="width=device-width, initial-scale=1.0" name="viewport" /
+    title= content_for?(:title) ? yield(:title) : "Wiki"
+    = csrf_meta_tags
+    = stylesheet_link_tag "application", :media => "all"
+    = stylesheet_link_tag "https://fonts.googleapis.com/earlyaccess/notosansjapanese.css", :media => "all"
+    = javascript_include_tag "application"
+
+    meta[name="viewport" content="width=device-width, initial-scale=1.0"]
+
+    /! Le HTML5 shim, for IE6-8 support of HTML elements
+    /![if lt IE 9]
+      | <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js" type="text/javascript"></script
+    link href="//cdn.jsdelivr.net/editor/0.1.0/editor.css" rel="stylesheet" /
+    script src="//cdn.jsdelivr.net/editor/0.1.0/editor.js" 
+    script src="//cdn.jsdelivr.net/editor/0.1.0/marked.js" 
+  body
+    header
+      nav.top-nav
+        .container
+          .nav-wrapper
+            a.page-title
+              = content_for?(:title) ? yield(:title) : 'no title'
+      ul#nav-mobile.side-nav.fixed
+        li.logo
+          = link_to (image_tag 'doughnut-1.svg', {class: 'front-page-logo', style: 'height: 57px'}), root_path, {id: 'logo-container', class: 'brand-logo'}
+    main
+      .container
+        .row
+          .col.s12.m9.l10
+            #grid-container.section.scrollspy
+              = yield
+
+    footer.page-footer
+      .container
+        .row
+      .footer-copyright
+        .container
+          = link_to 'designed by Madebyoliver from Flaticon', 'http://www.flaticon.com/authors/madebyoliver'
+

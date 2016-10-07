@@ -3,6 +3,6 @@ class ApplicationController < ActionController::Base
   before_action :set_global_word
 
   def set_global_word
-    @menu = Word.find_or_create_by(title: '_menu')
+    @menu = Word.find_by(title: '_menu')
   end
 end
