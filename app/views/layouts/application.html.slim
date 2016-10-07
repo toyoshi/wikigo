@@ -5,7 +5,7 @@ html lang="en"
     meta charset="utf-8" /
     meta content="IE=Edge,chrome=1" http-equiv="X-UA-Compatible" /
     meta content="width=device-width, initial-scale=1.0" name="viewport" /
-    title= content_for?(:title) ? yield(:title) : "Hyper"
+    title= content_for?(:title) ? yield(:title) : "Wiki"
     = csrf_meta_tags
     = stylesheet_link_tag "application", :media => "all"
     = stylesheet_link_tag "https://fonts.googleapis.com/earlyaccess/notosansjapanese.css", :media => "all"
@@ -24,12 +24,12 @@ html lang="en"
       nav.top-nav
         .container
           .nav-wrapper
-            a.page-title Hello
+            a.page-title
+              = content_for?(:title) ? yield(:title) : 'no title'
       ul#nav-mobile.side-nav.fixed
         li.logo
           = link_to (image_tag 'doughnut-1.svg', {class: 'front-page-logo', style: 'height: 57px'}), root_path, {id: 'logo-container', class: 'brand-logo'}
         li = raw (add_word_link(markdown(@menu.body)))
-        li = link_to 'Edit Menu', edit_word_path(title: '_menu')
         li = link_to 'New Keyword', new_word_path
     main
       .container
