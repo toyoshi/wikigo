@@ -17,9 +17,12 @@
 // @import "materialize/components/prefixer";
 @import "materialize/components/mixins";
 @import "materialize/components/color";
+$primary-color: color("cyan", "accent-4");
+$secondary-color: color("cyan", "");
 
 // Variables;
 @import "materialize/components/variables";
+
 
 // Reset
 @import "materialize/components/normalize";
@@ -53,6 +56,6 @@
 @import "materialize/components/date_picker/default.time";
 
 @import 'materialize';
-@import 'style';
-@import 'markdown';
+//@import 'style';
+//@import 'markdown';
 

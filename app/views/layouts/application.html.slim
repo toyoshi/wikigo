@@ -21,20 +21,22 @@ html lang="en"
     script src="//cdn.jsdelivr.net/editor/0.1.0/marked.js" 
   body
     header
-      nav.top-nav
-        .container
+      .navbar-fixed
+        nav
           .nav-wrapper
-            a.page-title
-              = content_for?(:title) ? yield(:title) : 'no title'
-      ul#nav-mobile.side-nav.fixed
-        li.logo
-          = link_to (image_tag 'doughnut-1.svg', {class: 'front-page-logo', style: 'height: 57px'}), root_path, {id: 'logo-container', class: 'brand-logo'}
-        li = raw (add_word_link(markdown(@menu.body)))
-        li = link_to 'New Keyword', new_word_path
+            a.brand-logo Logo
+            ul.right.hide-on-med-and-down
+              li = link_to 'New Keyword', new_word_path
+              li 
+                a Link1
+              li 
+                a Link1
+              li
+                a Link1
     main
       .container
         .row
-          .col.s12.m9.l10
+          .col.s12
             #grid-container.section.scrollspy
               = yield
 
