@@ -1,0 +1,8 @@
+{
+  "name": "Wiki Go"
+  "description": "Wiki engine app using Ruby on Rails",
+  "repository": "https://github.com/toyoshi/wikigo",
+  "scripts": {
+    "postdeploy": "bundle exec rake db:setup"
+  }
+}
