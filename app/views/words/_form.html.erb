@@ -1,11 +1,5 @@
 <div class="row">
-  <div class="col s12">
-    <ul class="tabs">
-      <li class="tab col s3"><a class="active" href="#edit">編集</a></li>
-      <li class="tab col s3"><a href="#preview">プレビュー</a></li>
-    </ul>
-  </div>
-  <div id="edit" class="col s12">
+  <div id="edit" class="col s6">
     <%= form_for(word) do |f| %>
       <% if word.errors.any? %>
         <div id="error_explanation">
@@ -34,14 +28,14 @@
       </div>
     <% end %>
   </div>
-  <div id="preview" class="col s12"></div>
+  <div id="preview" class="markdown col s6"></div>
 </div>
 
 <script>
   $(function(){
     fn = function() { $('#preview').html(marked($('#raw-editor-body').val())) };
     setInterval(fn, 1500);
-    $('ul.tabs').tabs();
+    $('.container').css('width', '90%')
     });
 </script>
   

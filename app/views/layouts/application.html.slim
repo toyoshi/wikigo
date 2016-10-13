@@ -22,17 +22,11 @@ html lang="en"
   body
     header
       .navbar-fixed
-        nav
+        nav.white.grey-text
           .nav-wrapper
-            a.brand-logo Logo
+            = link_to 'Wiki Go', root_path, { class: 'brand-logo grey-text text-darken-3' }
             ul.right.hide-on-med-and-down
-              li = link_to 'New Keyword', new_word_path
-              li 
-                a Link1
-              li 
-                a Link1
-              li
-                a Link1
+              li = link_to 'New Keyword', new_word_path, { class: 'btn' }
     main
       .container
         .row
@@ -43,11 +37,12 @@ html lang="en"
     footer.page-footer
       .container
         .row
+          h5.white-text Menu
           ul
-            li = link_to 'All words', words_index_path
-            li = link_to 'Sign in', new_user_session_path
-            li = link_to 'Sign out', destroy_user_session_path, method: :delete
+            li = link_to 'All words', words_index_path, { class: 'grey-text text-lighten-3'}
+            li = link_to 'Sign in', new_user_session_path, { class: 'grey-text text-lighten-3'}
+            li = link_to 'Sign out', destroy_user_session_path, { method: :delete, class: 'grey-text text-lighten-3'}
       .footer-copyright
         .container
-          = link_to 'designed by Madebyoliver from Flaticon', 'http://www.flaticon.com/authors/madebyoliver'
+        = link_to 'designed by Madebyoliver from Flaticon', 'http://www.flaticon.com/authors/madebyoliver', { class: 'grey-text text-lighten-3'}
 

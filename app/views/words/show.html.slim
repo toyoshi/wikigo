@@ -2,7 +2,10 @@
 
 p#notice = notice
 
+
 .markdown
+  h1 = @word.title
   = raw markdown(add_word_link(@word.body))
 
 = link_to 'Edit', edit_word_path(@word) 
+
