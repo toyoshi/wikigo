@@ -1,27 +1,47 @@
-<%= form_for(word) do |f| %>
-  <% if word.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(word.errors.count, "error") %> prohibited this word from being saved:</h2>
+<div class="row">
+  <div class="col s12">
+    <ul class="tabs">
+      <li class="tab col s3"><a class="active" href="#edit">編集</a></li>
+      <li class="tab col s3"><a href="#preview">プレビュー</a></li>
+    </ul>
+  </div>
+  <div id="edit" class="col s12">
+    <%= form_for(word) do |f| %>
+      <% if word.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(word.errors.count, "error") %> prohibited this word from being saved:</h2>
 
-      <ul>
-      <% word.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+            <% word.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="field">
-    <%= f.label :title %>
-    <%= f.text_field :title %>
-  </div>
+      <div class="field">
+        <%= f.label :title %>
+        <%= f.text_field :title %>
+      </div>
 
-  <div class="field">
-    <%= f.label :body %>
-    <%= f.text_area :body, class: 'materialize-textarea' %>
-  </div>
+      <div class="field">
+        <%= f.label :body %>
+        <%= f.text_area :body, id: 'raw-editor-body', class: 'materialize-textarea' %>
+      </div>
 
-  <div class="actions">
-    <%= f.submit class: 'btn'%>
+      <div class="actions">
+        <%= f.submit class: 'btn'%>
+      </div>
+    <% end %>
   </div>
-<% end %>
+  <div id="preview" class="col s12"></div>
+</div>
+
+<script>
+  $(function(){
+    fn = function() { $('#preview').html(marked($('#raw-editor-body').val())) };
+    setInterval(fn, 1500);
+    $('ul.tabs').tabs();
+    });
+</script>
+  

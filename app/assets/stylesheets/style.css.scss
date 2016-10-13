@@ -512,6 +512,10 @@ $height: auto;
 }
 
 // tabs
+.tabs {
+  margin-bottom: 30px;
+}
+
 .tabs-wrapper {
   position: relative;
   height: 48px;
@@ -898,4 +902,8 @@ body.parallax-demo footer {
       white-space: nowrap;
     }
   }
+}
+
+#raw-editor-body {
+  height: 20em;
 }
