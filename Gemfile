@@ -49,6 +49,14 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  gem 'rubocop', require: false
+
+  # pry関連(デバッグなど便利)
+  gem 'pry-rails'    # rails cの対話式コンソールがirbの代わりにリッチなpryになる
+  gem 'pry-doc'      # pry中に show-source [method名] でソース内を読める
+  gem 'pry-byebug'   # binding.pryをソースに記載すると、ブレイクポイントとなりデバッグが可能になる
+  gem 'pry-stack_explorer' # pry中にスタックを上がったり下がったり行き来できる
 end
 
 group :production do
