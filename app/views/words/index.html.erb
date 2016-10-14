@@ -19,6 +19,8 @@
   </tbody>
 </table>
 
-<br>
-
-<%= link_to 'New Word', new_word_path %>
+<section class="right-align">
+  <%= link_to_previous_page @words, 'Previous Page' %>
+&nbsp;
+  <%= link_to_next_page @words, 'Next Page' %>
+</section>
