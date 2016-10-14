@@ -16,3 +16,4 @@
 //= require_tree .
 //= require materialize-sprockets
 //= require marked
+//= require simplemde.min
