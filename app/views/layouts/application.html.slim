@@ -29,6 +29,8 @@ html lang="en"
               li = link_to 'New Keyword', new_word_path, { class: 'btn waves-effect waves-light ' }
     main
       .container
+        - if notice
+          p#notice.alert.alert-info = notice
         .row
           .col.s12
             #grid-container.section.scrollspy

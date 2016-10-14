@@ -1,8 +1,5 @@
 - content_for(:title) { "#{@word.title}" } 
 
-p#notice = notice
-
-
 .markdown
   h1 = @word.title
   = raw markdown(add_word_link(@word.body))
