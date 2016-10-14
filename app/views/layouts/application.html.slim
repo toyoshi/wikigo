@@ -26,7 +26,7 @@ html lang="en"
           .nav-wrapper
             = link_to 'Wiki Go', root_path, { class: 'brand-logo grey-text text-darken-3' }
             ul.right.hide-on-med-and-down
-              li = link_to 'New Keyword', new_word_path, { class: 'btn' }
+              li = link_to 'New Keyword', new_word_path, { class: 'btn waves-effect waves-light ' }
     main
       .container
         .row
@@ -39,6 +39,7 @@ html lang="en"
         .row
           h5.white-text Menu
           ul
+            li = link_to 'New Keyword', new_word_path, { class: 'grey-text text-lighten-3' }
             li = link_to 'All words', words_index_path, { class: 'grey-text text-lighten-3'}
             - if user_signed_in?
               li = link_to 'Sign out', destroy_user_session_path, { method: :delete, class: 'grey-text text-lighten-3'}

@@ -1,5 +1,5 @@
 <div class="row">
-  <div id="edit" class="col s6">
+  <div id="edit" class="col s12 m6">
     <%= form_for(word) do |f| %>
       <% if word.errors.any? %>
         <div id="error_explanation">
@@ -28,7 +28,7 @@
       </div>
     <% end %>
   </div>
-  <div id="preview" class="markdown col s6"></div>
+  <div id="preview" class="markdown col s12 m6"></div>
 </div>
 
 <script>
