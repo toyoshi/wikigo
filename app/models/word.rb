@@ -1,6 +1,5 @@
 class Word < ApplicationRecord
   has_paper_trail on: [:update, :destroy]
-  paginates_per 2
 
   def self.find(input)
     if input.is_a?(Integer)
