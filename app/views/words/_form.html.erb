@@ -20,28 +20,24 @@
   </div>
 
   <div class="row">
-    <div id="edit" class="col s12 m6">
+    <div id="edit" class="col s12 m12">
       <div class="field">
         <%= f.label :body %>
-        <%= f.text_area :body, id: 'raw-editor-body', class: 'materialize-textarea' %>
+        <%= f.text_area :body %>
       </div>
 
       <div class="actions">
         <%= f.submit class: 'btn'%>
       </div>
     </div>
-    <div id="preview" class="markdown col s12 m6"></div>
   </div>
 <% end %>
 
 <script>
   $(function(){
-    fn = function() { $('#preview').html(marked($('#raw-editor-body').val())) };
-    setInterval(fn, 1500);
-    $('.container').css('width', '90%')
     var simplemde = new SimpleMDE({
-      toolbar: true
+      spellChecker: false,
     });
-    });
-  </script>
+  });
+</script>
 

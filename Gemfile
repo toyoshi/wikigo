@@ -33,8 +33,6 @@ gem 'devise'
 gem 'slim-rails'
 gem 'materialize-sass'
 
-gem 'marked-rails'
-
 gem 'simplemde-rails'
 
 group :development, :test do

@@ -8,22 +8,15 @@ body {
   margin-left: 20px; margin-right: 20px;
 }
 
+.navbar-fixed {
+  z-index: 5; //Markdownエディタより下に来るように
+}
+
 main {
   min-height: 500px;
-
-  .markdown {
-  }
 }
 
 //tabs
 .tabs {
   margin-bottom: 30px;
-}
-
-#raw-editor-body {
-  height: 30em;
-}
-
-div#preview {
-  margin-top: 55px;
 }
