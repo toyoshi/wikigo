@@ -13,6 +13,10 @@ module WordsHelper
     body
   end
 
+  def has_version?(w)
+    w.versions.count > 0
+  end
+
   private 
   def word_list
     Word.all.pluck(:title)

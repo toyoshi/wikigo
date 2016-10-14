@@ -6,3 +6,8 @@
 
 = link_to('Edit', edit_word_path(@word)) if user_signed_in?
 
+- if has_version?(@word)
+  ul.right.pagination.versions-nav
+    li = link_to 0, word_path(@word)
+    - @word.versions.each do |v|
+      li = link_to (v.index + 1), word_version_path(@word, v)

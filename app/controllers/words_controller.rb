@@ -1,6 +1,6 @@
 class WordsController < ApplicationController
   before_action :authenticate_user!, except: [:show]
-  before_action :set_word, only: [:show, :edit, :update, :destroy]
+  before_action :set_word, only: [:show, :version, :edit, :update, :destroy]
 
   # GET /words
   # GET /words.json
@@ -11,6 +11,13 @@ class WordsController < ApplicationController
   # GET /words/1
   # GET /words/1.json
   def show
+  end
+
+  def version
+    @word = @word.versions.find(params[:version]).reify
+    respond_to do |format|
+        format.html { render :show }
+    end
   end
 
   # GET /words/new
