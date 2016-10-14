@@ -1,6 +1,6 @@
 module WordsHelper
-  
-  @@markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true), extensions = {fenced_code_blocks: true})
+  extensions = {strikethrough: true, fenced_code_blocks: true}
+  @@markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML.new(hard_wrap: true), extensions)
 
   def markdown(str)
     @@markdown.render(str)
