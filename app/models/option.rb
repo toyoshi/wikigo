@@ -1,10 +1,19 @@
 class Option < ApplicationRecord
-  def self.get(key)
-    self.find_by_option_key(key).option_value
+  def self.update_registration_token
+    self.user_registration_token = SecureRandom.uuid.gsub!(/-/,'')
   end
 
-  def self.update_registration_token
-    registration_token = find_by_option_key(:USER_REGISTRATION_TOKEN)
-    registration_token.update( option_value: SecureRandom.uuid.gsub!(/-/,''))
+  ## Optionをハッシュのように扱うためのメソッド
+  def self.method_missing(method, *args)
+    attribute = method.to_s
+    if attribute =~ /=$/
+      column = attribute[0, attribute.size - 1]
+      o = self.find_or_initialize_by(option_key: column)
+      o.option_value = args.first.to_s
+      o.save
+    else
+      o = self.find_or_initialize_by(option_key: method.to_s)
+      o.option_value
+    end
   end
 end

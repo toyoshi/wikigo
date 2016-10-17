@@ -5,7 +5,4 @@ Word.find_or_create_by(title: 'Main Page') do |word|
 end
 
 #Default User Registration Token
-Option.find_or_create_by(option_key: 'USER_REGISTRATION_TOKEN') do |v|
-  v.option_value = SecureRandom.uuid.gsub!(/-/,'')
-end
-
+Option.update_registration_token

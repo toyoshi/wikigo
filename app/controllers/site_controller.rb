@@ -1,6 +1,6 @@
 class SiteController < ApplicationController
   def members
-    @key = Option.get(:USER_REGISTRATION_TOKEN)
+    @key = Option.user_registration_token
   end
 
   def regenerate_token

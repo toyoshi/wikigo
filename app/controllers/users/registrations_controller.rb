@@ -8,9 +8,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
     return true if User.count == 0
 
     #TOKEN is valid
-    token = params[:registration_token] || cookies[:registration_token]
-    if token == Option.get(:USER_REGISTRATION_TOKEN)
-      cookies[:registration_token] = token
+    token = params[:rt] || cookies[:rt]
+    if token == Option.user_registration_token
+      cookies[:rt] = token
     else
       redirect_to root_path, notice: 'invalid token' 
     end
