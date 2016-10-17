@@ -5,7 +5,7 @@ html lang="en"
     meta charset="utf-8" /
     meta content="IE=Edge,chrome=1" http-equiv="X-UA-Compatible" /
     meta content="width=device-width, initial-scale=1.0" name="viewport" /
-    title= content_for?(:title) ? yield(:title) : "Wiki"
+    title= content_for?(:title) ? yield(:title) : site_title
     = csrf_meta_tags
     = stylesheet_link_tag "application", :media => "all"
     = stylesheet_link_tag "https://fonts.googleapis.com/earlyaccess/notosansjapanese.css", :media => "all"
@@ -24,7 +24,7 @@ html lang="en"
       .navbar-fixed
         nav.white.grey-text
           .nav-wrapper
-            = link_to 'Wiki Go', root_path, { class: 'brand-logo grey-text text-darken-3' }
+            = link_to site_title, root_path, { class: 'brand-logo grey-text text-darken-3' }
             ul.right.hide-on-med-and-down
               li = link_to 'New Keyword', new_word_path, { class: 'btn waves-effect waves-light ' }
     main
@@ -46,6 +46,7 @@ html lang="en"
             - if user_signed_in?
               li = link_to 'Edit Profile', edit_user_registration_path, { class: 'grey-text text-lighten-3'}
               li = link_to 'Members', site_members_path, { class: 'grey-text text-lighten-3'}
+              li = link_to 'Site Settings', site_settings_path, { class: 'grey-text text-lighten-3'}
               li = link_to 'Sign out', destroy_user_session_path, { method: :delete, class: 'grey-text text-lighten-3'}
             - else
               li = link_to 'Sign up', new_user_registration_path, { class: 'grey-text text-lighten-3'}

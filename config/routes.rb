@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'site/settings'
+  put 'site/update_settings'
+
   get 'site/members'
   put 'site/regenerate_token', as: 'regenerate_registration'
 

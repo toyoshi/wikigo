@@ -1,0 +1,6 @@
+h2 Settings
+
+= form_for @setting, url: site_update_settings_path, method: :put do |f|
+  = label_tag 'Site Title'
+  = f.text_field :site_title
+  = f.submit class: 'btn'
