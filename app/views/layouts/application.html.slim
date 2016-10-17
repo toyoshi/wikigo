@@ -8,7 +8,6 @@ html lang="en"
     title= content_for?(:title) ? yield(:title) : site_title
     = csrf_meta_tags
     = stylesheet_link_tag "application", :media => "all"
-    = stylesheet_link_tag "https://fonts.googleapis.com/earlyaccess/notosansjapanese.css", :media => "all"
     = javascript_include_tag "application"
 
     meta[name="viewport" content="width=device-width, initial-scale=1.0"]
@@ -16,17 +15,20 @@ html lang="en"
     /! Le HTML5 shim, for IE6-8 support of HTML elements
     /![if lt IE 9]
       | <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js" type="text/javascript"></script
-    link href="//cdn.jsdelivr.net/editor/0.1.0/editor.css" rel="stylesheet" /
-    script src="//cdn.jsdelivr.net/editor/0.1.0/editor.js" 
-    script src="//cdn.jsdelivr.net/editor/0.1.0/marked.js" 
+    link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /
   body
     header
-      .navbar-fixed
-        nav.white.grey-text
+      ul#setting-menu.dropdown-content
+        
+      .navbar
+        nav.white
           .nav-wrapper
             = link_to site_title, root_path, { class: 'brand-logo grey-text text-darken-3' }
             ul.right.hide-on-med-and-down
-              li = link_to 'New Keyword', new_word_path, { class: 'btn waves-effect waves-light ' }
+              - if user_signed_in?
+                li = link_to 'New Keyword', new_word_path, { class: 'grey-text text-darken-3' }
+              - else
+                li = link_to 'Sign in', new_user_session_path, { class: 'grey-text text-darken-3' }
     main
       .container
         - if notice
@@ -41,16 +43,12 @@ html lang="en"
         .row
           h5.white-text Menu
           ul
-            li = link_to 'New Keyword', new_word_path, { class: 'grey-text text-lighten-3' }
             li = link_to 'All words', words_index_path, { class: 'grey-text text-lighten-3'}
             - if user_signed_in?
               li = link_to 'Edit Profile', edit_user_registration_path, { class: 'grey-text text-lighten-3'}
               li = link_to 'Members', site_members_path, { class: 'grey-text text-lighten-3'}
               li = link_to 'Site Settings', site_settings_path, { class: 'grey-text text-lighten-3'}
               li = link_to 'Sign out', destroy_user_session_path, { method: :delete, class: 'grey-text text-lighten-3'}
-            - else
-              li = link_to 'Sign up', new_user_registration_path, { class: 'grey-text text-lighten-3'}
-              li = link_to 'Sign in', new_user_session_path, { class: 'grey-text text-lighten-3'}
       .footer-copyright
         .container
         = link_to '', '', { class: 'grey-text text-lighten-3'}
