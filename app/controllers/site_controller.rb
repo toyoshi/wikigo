@@ -5,6 +5,6 @@ class SiteController < ApplicationController
 
   def regenerate_token
     Option.update_registration_token
-    redirect_to site_members_path, turbolinks: false, notice: 'Token regenerated'
+    redirect_to site_members_path, notice: 'Token regenerated'
   end
 end
