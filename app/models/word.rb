@@ -1,4 +1,5 @@
 class Word < ApplicationRecord
+  include TitleConverter
   has_paper_trail on: [:update, :destroy]
 
   validates :title, presence: true
@@ -7,11 +8,11 @@ class Word < ApplicationRecord
     if input.is_a?(Integer)
       super
     else
-      find_by_title(input)
+      find_by_title(self.param_to_title(input))
     end
   end
 
   def to_param
-    title
+    title_to_param
   end
 end
