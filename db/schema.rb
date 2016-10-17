@@ -12,13 +12,6 @@
 
 ActiveRecord::Schema.define(version: 20161015124612) do
 
-  create_table "categories", force: :cascade do |t|
-    t.string   "name",       default: "", null: false
-    t.datetime "created_at",              null: false
-    t.datetime "updated_at",              null: false
-    t.string   "ancestry"
-  end
-
   create_table "options", force: :cascade do |t|
     t.string   "option_key",   default: "", null: false
     t.text     "option_value", default: "", null: false
