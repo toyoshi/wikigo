@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   get 'site/members'
+  put 'site/regenerate_token', as: 'regenerate_registration'
 
   devise_for :users, path: '/-/users', controllers: {
     registrations: 'users/registrations'

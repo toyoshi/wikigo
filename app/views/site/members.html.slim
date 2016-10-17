@@ -1,3 +1,8 @@
-h1 招待
+h2 メンバー
 
-= invitation_url(@key)
+section
+  label Invitation URL
+  = text_field_tag '#', invitation_url(@key)
+
+section
+  = link_to 'Regenerate URL', regenerate_registration_path, { method: 'put' }

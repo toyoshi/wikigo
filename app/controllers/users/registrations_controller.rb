@@ -1,14 +1,18 @@
 class Users::RegistrationsController < Devise::RegistrationsController
-  before_action :token_valid?, only: [:new, :create]
+  before_action :check_registable, only: [:new, :create]
 
   protected
 
-  def token_valid?
-    token = params[:registraion_token] || cookies[:registraion_token]
+  def check_registable
+    #Is first user
+    return true if User.count == 0
+
+    #TOKEN is valid
+    token = params[:registration_token] || cookies[:registration_token]
     if token == Option.get(:USER_REGISTRATION_TOKEN)
-      cookies[:registraion_token] = token
+      cookies[:registration_token] = token
     else
-      redirect_to root_path, flash_message: 'invalid token' 
+      redirect_to root_path, notice: 'invalid token' 
     end
   end
 end
