@@ -2,6 +2,11 @@
   margin-left: 20px; margin-right: 20px;
 }
 
+nav {
+  border-bottom: 1px solid #eee;
+  margin-bottom: 30px;
+}
+
 .navbar-fixed {
   z-index: 5; //Markdownエディタより下に来るように
 }

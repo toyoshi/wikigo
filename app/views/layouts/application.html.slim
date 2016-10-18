@@ -21,21 +21,21 @@ html lang="en"
       ul#setting-menu.dropdown-content
         
       .navbar
-        nav.white
+        nav.z-depth-0
           .nav-wrapper
-            = link_to site_title, root_path, { class: 'brand-logo grey-text text-darken-3' }
+            = link_to site_title, root_path, { class: 'brand-logo' }
             ul.right.hide-on-med-and-down
               - if user_signed_in?
-                li = link_to 'New Keyword', new_word_path, { class: 'grey-text text-darken-3' }
+                li = link_to 'New Keyword', new_word_path, { class: '' }
               - else
-                li = link_to 'Sign in', new_user_session_path, { class: 'grey-text text-darken-3' }
+                li = link_to 'Sign in', new_user_session_path, { class: '' }
     main
       .container
         - if notice
           p#notice.alert.alert-info = notice
         .row
           .col.s12
-            #grid-container.section.scrollspy
+            #grid-container.section
               = yield
 
     footer.page-footer

@@ -1,4 +1,5 @@
 .markdown, .editor-preview-side, .editor-preview {
+  margin-top: 15px;
   > *,
   > blockquote {
     &:first-child {
@@ -140,14 +141,17 @@
     margin-top: 24px;
   }
 
-  h1,
+  h1 {
+    padding-bottom: .3em;
+  }
+
   h2 {
     border-bottom: 1px solid #EEE;
     padding-bottom: .3em;
   }
 
   h1 {
-    font-size: 2em;
+    font-size: 2.5em;
   }
 
   h2 {
