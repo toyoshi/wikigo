@@ -5,9 +5,9 @@
 .markdown
   h1 = @word.title
   .row
-    .col.s9
+    .col.s12.m9
       = raw markdown(add_word_link(@word.body))
-    .col.s3
+    .col.s12.m3.hide-on-med-and-down
       = raw toc(@word.body)
 
 
