@@ -4,7 +4,12 @@
 
 .markdown
   h1 = @word.title
-  = raw markdown(add_word_link(@word.body))
+  .row
+    .col.s9
+      = raw markdown(add_word_link(@word.body))
+    .col.s3
+      = raw toc(@word.body)
+
 
 
 - if has_version?(@word)
