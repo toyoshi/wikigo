@@ -1,12 +1,17 @@
 require 'test_helper'
 
 class WordsControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
+    @user = users( :john ) 
+    sign_in(@user)
+
     @word = words(:one)
   end
 
   test "should get index" do
-    get words_url
+    get words_index_url
     assert_response :success
   end
 
