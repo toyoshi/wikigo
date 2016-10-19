@@ -2,7 +2,8 @@
 - content_for(:title) { "#{@word.title}" } 
 
 .markdown
-  h1 = @word.title
+  .page-header
+    h1 = @word.title
   .row
     .col-md-9.col-xs12
       = raw markdown(add_word_link(@word.body))
