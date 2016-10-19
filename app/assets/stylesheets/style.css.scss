@@ -1,21 +1,15 @@
-.nav-wrapper {
-  margin-left: 20px; margin-right: 20px;
+@media (min-width: 1200px) {
+  .container {
+    width: 970px;
+  }
 }
 
-nav {
-  border-bottom: 1px solid #eee;
-  margin-bottom: 30px;
+html {
+  font-family: 'Noto Sans Japanese', serif;
 }
-
-.navbar-fixed {
-  z-index: 5; //Markdownエディタより下に来るように
-}
-
-main {
-  min-height: 500px;
-}
-
-//tabs
-.tabs {
-  margin-bottom: 30px;
-}
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Noto Sans Japanese', serif;
+    }
+    p, div {
+  font-family: 'Noto Sans Japanese', serif;
+        }

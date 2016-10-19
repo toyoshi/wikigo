@@ -31,7 +31,7 @@ gem 'redcarpet', '3.3.4'
 gem 'devise'
 
 gem 'slim-rails'
-gem 'materialize-sass'
+gem 'honoka-rails', '>= 3.3.6.3'
 
 gem 'simplemde-rails'
 

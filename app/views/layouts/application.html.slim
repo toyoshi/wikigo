@@ -16,27 +16,22 @@ html lang="en"
     /![if lt IE 9]
       | <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js" type="text/javascript"></script
     link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /
+    link href="https://fonts.googleapis.com/earlyaccess/notosansjapanese.css" rel="stylesheet" /
   body
     header
-      ul#setting-menu.dropdown-content
-        
-      .navbar
-        nav.z-depth-0
-          .nav-wrapper
-            = link_to site_title, root_path, { class: 'brand-logo' }
-            ul.right.hide-on-med-and-down
-              - if user_signed_in?
-                li = link_to 'New Keyword', new_word_path, { class: '' }
-              - else
-                li = link_to 'Sign in', new_user_session_path, { class: '' }
+      nav.navbar.navbar-default
+        .container
+          = link_to site_title, root_path, { class: 'navbar-brand' }
+          .navbar-text.navbar-right
+            - if user_signed_in?
+              = link_to 'New Keyword', new_word_path, { class: 'navbar-link' }
+            - else
+              = link_to 'Sign in', new_user_session_path, { class: 'navbar-link' }
     main
       .container
         - if notice
           p#notice.alert.alert-info = notice
-        .row
-          .col.s12
-            #grid-container.section
-              = yield
+        = yield
 
     footer.page-footer
       .container

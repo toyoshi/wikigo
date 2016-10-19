@@ -1,19 +1,18 @@
-= link_to('Edit', edit_word_path(@word), class: 'right btn') if user_signed_in?
 
 - content_for(:title) { "#{@word.title}" } 
 
 .markdown
   h1 = @word.title
   .row
-    .col.s12.m9
+    .col-md-9.col-xs12
       = raw markdown(add_word_link(@word.body))
-    .col.s12.m3.hide-on-med-and-down
+    .col-md-3.col-xs12
       = raw toc(@word.body)
-
+      = link_to('Edit', edit_word_path(@word), class: 'btn btn-default') if user_signed_in?
 
 
 - if has_version?(@word)
-  ul.right.pagination.versions-nav
+  ul.pull-right.pagination.versions-nav
     li = link_to 0, word_path(@word)
     - @word.versions.each do |v|
       li = link_to (v.index + 1), word_version_path(@word, v)
