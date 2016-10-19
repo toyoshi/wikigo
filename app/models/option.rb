@@ -1,7 +1,5 @@
 class Option < ApplicationRecord
-  def self.update_registration_token
-    self.user_registration_token = SecureRandom.uuid.gsub!(/-/,'')
-  end
+  include RegistrationToken
 
   ## Optionをハッシュのように扱うためのメソッド
   def self.method_missing(method, *args)
