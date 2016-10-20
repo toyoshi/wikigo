@@ -8,7 +8,8 @@
     .col-md-9.col-xs12
       = raw markdown(add_word_link(@word.body))
     .col-md-3.col-xs12
-      = raw toc(@word.body)
+      .hidden-xs.hidden-sm
+        = raw toc(@word.body)
       = link_to('Edit', edit_word_path(@word), class: 'btn btn-default') if user_signed_in?
 
 
