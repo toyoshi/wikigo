@@ -1,4 +1,6 @@
 class SiteController < ApplicationController
+  before_action :authenticate_user!
+
   def members
     @key = Option.user_registration_token
   end
