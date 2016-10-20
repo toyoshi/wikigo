@@ -1,6 +1,8 @@
-h2 Settings
+.page-header
+  h1 Settings
 
 = form_for @setting, url: site_update_settings_path, method: :put do |f|
-  = label_tag 'Site Title'
-  = f.text_field :site_title
-  = f.submit class: 'btn'
+  .form-group
+    = label_tag 'Site Title'
+    = f.text_field :site_title, class: 'form-control'
+  = f.submit :update, class: 'btn btn-default'
