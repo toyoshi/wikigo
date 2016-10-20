@@ -1,5 +1,5 @@
 .page-header
-  h1 Members
+  h1 Member Settings
 
 section
   .form-group
@@ -8,3 +8,18 @@ section
 
 section
   = link_to 'Regenerate URL', regenerate_registration_path, { method: 'put' }
+
+section
+  h2 Members
+
+  table.table.table-striped
+    tr
+      th
+      th E-mail
+
+    - @users.each do |u|
+      tr
+        td = u.id
+        td
+          = u.email
+

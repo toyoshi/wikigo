@@ -3,6 +3,7 @@ class SiteController < ApplicationController
 
   def members
     @key = Option.user_registration_token
+    @users = User.all
   end
 
   def regenerate_token
