@@ -15,7 +15,7 @@
       //TODO:To module or plugin
       h2 Recents
       ul
-        - Word.all.limit(5).order('created_at desc').each do |w|
+        - recent_words(5).each do |w|
             li = link_to w.title, w
       = link_to 'more...', words_index_path, class: 'pull-right'
 

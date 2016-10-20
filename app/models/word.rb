@@ -15,4 +15,8 @@ class Word < ApplicationRecord
   def to_param
     title_to_param
   end
+
+  def self.recent_words(num)
+    Word.all.limit(num).order('created_at desc')
+  end
 end

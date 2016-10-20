@@ -33,6 +33,10 @@ module WordsHelper
     w.versions.count > 0
   end
 
+  def recent_words(num)
+    Word.recent_words(num)
+  end
+
   private 
   def word_list
     Word.all.pluck(:title)
