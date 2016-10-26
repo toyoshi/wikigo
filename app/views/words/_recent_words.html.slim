@@ -1,0 +1,6 @@
+//TODO:move this to module or plugin
+h2 Recent words
+ul
+  - recent_words(5).each do |w|
+      li = link_to w.title, w
+= link_to 'more words', words_index_path, class: 'pull-right'
