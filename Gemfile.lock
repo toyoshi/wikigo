@@ -43,6 +43,9 @@ GEM
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    brancher (0.3.0)
+      activerecord
+      railties
     builder (3.2.2)
     byebug (9.0.6)
     coderay (1.1.1)
@@ -218,6 +221,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  brancher
   byebug
   coffee-rails (~> 4.2)
   devise
