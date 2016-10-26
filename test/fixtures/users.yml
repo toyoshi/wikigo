@@ -7,3 +7,9 @@
 john:
   email: "john@example.com"
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  role: 'admin'
+
+bob:
+  email: "bob@example.com"
+  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  role: 'editor'

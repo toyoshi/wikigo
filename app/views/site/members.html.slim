@@ -23,7 +23,13 @@ section
         td = u.id
         td = u.email
         td 
-          = form_for(u, url: root_path) do |f|
-            .forn-group
-              = f.select :role, User.roles.keys.to_a, class: 'form-control'
+          - if current_user.admin? && (current_user != u)
+            = form_for(u, url: update_user_role_path, method: :put, html: {class: 'form-inline'}) do |f|
+              = f.hidden_field :id
+              .form-group
+                = f.select :role, User.roles.keys.to_a, {}, class: 'form-control'
+              span &nbsp;
+              = f.submit :update, class: 'btn btn-default'
+          - else
+            = u.role
 
