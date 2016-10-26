@@ -1,0 +1,6 @@
+= form_for(u, url: update_user_role_path, method: :put, html: {class: 'form-inline'}) do |f|
+  = f.hidden_field :id
+  .form-group
+    = f.select :role, User.roles.keys.to_a, {}, class: 'form-control'
+  span &nbsp;
+  = f.submit :update, class: 'btn btn-default'

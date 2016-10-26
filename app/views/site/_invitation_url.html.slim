@@ -1,0 +1,7 @@
+section
+  .form-group
+    label Invitation URL
+    = text_field_tag '#', invitation_url(@key), class: 'form-control'
+
+section
+  = link_to 'Regenerate URL', regenerate_registration_path, { method: 'put' }

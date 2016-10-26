@@ -1,13 +1,8 @@
 .page-header
   h1 Member Settings
 
-section
-  .form-group
-    label Invitation URL
-    = text_field_tag '#', invitation_url(@key), class: 'form-control'
-
-section
-  = link_to 'Regenerate URL', regenerate_registration_path, { method: 'put' }
+- if current_user.admin?
+  = render 'invitation_url'
 
 section
   h2 Members
@@ -24,12 +19,7 @@ section
         td = u.email
         td 
           - if current_user.admin? && (current_user != u)
-            = form_for(u, url: update_user_role_path, method: :put, html: {class: 'form-inline'}) do |f|
-              = f.hidden_field :id
-              .form-group
-                = f.select :role, User.roles.keys.to_a, {}, class: 'form-control'
-              span &nbsp;
-              = f.submit :update, class: 'btn btn-default'
+            = render partial: 'update_role_form', locals: {u: u}
           - else
             = u.role
 
