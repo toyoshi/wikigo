@@ -9,3 +9,4 @@ Option.site_title = 'Wiki Go'
 
 #Default User Registration Token
 Option.update_registration_token
+Option.list_size_of_recent_words_parts = 7

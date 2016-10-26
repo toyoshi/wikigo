@@ -33,8 +33,8 @@ module WordsHelper
     w.versions.count > 0
   end
 
-  def recent_words(num)
-    Word.recent_words(num)
+  def recent_words
+    Word.recent_words(Option.list_size_of_recent_words_parts)
   end
 
   private 
