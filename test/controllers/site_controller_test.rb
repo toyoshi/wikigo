@@ -20,4 +20,11 @@ class SiteControllerTest < ActionDispatch::IntegrationTest
     assert_not_equal old_role, @user2.reload.role
   end
 
+  test "AdminでなくてはSite Settingのページにアクセスできない" do
+    @user2 = users( :bob )
+    sign_in(@user2)
+    assert_raises do
+      get site_settings_url
+    end
+  end
 end
