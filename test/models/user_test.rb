@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "User default role" do
+    @user = users( :john ) 
+    assert_equal false, @user.admin?
+  end
 end
