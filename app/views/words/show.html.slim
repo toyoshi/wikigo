@@ -7,12 +7,21 @@
   .row
     .col-md-9.col-xs12
       = raw markdown(add_word_link(@word.body))
+
+      div.pull-right
+        - @word.tag_list.each do |t|
+          span.label.label-primary = link_to t, word_tag_path(t), style: 'color: #fff'
+          span &nbsp;
+
     .col-md-3.col-xs12
       .hidden-xs.hidden-sm
         = raw toc(@word.body)
       = link_to('Edit', edit_word_path(@word), class: 'pull-right') if user_signed_in?
 
-      = render 'recent_words'
+      section.clearfix
+        = render 'recent_words'
+      section.clearfix
+        = render 'tag_list'
 
 - if has_version?(@word)
   ul.pull-right.pagination.versions-nav

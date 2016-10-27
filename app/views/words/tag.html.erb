@@ -1,0 +1,23 @@
+<%= content_for(:title) { @tag } %> 
+
+<h1><%= @tag %></h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th colspan="2"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @words.each do |word| %>
+      <tr>
+        <td><%= link_to word.title, word %></td>
+        <td><%= link_to 'Edit', edit_word_path(word) %></td>
+        <td><%= link_to 'Destroy', word, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+

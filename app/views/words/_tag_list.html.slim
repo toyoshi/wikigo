@@ -1,0 +1,5 @@
+h2 Tag list
+ul
+  - ActsAsTaggableOn::Tag.least_used.each do |tag|
+    li = link_to tag, word_tag_path(tag.name)
+= link_to 'more tags', tags_index_path, class: 'pull-right'

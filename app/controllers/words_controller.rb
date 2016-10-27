@@ -13,6 +13,21 @@ class WordsController < ApplicationController
   def show
   end
 
+  def tags
+    @tags = Word.tag_counts_on(:tags)
+    respond_to do |format|
+        format.html { render :tags }
+    end
+  end
+
+  def tag
+    @tag = params[:tag_list]
+    @words = Word.tagged_with(@tag)
+    respond_to do |format|
+        format.html { render :tag }
+    end
+  end
+
   def version
     @word = @word.versions.find(params[:version]).reify
     respond_to do |format|
@@ -77,6 +92,6 @@ class WordsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def word_params
-      params.require(:word).permit(:title, :body)
+      params.require(:word).permit(:title, :body, :tag_list)
     end
 end

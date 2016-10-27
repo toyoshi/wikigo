@@ -16,6 +16,10 @@
         <%= f.label :title %>
         <%= f.text_field :title, class: 'form-control' %>
       </div>
+      <div class="form-group field">
+        <%= f.label :tag_list %>
+        <%= f.text_field :tag_list, value: word.tag_list.to_s, class: 'form-control' %>
+      </div>
     </div>
   </div>
 
