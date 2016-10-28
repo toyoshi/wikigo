@@ -8,4 +8,7 @@
   .form-group
     = label_tag 'List size of Recent words'
     = f.text_field :list_size_of_recent_words_parts, class: 'form-control'
+  .form-group
+    = label_tag 'Theme'
+    = f.text_field :theme, class: 'form-control'
   = f.submit :update, class: 'btn btn-default'

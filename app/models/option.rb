@@ -1,6 +1,26 @@
 class Option < ApplicationRecord
   include RegistrationToken
 
+  def self.keys
+    self.all.map do |v|
+      v.option_key
+    end
+  end
+
+  def self.all_with_hash
+    Hash[
+      self.all.map do |v|
+        [v.option_key, v.option_value]
+      end
+    ]
+  end
+
+  def self.update_all(options)
+    options.each do |k, v|
+      self.send("#{k}=",v) if keys.include?(k)
+    end
+  end
+
   ## Optionをハッシュのように扱うためのメソッド
   def self.method_missing(method, *args)
     attribute = method.to_s
