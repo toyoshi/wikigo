@@ -11,5 +11,5 @@ Option.site_title = 'Wiki Go' unless Option.site_title
 Option.theme = '' unless Option.theme
 
 #Default User Registration Token
-Option.update_registration_token
-Option.list_size_of_recent_words_parts = 7
+Option.update_registration_token unless Option.user_registration_token
+Option.list_size_of_recent_words_parts = 7 unless Option.list_size_of_recent_words_parts
