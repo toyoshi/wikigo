@@ -5,7 +5,10 @@ Word.find_or_create_by(title: 'Main Page') do |word|
 end
 
 #Site Title
-Option.site_title = 'Wiki Go'
+Option.site_title = 'Wiki Go' unless Option.site_title
+
+#Theme
+Option.theme = '' unless Option.theme
 
 #Default User Registration Token
 Option.update_registration_token
