@@ -5,7 +5,7 @@ class WordsController < ApplicationController
   # GET /words
   # GET /words.json
   def index
-    @words = Word.order(:id).page params[:page]
+    @words = @search.result.page params[:page]
   end
 
   # GET /words/1

@@ -1,0 +1,27 @@
+- if params[:q]
+  = search_form_for @search, url: words_index_path, method: :get, html: { class: 'form-inline' } do |f|
+    .form-group
+      = f.text_field :title_or_body_cont, class: 'form-control', placeholder: 'Search'
+    = f.button 'Search', class: 'btn btn-default'
+- else
+  h1
+    | Words
+table.table
+  thead
+    tr
+      th
+        | Title
+      th[colspan="2"]
+  tbody
+    - @words.each do |word|
+      tr
+        td
+          = link_to word.title, word
+        td
+          = link_to 'Edit', edit_word_path(word)
+        td
+          = link_to 'Destroy', word, method: :delete, data: { confirm: 'Are you sure?' }
+section.right-align
+  = link_to_previous_page @words, 'Previous Page'
+  |    
+  = link_to_next_page @words, 'Next Page'
