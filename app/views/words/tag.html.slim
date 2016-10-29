@@ -1,0 +1,18 @@
+= content_for(:title) { @tag }
+h1
+  = @tag
+table.table
+  thead
+    tr
+      th
+        | Title
+      th[colspan="2"]
+  tbody
+    - @words.each do |word|
+      tr
+        td
+          = link_to word.title, word
+        td
+          = link_to 'Edit', edit_word_path(word)
+        td
+          = link_to 'Destroy', word, method: :delete, data: { confirm: 'Are you sure?' }
