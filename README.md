@@ -2,7 +2,7 @@
 
 ## wikigo
 
-<img src='https://cloud.githubusercontent.com/assets/188394/19829728/728c798c-9e24-11e6-94c3-e68e33d0d46a.png' width='500'>
+<img src='https://cloud.githubusercontent.com/assets/188394/19829766/528c7046-9e25-11e6-9271-0fa6916b770b.png' width='500'>
 
 Wiki engine by Ruby on Rails
 
