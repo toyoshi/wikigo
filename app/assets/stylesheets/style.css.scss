@@ -25,3 +25,8 @@ main {
 .form-inline > * {
      margin:0px 3px;
 }
+
+a.list-group-item .list-group-item-heading, button.list-group-item .list-group-item-heading {
+  font-weight: bold;
+  color: #2196f3;
+}

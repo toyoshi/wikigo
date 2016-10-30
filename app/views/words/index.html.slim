@@ -6,21 +6,15 @@
 - else
   h1
     | Words
-table.table
-  thead
-    tr
-      th
-        | Title
-      th[colspan="2"]
-  tbody
-    - @words.each do |word|
-      tr
-        td
-          = link_to word.title, word
-        td
-          = link_to 'Edit', edit_word_path(word)
-        td
-          = link_to 'Destroy', word, method: :delete, data: { confirm: 'Are you sure?' }
+
+.list-group
+  - @words.each do |word|
+    = link_to word, class: 'list-group-item' do
+      h4.list-group-item-heading
+        = word.title
+      p.list-group-item-text
+        = word.body.truncate(100, omission: '...')
+
 section.right-align
   = link_to_previous_page @words, 'Previous Page'
   |    
