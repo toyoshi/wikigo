@@ -1,6 +1,6 @@
 = form_for(word) do |f|
   - if word.errors.any?
-    #error_explanation
+    #error_explanation.alert.alert-warning
       h2
         = pluralize(word.errors.count, "error")
         |  prohibited this word from being saved:
