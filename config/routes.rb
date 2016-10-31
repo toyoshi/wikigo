@@ -16,7 +16,12 @@ Rails.application.routes.draw do
   get '/tags', to: 'words#tags', as: 'tags_index'
   get '/tag::tag_list', to: 'words#tag', as: 'word_tag'
   resources :words, path: '/' do
+    resources :version, only: [:index, :show, :destroy] do
+      member do
+        patch :rollback, to: 'versions#rollback'
+      end
+    end
   end
 
-  get '/:id/version/:version', to: 'words#version', as: 'word_version'
+  #get '/:id/version/:version', to: 'words#version', as: 'word_version'
 end
