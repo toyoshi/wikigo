@@ -36,6 +36,7 @@ gem 'honoka-rails', '>= 3.3.6.3'
 gem 'simplemde-rails'
 
 gem 'paper_trail'
+gem 'diffy'
 
 gem 'kaminari'
 
