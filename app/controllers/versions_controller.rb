@@ -13,9 +13,6 @@ class VersionsController < ApplicationController
     @versions = @word.versions.reverse
   end
 
-  def destroy
-  end
-
   private
   def set_word
     @word = Word.find(params[:word_id])
