@@ -1,11 +1,13 @@
-- if params[:q]
-  = search_form_for @search, url: words_index_path, method: :get, html: { class: 'form-inline' } do |f|
-    .form-group
-      = f.text_field :title_or_body_cont, class: 'form-control', placeholder: 'Search'
-    = f.button 'Search', class: 'btn btn-default'
-- else
-  h1
-    | Words
+  
+.page-header
+  - if params[:q]
+    = search_form_for @search, url: words_index_path, method: :get, html: { class: 'form-inline' } do |f|
+      .form-group
+        = f.text_field :title_or_body_cont, class: 'form-control', placeholder: 'Search'
+      = f.button 'Search', class: 'btn btn-default'
+  - else
+    h1
+      | Words
 
 .list-group
   - @words.each do |word|

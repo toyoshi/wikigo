@@ -1,6 +1,8 @@
 = content_for(:title) { @tag }
-h1
-  = @tag
+
+.page-header
+  h1
+    = @tag
 
 .list-group
   - @words.each do |word|
