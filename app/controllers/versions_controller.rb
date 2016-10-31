@@ -1,4 +1,5 @@
 class VersionsController < ApplicationController
+  before_action :authenticate_user!, only: [:rollback]
   before_action :set_word, only: [:show, :rollback, :index, :destroy]
 
   def rollback
