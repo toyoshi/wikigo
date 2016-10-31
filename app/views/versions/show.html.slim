@@ -1,0 +1,21 @@
+- content_for(:title) { "#{@word.title}" } 
+
+.page-header
+  h1
+    = @word.title
+    |  : Version history
+
+.markdown
+  .row
+    .col-md-9.col-xs12
+      = raw markdown(add_word_link(@word.body))
+
+      div.pull-right
+        - @word.tag_list.each do |t|
+          span.label.label-primary = link_to t, word_tag_path(t), style: 'color: #fff'
+          span &nbsp;
+
+    .col-md-3.col-xs12
+      ul
+        li = link_to 'Back to versions', word_versions_path(@word)
+        li = link_to 'roll_back', rollback_word_version_path(@word), method: :patch, data: { confirm: 'Are you sure?' }

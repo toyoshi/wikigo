@@ -1,0 +1,8 @@
+.page-header
+  h1
+    = @word.title
+    |  : Version history
+
+ul
+  - @versions.each do |v|
+    li = link_to v.reify.updated_at, word_version_path(@word, v)
