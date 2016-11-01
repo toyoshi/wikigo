@@ -22,9 +22,10 @@ html lang="en"
         .container
           = link_to site_title, root_path, { class: 'navbar-brand' }
 
-          = search_form_for @search, url: words_index_path, method: :get, html: { class: 'navbar-form navbar-left' } do |f|
-            .form-group
-              = f.text_field :title_or_body_cont, class: 'form-control', placeholder: 'Search'
+          .hidden-xs
+            = search_form_for @search, url: words_index_path, method: :get, html: { class: 'navbar-form navbar-left' } do |f|
+              .form-group
+                = f.text_field :title_or_body_cont, class: 'form-control', placeholder: 'Search'
 
           .navbar-text.navbar-right
             - if user_signed_in?
