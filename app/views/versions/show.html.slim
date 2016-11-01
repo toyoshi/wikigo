@@ -16,12 +16,12 @@
     .tab-content
       #html.tab-pane.active role="tabpanel"
         .markdown  
-          = raw markdown(add_word_link(@word.body))
+          = raw markdown(add_word_link(@version.body))
       #diff.tab-pane role="tabpanel"
         br
-        = diff(@word.body, @word.paper_trail.previous_version.try(:body))
+        = diff(@version.body, @version.paper_trail.previous_version.try(:body))
 
   .col-md-3.col-xs12
     ul
       li = link_to 'Back to versions', word_versions_path(@word)
-      li = link_to 'roll_back', rollback_word_version_path(@word), method: :patch, data: { confirm: 'Are you sure?' }
+      li = link_to 'roll_back', rollback_word_version_path(@version), method: :patch, data: { confirm: 'Are you sure?' }
