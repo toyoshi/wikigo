@@ -1,6 +1,6 @@
 class VersionsController < ApplicationController
   before_action :authenticate_user!, only: [:rollback]
-  before_action :set_word, only: [:show, :rollback, :index, :destroy]
+  before_action :set_word, only: [:show, :rollback, :destroy]
 
   def rollback
     word = @version
@@ -9,13 +9,10 @@ class VersionsController < ApplicationController
   end
 
   def show
+    @versions = @word.versions.reverse
     # params[:id] == 0 means to show diff with current_version 
     # (Paper Trail dose not keep current version)
     @version = (params[:id] == '0') ? @word : @word.versions.find(params[:id]).reify
-  end
-
-  def index
-    @versions = @word.versions.reverse
   end
 
   private
