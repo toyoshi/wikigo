@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  after_save :keep_admin_exist
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -20,5 +21,11 @@ class User < ApplicationRecord
     elsif conditions.has_key?(:username) || conditions.has_key?(:email)
       where(conditions.to_hash).first
     end
+  end
+
+  private
+
+  def keep_admin_exist
+    self.admin! if User.admin.count == 0
   end
 end
