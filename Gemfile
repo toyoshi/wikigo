@@ -18,6 +18,7 @@ gem 'paper_trail'
 gem 'diffy'
 gem 'kaminari'
 
+gem 'carrierwave'
 gem 'cloudinary'
 gem 'acts-as-taggable-on'
 gem 'ransack'
