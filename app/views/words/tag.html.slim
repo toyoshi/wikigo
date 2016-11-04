@@ -1,0 +1,13 @@
+= content_for(:title) { @tag }
+
+.page-header
+  h1
+    = @tag
+
+.list-group
+  - @words.each do |word|
+    = link_to word, class: 'list-group-item' do
+      h4.list-group-item-heading
+        = word.title
+      p.list-group-item-text
+        = word.body.truncate(100, omission: '...')

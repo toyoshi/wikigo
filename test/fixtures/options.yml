@@ -1,9 +1,5 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  option_key: MyString
-  option_value: MyText
-
-two:
-  option_key: MyString
-  option_value: MyText
+  option_key: list_size_of_recent_words_parts
+  option_value: 5

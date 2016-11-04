@@ -1,0 +1,27 @@
+= form_for(word) do |f|
+  - if word.errors.any?
+    #error_explanation.alert.alert-warning
+      h2
+        = pluralize(word.errors.count, "error")
+        |  prohibited this word from being saved:
+      ul
+        - word.errors.full_messages.each do |message|
+          li
+            = message
+  .row
+    .col.s12
+      .form-group.field
+        = f.label :title
+        = f.text_field :title, class: 'form-control'
+      .form-group.field
+        = f.label :tag_list
+        = f.text_field :tag_list, value: word.tag_list.to_s, class: 'form-control'
+  .row
+    #edit.col.s12.m12
+      .from-group.field
+        = f.label :body
+        = f.text_area :body, class: 'form-control'
+      .actions
+        = f.submit class: 'btn btn-default'
+script
+  |  $(function(){ var simplemde = new SimpleMDE({ spellChecker: false, }); $('#edit, input, textarea').on('keyup change', function(){ $(window).bind('beforeunload', function() { return "Are you sure?"; }); }); $('input[type=submit]').on('click', function(e) { $(window).off('beforeunload'); }); }); 

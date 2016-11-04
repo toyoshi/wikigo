@@ -19,3 +19,14 @@ main {
   background-color: #f9f9f9;
   border-top: 1px solid #e5e5e5;
 }
+
+
+/* customize bootstrap */
+.form-inline > * {
+     margin:0px 3px;
+}
+
+a.list-group-item .list-group-item-heading, button.list-group-item .list-group-item-heading {
+  font-weight: bold;
+  color: #2196f3;
+}

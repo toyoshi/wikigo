@@ -5,11 +5,13 @@
 # below each fixture, per the syntax in the comments below
 #
 john:
+  username: "john"
   email: "john@example.com"
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
   role: 'admin'
 
 bob:
+  username: "bob"
   email: "bob@example.com"
   encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
   role: 'editor'

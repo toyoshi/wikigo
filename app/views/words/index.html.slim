@@ -1,0 +1,23 @@
+  
+.page-header
+  - if params[:q]
+    = search_form_for @search, url: words_index_path, method: :get, html: { class: 'form-inline' } do |f|
+      .form-group
+        = f.text_field :title_or_body_cont, class: 'form-control', placeholder: 'Search'
+      = f.button 'Search', class: 'btn btn-default'
+  - else
+    h1
+      | Words
+
+.list-group
+  - @words.each do |word|
+    = link_to word, class: 'list-group-item' do
+      h4.list-group-item-heading
+        = word.title
+      p.list-group-item-text
+        = word.body.truncate(100, omission: '...')
+
+section.right-align
+  = link_to_previous_page @words, 'Previous Page'
+  |    
+  = link_to_next_page @words, 'Next Page'
