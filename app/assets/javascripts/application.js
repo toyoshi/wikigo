@@ -16,3 +16,4 @@
 //= require_tree .
 //= require simplemde.min
 //= require bootstrap-sprockets
+//= require dropzone

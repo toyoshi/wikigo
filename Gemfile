@@ -18,8 +18,10 @@ gem 'paper_trail'
 gem 'diffy'
 gem 'kaminari'
 
-gem 'carrierwave'
+gem 'carrierwave', '>= 1.0.0.rc', '< 2.0'
 gem 'cloudinary'
+gem 'dropzonejs-rails'
+
 gem 'acts-as-taggable-on'
 gem 'ransack'
 

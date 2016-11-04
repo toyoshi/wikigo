@@ -1,0 +1,22 @@
+.page-header
+  h1 Listing attachments
+
+table.table
+  thead
+    tr
+      th File
+      th User
+      th
+
+  tbody
+    - @attachments.each do |attachment|
+      tr
+        td 
+          = image_tag attachment.file.url, width: 200, class: 'img-thumbnail'
+          = text_field_tag :url, attachment.file.url, class: 'form-control', style: 'margin-top: 5px'
+        td = attachment.user.username
+        td = link_to 'Destroy', attachment, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Attachment', new_attachment_path, class: 'btn btn-default'

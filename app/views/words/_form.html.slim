@@ -21,7 +21,15 @@
       .from-group.field
         = f.label :body
         = f.text_area :body, class: 'form-control'
+
+      div#upload-dropzone.dropzone.well url="#{attachments_path(format: 'json')}" authenticity-token="#{form_authenticity_token}"
+        .dz-message data-dz-message=""
+          span Drop file or click to upload
+
       .actions
         = f.submit class: 'btn btn-default'
+
+
 script
-  |  $(function(){ var simplemde = new SimpleMDE({ spellChecker: false, }); $('#edit, input, textarea').on('keyup change', function(){ $(window).bind('beforeunload', function() { return "Are you sure?"; }); }); $('input[type=submit]').on('click', function(e) { $(window).off('beforeunload'); }); }); 
+  |  $(function(){ $('#edit, input, textarea').on('keyup change', function(){ $(window).bind('beforeunload', function() { return "Are you sure?"; }); }); $('input[type=submit]').on('click', function(e) { $(window).off('beforeunload'); }); }); 
+

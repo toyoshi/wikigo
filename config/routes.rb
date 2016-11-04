@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :attachments, path: '/-/attachments'
+
   get 'site/settings'
   put 'site/update_settings'
 
