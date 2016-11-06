@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
-//= require_tree .
 //= require simplemde.min
 //= require bootstrap-sprockets
 //= require dropzone
+//= require_tree .
