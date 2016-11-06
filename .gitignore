@@ -1,6 +1,7 @@
 *.gem
 *.rbc
 *.swp
+*.swo
 .DS_Store
 /.config
 /coverage/
