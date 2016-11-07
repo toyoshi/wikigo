@@ -14,6 +14,17 @@ Wiki engine by Ruby on Rails
 - Markdown
 - Auto keyword link
 
-## Try
+## Setup
+
+Just deploy to Heroku
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+### Image upload
+
+WikiGo support [Cloudinary](http://cloudinary.com/ )
+Define the CLOUDINARY_URL environment variable to upload
+
+```bash
+$ heroku config:set CLOUDIONNARY_URL=cloudinary://{api_key}:{api_secret}@{cloud_name}
+```
