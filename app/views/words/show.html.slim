@@ -14,16 +14,15 @@
           span &nbsp;
 
     .col-md-3.col-xs12
-      section.clearfix
-        = render 'recent_words'
-      section.clearfix
-        = render 'tag_list'
       - if user_signed_in?
         seciotn
-          h2 Menu
           ul
             li = link_to('Edit', edit_word_path(@word))
             - if has_version?(@word)
               li = link_to('Versions', word_versions_path(@word))
+      section.clearfix
+        = render 'recent_words'
+      section.clearfix
+        = render 'tag_list'
 
 - if has_version?(@word)
