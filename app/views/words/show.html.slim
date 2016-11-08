@@ -8,10 +8,14 @@
     .col-md-9.col-xs12
       = raw markdown(add_word_link(@word.body))
 
-      div.pull-right
-        - @word.tag_list.each do |t|
-          span.label.label-primary = link_to t, word_tag_path(t), style: 'color: #fff'
-          span &nbsp;
+      .word-footer
+        .social-buttons.pull-left
+          = render "social_buttons"
+
+        .pull-right
+          - @word.tag_list.each do |t|
+            span.label.label-primary = link_to t, word_tag_path(t), style: 'color: #fff'
+            span &nbsp;
 
     .col-md-3.col-xs12
       - if user_signed_in?
@@ -25,4 +29,3 @@
       section.clearfix
         = render 'tag_list'
 
-- if has_version?(@word)
