@@ -16,7 +16,7 @@ class SiteControllerTest < ActionDispatch::IntegrationTest
   test "update user role" do
     @user2 = users( :bob )
     old_role = @user2.role
-    put update_user_role_url, user: {id: @user2.id, role: 'admin' }
+    put update_user_role_url, params: { user: {id: @user2.id, role: 'admin' }}
     assert_not_equal old_role, @user2.reload.role
   end
 
