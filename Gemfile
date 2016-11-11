@@ -25,6 +25,8 @@ gem 'dropzonejs-rails'
 gem 'acts-as-taggable-on'
 gem 'ransack'
 
+gem 'public_activity', github: 'chaps-io/public_activity'
+
 group :development, :test do
   gem 'byebug', platform: :mri
 end

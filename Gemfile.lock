@@ -1,3 +1,13 @@
+GIT
+  remote: git://github.com/chaps-io/public_activity.git
+  revision: 62868529dab5fab84b56622ae22b0948add517b3
+  specs:
+    public_activity (2.0)
+      actionpack (>= 3.0.0)
+      activerecord (>= 3.0)
+      i18n (>= 0.5.0)
+      railties (>= 3.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -276,6 +286,7 @@ DEPENDENCIES
   pry-doc
   pry-rails
   pry-stack_explorer
+  public_activity!
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)
   ransack

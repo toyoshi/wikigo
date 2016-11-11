@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :attachments, path: '/-/attachments'
 
   get 'site/settings'
+  get 'site/activities'
   put 'site/update_settings'
 
   get 'site/members'

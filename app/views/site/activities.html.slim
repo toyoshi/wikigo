@@ -1,0 +1,5 @@
+.page-header
+  h1 Activities
+
+- @activities.each do |activity|
+  = link_to activity.text, activity.trackable

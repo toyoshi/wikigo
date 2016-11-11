@@ -20,4 +20,7 @@ class SiteController < ApplicationController
     redirect_to site_members_path, notice: 'Token regenerated'
   end
 
+  def activities
+    @activities = PublicActivity::Activity.all
+  end
 end
