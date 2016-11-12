@@ -26,6 +26,7 @@ gem 'acts-as-taggable-on'
 gem 'ransack'
 
 gem 'public_activity', github: 'chaps-io/public_activity'
+gem 'acts_as_favable', github: 'toyoshi/acts_as_favable'
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -45,6 +46,12 @@ group :development do
 
   gem 'better_errors'
   gem 'binding_of_caller'
+
+  gem 'guard'
+  gem 'guard-minitest'
+end
+
+group :test do
 end
 
 group :production do

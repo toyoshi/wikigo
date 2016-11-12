@@ -28,6 +28,12 @@ class WordsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to word_url(Word.last)
   end
 
+  test "User should added to the fav" do
+    post words_url, params: { word: { body: '', title: 'fav-test' } }
+    @word = Word.find_by_title('fav-test')
+    assert_equal 1, @word.favorites.count
+  end
+
   test "should show word" do
     get word_url(@word)
     assert_response :success
