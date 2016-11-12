@@ -25,6 +25,8 @@ gem 'dropzonejs-rails'
 gem 'acts-as-taggable-on'
 gem 'ransack'
 
+gem 'acts_as_favable', github: 'toyoshi/acts_as_favable'
+
 group :development, :test do
   gem 'byebug', platform: :mri
 end

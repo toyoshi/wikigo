@@ -1,5 +1,6 @@
 class Word < ApplicationRecord
   acts_as_taggable
+  acts_as_favable
 
   include TitleConverter
   has_paper_trail on: [:update, :destroy]

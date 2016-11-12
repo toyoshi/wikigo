@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161104040857) do
+ActiveRecord::Schema.define(version: 20161111140749) do
 
   create_table "attachments", force: :cascade do |t|
     t.integer  "user_id"
@@ -24,6 +24,18 @@ ActiveRecord::Schema.define(version: 20161104040857) do
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
     t.string   "ancestry"
+  end
+
+  create_table "favorites", force: :cascade do |t|
+    t.string   "note",         limit: 50, default: ""
+    t.string   "favable_type"
+    t.integer  "favable_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["favable_id"], name: "index_favorites_on_favable_id"
+    t.index ["favable_type"], name: "index_favorites_on_favable_type"
+    t.index ["user_id"], name: "index_favorites_on_user_id"
   end
 
   create_table "options", force: :cascade do |t|

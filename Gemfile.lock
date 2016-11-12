@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/toyoshi/acts_as_favable.git
+  revision: 07dd99743cde8c702333be71173c47173a18c2cc
+  specs:
+    acts_as_favable (1.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -256,6 +262,7 @@ PLATFORMS
 
 DEPENDENCIES
   acts-as-taggable-on
+  acts_as_favable!
   better_errors
   binding_of_caller
   byebug
