@@ -1,6 +1,6 @@
 class WordsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :tags, :tag]
-  before_action :set_word, only: [:show, :version, :edit, :update, :destroy]
+  before_action :set_word, only: [:show, :version, :edit, :destroy]
 
   # GET /words
   # GET /words.json
@@ -47,10 +47,11 @@ class WordsController < ApplicationController
   # POST /words
   # POST /words.json
   def create
-    @word = Word.new(word_params)
+    result = Words::Create.new(current_user, word_params).call
+    @word = result.word
 
     respond_to do |format|
-      if @word.save
+      if result.success?
         format.html { redirect_to @word, notice: 'Word was successfully created.' }
         format.json { render :show, status: :created, location: @word }
       else
@@ -64,7 +65,10 @@ class WordsController < ApplicationController
   # PATCH/PUT /words/1.json
   def update
     respond_to do |format|
-      if @word.update(word_params)
+      result = Words::Update.new(current_user, params[:id], word_params).call
+      @word = result.word
+
+      if result.success?
         format.html { redirect_to @word, notice: 'Word was successfully updated.' }
         format.json { render :show, status: :ok, location: @word }
       else
