@@ -1,5 +1,10 @@
 .page-header
   h1 Activities
 
-- @activities.each do |activity|
-  = link_to activity.text, activity.trackable
+ul 
+  li
+    - @activities.each do |activity|
+      strong
+        = "@#{activity.owner.username} "
+      | edited page 
+      = link_to activity.trackable.title, activity.trackable

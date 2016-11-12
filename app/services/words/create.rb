@@ -9,8 +9,12 @@ module Words
     def call
       #Save the word
       r = @word.save
-      #Add to fav
-      @word.favorites.find_or_create_by(user: @user)
+
+      if r
+        #Add to fav
+        @word.favorites.find_or_create_by(user: @user)
+      end
+
       Result.new(r, @word)
     end
   end

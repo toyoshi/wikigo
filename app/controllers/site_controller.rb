@@ -2,7 +2,7 @@ class SiteController < ApplicationController
   include Settings
 
   before_action :authenticate_user!
-  before_action :authenthicate_admin!, except: [:members]
+  before_action :authenthicate_admin!, except: [:members, :activities]
 
   def members
     @key = Option.user_registration_token
@@ -21,6 +21,6 @@ class SiteController < ApplicationController
   end
 
   def activities
-    @activities = PublicActivity::Activity.all
+    @activities = PublicActivity::Activity.where(recipient: current_user).order('created_at desc').limit(100)
   end
 end

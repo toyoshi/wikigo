@@ -21,3 +21,7 @@
 
 en:
   hello: "Hello world"
+  activity:
+    create: 'Page has been created'
+    update: 'Someone has edited the page'
+    destroy: 'Some user removed an page!'
