@@ -33,3 +33,8 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
   font-weight: bold;
   color: #2196f3;
 }
+
+/* for tag-it jQuery */
+.ui-helper-hidden-accessible {
+  display: none;
+}

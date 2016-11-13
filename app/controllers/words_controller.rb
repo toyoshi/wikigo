@@ -1,6 +1,7 @@
 class WordsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :tags, :tag]
   before_action :set_word, only: [:show, :version, :edit, :destroy]
+  before_action :set_tags, only: [:new, :create, :edit, :update]
 
   # GET /words
   # GET /words.json
@@ -92,6 +93,10 @@ class WordsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_word
       @word = Word.find(params[:id])
+    end
+
+    def set_tags
+      gon.all_tag_list = ActsAsTaggableOn::Tag.all.pluck(:name)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
