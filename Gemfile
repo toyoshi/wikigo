@@ -12,7 +12,7 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'gon'
 
-gem 'redcarpet', '3.3.4'
+gem 'qiita-markdown'
 gem 'devise'
 gem 'slim-rails'
 gem 'honoka-rails', '>= 3.3.6.3'

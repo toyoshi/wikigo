@@ -1,13 +1,7 @@
 module WordsHelper
-  extensions = {strikethrough: true, fenced_code_blocks: true}
-  @@markdown = Redcarpet::Markdown.new(
-      Redcarpet::Render::HTML.new(
-        hard_wrap: true,
-      ),
-    extensions)
-
   def markdown(str)
-    @@markdown.render(str)
+    processor = Qiita::Markdown::Processor.new( hostname: request.host_with_port )
+    processor.call(str)[:output].to_s
   end
 
   def add_word_link(body)
