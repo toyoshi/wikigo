@@ -2,5 +2,13 @@
   "name": "WikiGo",
   "scripts": {
     "postdeploy": "bundle exec rake db:migrate; bundle exec rake db:seed"
-  }
+  },
+  "buildpacks": [
+    {
+      "url": "https://github.com/rcaught/heroku-buildpack-cmake"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-apt"
+    },
+  ]
 }
