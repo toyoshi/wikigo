@@ -5,7 +5,9 @@ document.addEventListener("turbolinks:load", function() {
   if ($('#word_body').length == 0) { return; }
 
   //Dropzone.js
+  var myDropzone;
   var de =  $("#upload-dropzone");
+
   de.dropzone(
     {
       url: de.attr('url'),
@@ -24,6 +26,17 @@ document.addEventListener("turbolinks:load", function() {
             var text = simplemde.value();
             simplemde.value(text.replace("<!-- Uploading " + file.name + " -->", code));
           });
+          myDropzone = this;
       }
     });
+
+  document.onpaste = function(event){
+    var items = (event.clipboardData || event.originalEvent.clipboardData).items;
+    for (index in items) {
+      var item = items[index];
+      if (item.kind === 'file') {
+        myDropzone.addFile(item.getAsFile())
+      }
+    }
+  }
 });
