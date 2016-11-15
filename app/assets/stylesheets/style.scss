@@ -35,8 +35,11 @@ a.list-group-item .list-group-item-heading, button.list-group-item .list-group-i
 }
 
 /* for facebook like button */
-.fb_iframe_widget > span {
-  vertical-align: baseline !important;
+a.fb-button {
+  vertical-align: top !important;
+  border-radius: 2px;
+  background-color: #3b5998;
+  border-color: #3b5998;
 }
 
 /* for tag-it jQuery */
