@@ -52,6 +52,8 @@ group :development do
 
   gem 'guard'
   gem 'guard-minitest'
+
+  gem 'dotenv-rails'
 end
 
 group :test do
