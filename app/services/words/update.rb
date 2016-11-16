@@ -13,7 +13,7 @@ module Words
       if r
         #Create Activity
         @word.favorites.each do |f|
-          @word.create_activity(key: 'update', owner: @user, recipient: f.user) unless @user.id == f.user.id
+          @word.create_activity(key: 'update', owner: @user, recipient: f.user) unless me?(f)
           # TODO: Send Notification
         end
 
@@ -22,6 +22,12 @@ module Words
       end
 
       Result.new(r, @word)
+    end
+
+    private
+
+    def me?(user)
+      @user.id == user.id
     end
   end
 end

@@ -24,6 +24,12 @@ main {
   border-top: 1px solid #e5e5e5;
 }
 
+ul.activities {
+  li {
+    margin-bottom: 20px;
+  }
+}
+
 /* customize bootstrap */
 .form-inline > * {
      margin:0px 3px;

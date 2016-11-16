@@ -1,10 +1,14 @@
 .page-header
   h1 Activities
 
-ul 
-  li
-    - @activities.each do |activity|
+ul.activities 
+  - @activities.each do |activity|
+    li.list-unstyled
+      small.text-muted 
+        span.glyphicon.glyphicon-time aria-hidden="true"
+        = activity.created_at
+      br
       strong
-        = "@#{activity.owner.username} "
+        = "#{activity.owner.username} "
       | edited page 
       = link_to activity.trackable.title, activity.trackable
