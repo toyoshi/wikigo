@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
   resources :attachments, path: '/-/attachments'
 
-  get 'site/settings'
-  get 'site/activities'
-  put 'site/update_settings'
+  namespace :site do
+    get 'export'
+    get 'settings'
+    get 'activities'
+    get 'members'
+  end
 
-  get 'site/members'
+  put 'site/update_settings'
   put 'site/update_user_role', as: 'update_user_role'
   put 'site/regenerate_token', as: 'regenerate_registration'
 

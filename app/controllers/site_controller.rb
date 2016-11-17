@@ -1,3 +1,5 @@
+require 'zip'
+
 class SiteController < ApplicationController
   include Settings
 
@@ -22,5 +24,23 @@ class SiteController < ApplicationController
 
   def activities
     @activities = PublicActivity::Activity.where(recipient: current_user).order('created_at desc').limit(100)
+  end
+
+  def export
+    zipfile_name = Tempfile.new()
+
+    Zip::File.open(zipfile_name.path, Zip::File::CREATE) do |zipfile|
+      Word.all.find_in_batches do |batch|
+        batch.each do |w|
+          temp_file = Tempfile.new()
+          temp_file.puts w.to_middleman
+          temp_file.close
+          zipfile.add("#{w.title}_#{w.id}.md", temp_file.path)
+        end
+      end
+    end
+
+    send_file(zipfile_name, filename: 'export.zip')
+    return
   end
 end

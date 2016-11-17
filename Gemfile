@@ -11,6 +11,7 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 
 gem 'gon'
+gem 'rubyzip'
 
 gem 'qiita-markdown'
 gem 'devise'

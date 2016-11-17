@@ -12,3 +12,7 @@
     = label_tag 'Theme'
     = f.text_field :theme, class: 'form-control'
   = f.submit :update, class: 'btn btn-default'
+
+h2 Export
+
+= link_to 'Export', site_export_path, class: 'btn btn-default'
