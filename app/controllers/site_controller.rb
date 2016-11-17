@@ -27,12 +27,13 @@ class SiteController < ApplicationController
   end
 
   def export
-    zipfile_name = Tempfile.new()
+    export_path = Rails.root.join('tmp') # for Heroku https://devcenter.heroku.com/articles/cedar-migration
+    zipfile_name = Tempfile.new('export-', export_path)
 
     Zip::File.open(zipfile_name.path, Zip::File::CREATE) do |zipfile|
       Word.all.find_in_batches do |batch|
         batch.each do |w|
-          temp_file = Tempfile.new()
+          temp_file = Tempfile.new('md-', export_path)
           temp_file.puts w.to_middleman
           temp_file.close
           zipfile.add("#{w.title}_#{w.id}.md", temp_file.path)
