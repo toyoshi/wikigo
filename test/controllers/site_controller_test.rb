@@ -27,4 +27,9 @@ class SiteControllerTest < ActionDispatch::IntegrationTest
       get site_settings_url
     end
   end
+
+  test "shoud get export and download" do
+    get site_export_url
+    assert_equal 'export.zip', response.header["Content-Disposition"].match("filename=\"(.*.zip)\"")[1]
+  end
 end

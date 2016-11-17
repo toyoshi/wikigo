@@ -24,4 +24,18 @@ class Word < ApplicationRecord
   def self.recent_words(num)
     Word.all.limit(num).order('created_at desc')
   end
+
+  def to_middleman
+    <<"EOS"
+---
+title: #{self.title}
+date: #{self.created_at}
+tags: #{self.tag_list}
+wiki:word_id: #{self.id}
+---
+
+#{self.body}
+EOS
+  end
+
 end

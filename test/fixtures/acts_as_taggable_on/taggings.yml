@@ -1,0 +1,11 @@
+jonathan_sky_good:
+  tag: good
+  taggable: one(Word)
+  context: tags
+  created_at: 2006-08-01
+  
+jonathan_sky_nature:
+  tag: bad
+  taggable: one(Word)
+  context: tags
+  created_at: 2006-08-02

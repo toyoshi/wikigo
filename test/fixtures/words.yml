@@ -3,6 +3,7 @@
 one:
   title: MyString
   body: MyText
+  created_at: 2016-01-01 10:00
 
 two:
   title: MyString
