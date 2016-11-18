@@ -27,27 +27,7 @@ class SiteController < ApplicationController
   end
 
   def export
-    t = Tempfile.new('export-', temp_dir)
-
-    Zip::OutputStream.open(t.path) do |z|
-      Word.all.find_in_batches do |batch|
-        batch.each do |w|
-          z.put_next_entry("#{w.id}.md")
-          z.print w.to_middleman
-        end
-      end
-    end
-    t.close
-
-    send_file(t.path, filename: 'export.zip', length: File.size(t.path))
-    return
-  end
-
-  private 
-
-  def temp_dir
-    path = Rails.root.join('tmp')
-    Dir.mkdir(path) unless Dir.exists?(path)
-    path
+    zip_path = Words::Export.new.call
+    send_file(zip_path, filename: 'export.zip')
   end
 end
