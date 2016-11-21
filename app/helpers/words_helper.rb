@@ -19,6 +19,13 @@ module WordsHelper
     Word.recent_words(Option.list_size_of_recent_words_parts)
   end
 
+  # For views/words/_form.html
+  def template_list
+    Word.tagged_with('Template').map do |w|
+      [w.title, w.body]
+    end
+  end
+
   private 
   def word_list
     Word.all.pluck(:title)

@@ -12,6 +12,9 @@
             = message
   .row
     .col.s12
+      - unless template_list.empty?
+        .form-group.field
+          = select_tag :template, options_for_select(template_list), {id: 'template-selector', class: 'form-control', include_blank: true }
       .form-group.field
         = f.label :title
         = f.text_field :title, class: 'form-control'
