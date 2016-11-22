@@ -34,7 +34,3 @@
 
       .actions
         = f.submit class: 'btn btn-default'
-
-script
-  |  $(function(){ $('#edit, input, textarea').on('keyup change', function(){ $(window).bind('beforeunload', function() { return "Are you sure?"; }); }); $('input[type=submit]').on('click', function(e) { $(window).off('beforeunload'); }); }); 
-
