@@ -1,0 +1,23 @@
+h1.page-header Listing webhooks
+
+table.table
+  thead
+    tr
+      th Title
+      th Url
+      th
+      th
+      th
+
+  tbody
+    - @webhooks.each do |webhook|
+      tr
+        td = webhook.title
+        td = webhook.url
+        td = link_to 'Show', webhook
+        td = link_to 'Edit', edit_webhook_path(webhook)
+        td = link_to 'Destroy', webhook, data: { confirm: 'Are you sure?' }, method: :delete
+
+br
+
+= link_to 'New Webhook', new_webhook_path
