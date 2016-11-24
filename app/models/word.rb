@@ -38,4 +38,12 @@ wiki:word_id: #{self.id}
 EOS
   end
 
+  after_save do
+    Webhook.all.each do |h|
+      t = "Word created: <http://localhost:3000/#{self.title} | #{self.title}>"
+      c = Faraday.new(h.url)
+      c.post('', JSON.generate({text: t}))
+    end
+  end
+
 end

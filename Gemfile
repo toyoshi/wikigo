@@ -32,6 +32,8 @@ gem 'ransack'
 gem 'public_activity', github: 'chaps-io/public_activity'
 gem 'acts_as_favable', github: 'toyoshi/acts_as_favable'
 
+gem 'faraday'
+
 group :development, :test do
   gem 'byebug', platform: :mri
 end
