@@ -22,7 +22,7 @@ class Word < ApplicationRecord
   end
 
   def self.recent_words(num)
-    Word.all.limit(num).order('created_at desc')
+    Word.all.limit(num).order('updated_at desc')
   end
 
   def to_middleman
