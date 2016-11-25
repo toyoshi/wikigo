@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :webhooks, except: [:show]
   resources :attachments, path: '/-/attachments'
 
   namespace :site do

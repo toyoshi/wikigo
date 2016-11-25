@@ -1,0 +1,16 @@
+= form_for @webhook do |f|
+  - if @webhook.errors.any?
+    #error_explanation
+      h2 = "#{pluralize(@webhook.errors.count, "error")} prohibited this webhook from being saved:"
+      ul
+        - @webhook.errors.full_messages.each do |message|
+          li = message
+
+  .form-group.field
+    = f.label :title
+    = f.text_field :title, class: 'form-control'
+  .form-group.field
+    = f.label :url
+    = f.text_field :url, class: 'form-control'
+  .actions
+    = f.submit class: 'btn btn-default'

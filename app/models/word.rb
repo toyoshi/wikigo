@@ -37,5 +37,4 @@ wiki:word_id: #{self.id}
 #{self.body}
 EOS
   end
-
 end
