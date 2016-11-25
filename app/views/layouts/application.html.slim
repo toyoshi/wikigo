@@ -38,7 +38,12 @@ html lang="en"
       .container
         - if notice
           p#notice.alert.alert-info = notice
-        = yield
+        - unless settings?
+            = yield
+        - else
+            .row
+              = render 'layouts/settings'
+
 
     footer.page-footer
       .container
@@ -47,7 +52,6 @@ html lang="en"
           li = link_to 'All words', words_index_path, { class: 'grey-text text-lighten-3'}
           - if user_signed_in?
             li = link_to 'Edit Profile', edit_user_registration_path, { class: 'grey-text text-lighten-3'}
-            li = link_to 'Members', site_members_path, { class: 'grey-text text-lighten-3'}
             li = link_to 'Activities', site_activities_path, { class: 'grey-text text-lighten-3'}
             - if current_user.try('admin?')
               li = link_to 'Site Settings', site_settings_path, { class: 'grey-text text-lighten-3'}

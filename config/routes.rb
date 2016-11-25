@@ -1,21 +1,25 @@
 Rails.application.routes.draw do
-  resources :webhooks, except: [:show]
   resources :attachments, path: '/-/attachments'
 
-  namespace :site do
-    get 'export'
-    get 'settings'
-    get 'activities'
-    get 'members'
+  scope :settings do
+    namespace :site do
+      get 'export'
+      get 'settings'
+      get 'activities'
+      get 'members'
+    end
+
+    put 'site/update_settings'
+    put 'site/update_user_role', as: 'update_user_role'
+    put 'site/regenerate_token', as: 'regenerate_registration'
+
+    resources :webhooks, except: [:show]
+
+    devise_for :users, controllers: {
+      registrations: 'users/registrations'
+    }
   end
 
-  put 'site/update_settings'
-  put 'site/update_user_role', as: 'update_user_role'
-  put 'site/regenerate_token', as: 'regenerate_registration'
-
-  devise_for :users, path: '/-/users', controllers: {
-    registrations: 'users/registrations'
-  }
 
   root to: 'words#show', id: 1 # ID決め打ちは良くない
 
