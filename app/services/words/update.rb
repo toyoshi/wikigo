@@ -19,6 +19,9 @@ module Words
 
         #Add to fav
         @word.favorites.find_or_create_by(user: @user)
+
+        #Send webhook
+        Webhooks::Send.new('update', @word, @user).call
       end
 
       Result.new(r, @word)

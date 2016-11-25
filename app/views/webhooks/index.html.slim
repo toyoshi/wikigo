@@ -1,23 +1,15 @@
 h1.page-header Listing webhooks
 
-table.table
-  thead
-    tr
-      th Title
-      th Url
-      th
-      th
-      th
-
-  tbody
-    - @webhooks.each do |webhook|
-      tr
-        td = webhook.title
-        td = webhook.url
-        td = link_to 'Show', webhook
-        td = link_to 'Edit', edit_webhook_path(webhook)
-        td = link_to 'Destroy', webhook, data: { confirm: 'Are you sure?' }, method: :delete
+ul.list-group
+  - @webhooks.each do |webhook|
+    li.list-group-item.clearfix
+      = webhook.title
+      p.text-muted
+        = webhook.url
+      span.btn-group.pull-right
+        = link_to 'Edit', edit_webhook_path(webhook), method: :get, class: 'btn btn-default btn-group-sm'
+        = link_to 'Destroy', webhook, data: { confirm: 'Are you sure?' }, method: :delete, class: 'btn btn-default btn-group-sm'
 
 br
 
-= link_to 'New Webhook', new_webhook_path
+= link_to 'New Webhook', new_webhook_path, class: 'btn btn-default'
