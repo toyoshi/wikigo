@@ -11,6 +11,15 @@
   .form-group
     = label_tag 'Theme'
     = f.text_field :theme, class: 'form-control'
+
+  .form-group
+    = label_tag 'HTML for head tag'
+    = f.text_area :html_append_head, class: 'form-control'
+
+  .form-group
+    = label_tag 'HTML for end of body tag'
+    = f.text_area :html_append_body, class: 'form-control'
+
   = f.submit :update, class: 'btn btn-default'
 
 h2 Export
