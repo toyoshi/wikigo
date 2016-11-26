@@ -10,13 +10,13 @@ module Webhooks
 
     def call
       Webhook.all.each do |h|
-        c = Faraday.new(h.url)
-        c.post('', JSON.generate(
+        payload = JSON.generate(
           {
-            text: text,
-            word: @word.to_json,
-            tags: @word.tags.to_json,
-          }))
+          text: text,
+          word: @word.to_json,
+          tags: @word.tags.to_json,
+        })
+        WebhookJob.perform_later(h.url, payload)
       end
     end
 
