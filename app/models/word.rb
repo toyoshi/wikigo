@@ -8,6 +8,7 @@ class Word < ApplicationRecord
   has_paper_trail on: [:update, :destroy]
 
   validates :title, presence: true
+  validates :title, uniqueness: true
 
   def self.find(input)
     if input.is_a?(Integer)
