@@ -6,7 +6,8 @@ module WordsHelper
 
   def add_word_link(body)
     word_list.each do |w|
-      body = body.sub(w, link_to(w, url_for(controller: :words, action: :show, id: w)))
+      body = body.sub(w, link_to(w, url_for(controller: :words, action: :show, id: w.sub(' ', '-'))))
+      #TODO: To DRY logic of space to dash (models/concerns/title_converter.rb)
     end
     body
   end
