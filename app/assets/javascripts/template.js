@@ -12,7 +12,19 @@ document.addEventListener("turbolinks:load", function() {
       }
     }
 
-    $('#word_title').val(selected_text);
+    $('#word_title').val(replace_template_variables(selected_text));
     simplemde.value($(this).val());
   });
+
+  function replace_template_variables(str){
+    var date = new Date();
+    var yyyy = date.getFullYear();
+    var mm = ("0"+date.getMonth() + 1).slice(-2);
+    var dd = ("0"+date.getDate()).slice(-2);
+    str = str.replace(/\$\{Year\}/g, yyyy);
+    str = str.replace(/\$\{month\}/g, mm);
+    str = str.replace(/\$\{day\}/g, dd);
+    return str;
+  }
 });
+
