@@ -1,7 +1,12 @@
 require 'test_helper'
 
 class WebhooksControllerTest < ActionDispatch::IntegrationTest
+  include Devise::Test::IntegrationHelpers
+
   setup do
+    @user = users( :john ) 
+    sign_in(@user)
+
     @webhook = webhooks(:one)
   end
 
@@ -20,12 +25,7 @@ class WebhooksControllerTest < ActionDispatch::IntegrationTest
       post webhooks_url, params: { webhook: { title: @webhook.title, url: @webhook.url } }
     end
 
-    assert_redirected_to webhook_url(Webhook.last)
-  end
-
-  test "should show webhook" do
-    get webhook_url(@webhook)
-    assert_response :success
+    assert_redirected_to webhooks_url
   end
 
   test "should get edit" do
@@ -35,7 +35,7 @@ class WebhooksControllerTest < ActionDispatch::IntegrationTest
 
   test "should update webhook" do
     patch webhook_url(@webhook), params: { webhook: { title: @webhook.title, url: @webhook.url } }
-    assert_redirected_to webhook_url(@webhook)
+    assert_redirected_to webhooks_url
   end
 
   test "should destroy webhook" do

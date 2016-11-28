@@ -22,7 +22,7 @@ class WordsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create word" do
     assert_difference('Word.count') do
-      post words_url, params: { word: { body: @word.body, title: @word.title } }
+      post words_url, params: { word: { body: @word.body, title: @word.title + "_different_title" } }
     end
 
     assert_redirected_to word_url(Word.last)
