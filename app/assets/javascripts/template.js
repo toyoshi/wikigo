@@ -19,7 +19,7 @@ document.addEventListener("turbolinks:load", function() {
   function replace_template_variables(str){
     var date = new Date();
     var yyyy = date.getFullYear();
-    var mm = ("0"+date.getMonth() + 1).slice(-2);
+    var mm = ("0"+(date.getMonth() + 1)).slice(-2);
     var dd = ("0"+date.getDate()).slice(-2);
     str = str.replace(/\$\{Year\}/g, yyyy);
     str = str.replace(/\$\{month\}/g, mm);
