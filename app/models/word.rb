@@ -3,7 +3,7 @@ class Word < ApplicationRecord
   acts_as_favable
 
   include PublicActivity::Model
-
+  include TagFinder
   include TitleConverter
   has_paper_trail on: [:update, :destroy]
 

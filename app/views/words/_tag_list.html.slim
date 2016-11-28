@@ -1,5 +1,5 @@
 h2 Tag list
 ul
-  - ActsAsTaggableOn::Tag.where('taggings_count >= 1').limit(10).each do |tag|
+  - Word.active_tags.each do |tag|
     li = link_to tag, word_tag_path(tag.name)
 = link_to 'more tags', tags_index_path, class: 'pull-right'
