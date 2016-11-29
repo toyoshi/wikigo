@@ -68,10 +68,11 @@ ja:
       word:
         activities: アクティビティ  #g
         base_tags: ベースタグ  #g
-        body: 体  #g
+        body: 本文
         favorites: お気に入り  #g
         tag_taggings: タグのタグ付け  #g
         taggings: タギング  #g
         tags: タグ  #g
         title: タイトル  #g
         versions: バージョン  #g
+
