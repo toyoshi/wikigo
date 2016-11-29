@@ -1,4 +1,4 @@
-h2 Tag list
+h2 = t('tag_list')
 ul
   - Word.active_tags.each do |tag|
     li = link_to tag, word_tag_path(tag.name)
