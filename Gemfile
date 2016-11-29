@@ -33,6 +33,7 @@ gem 'public_activity', github: 'chaps-io/public_activity'
 gem 'acts_as_favable', github: 'toyoshi/acts_as_favable'
 
 gem 'faraday'
+gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'master' # For 5.x
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -57,6 +58,7 @@ group :development do
   gem 'guard-minitest'
 
   gem 'dotenv-rails'
+  gem 'i18n_generators'
 end
 
 group :test do
