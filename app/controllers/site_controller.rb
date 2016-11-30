@@ -30,4 +30,22 @@ class SiteController < ApplicationController
     zip_path = Words::Export.new.call
     send_file(zip_path, filename: 'export.zip')
   end
+
+  def import
+    Zip::File.open(params['archive'].tempfile) do |zip_file|
+      zip_file.each do |entry|
+        _, file_header, file_body = entry.get_input_stream.read.force_encoding('utf-8').split('---')
+
+        header = YAML.load(file_header)
+        body = file_body.is_a?(Array) ? file_body.join('---') : file_body
+
+        w = Word.find_or_create_by({title: header[:title]})
+        w.tag_list = header[:tags]
+        w.body = body
+        w.save
+        binding.pry
+      end
+    end
+    redirect_to site_settings_path, notice: 'Import completed'
+  end
 end

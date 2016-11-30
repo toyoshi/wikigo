@@ -25,3 +25,10 @@
 h2 Export
 
 = link_to 'Export', site_export_path(format: :zip), class: 'btn btn-default'
+
+h2 Import
+
+= form_tag site_import_path, { multipart: true } do |f|
+  .form-group
+    = file_field_tag 'archive'
+  = submit_tag 'Import', class: 'btn btn-default' 

@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   scope :settings do
     namespace :site do
       get 'export'
+      post 'import'
+
       get 'settings'
       get 'activities'
       get 'members'
