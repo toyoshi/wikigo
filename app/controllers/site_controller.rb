@@ -43,7 +43,6 @@ class SiteController < ApplicationController
         w.tag_list = header[:tags]
         w.body = body
         w.save
-        binding.pry
       end
     end
     redirect_to site_settings_path, notice: 'Import completed'
