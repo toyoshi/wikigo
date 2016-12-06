@@ -27,7 +27,7 @@
     .tab-content
       #html.tab-pane.active role="tabpanel"
         .markdown  
-          = raw markdown(add_word_link(@version.body))
+          = raw markdown(add_word_link(@version))
       #diff.tab-pane role="tabpanel"
         br
         = diff(@version.body, @version.paper_trail.previous_version.try(:body))
