@@ -17,9 +17,17 @@ Rails.application.routes.draw do
 
     resources :webhooks, except: [:show]
 
-    devise_for :users, controllers: {
-      registrations: 'users/registrations'
-    }
+    devise_for :users, skip: :registrations
+    devise_scope :user do
+      resource :registration,
+        only: [:new, :create, :edit, :update],
+        path: 'users',
+        path_names: { new: 'sign_up' },
+        controller: 'user/registrations',
+        as: :user_registration do
+          get :cancel
+        end
+    end
   end
 
 
