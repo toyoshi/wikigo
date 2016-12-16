@@ -5,7 +5,7 @@ module ApplicationHelper
 
   def settings?
     path = request.path_info
-    path =~ %r{^/settings} && controller.controller_name != 'sessions'
+    path =~ %r{^/settings} && current_user
   end
 
   def self.root_url_with_protocol
