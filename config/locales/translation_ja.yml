@@ -1,15 +1,12 @@
 ja:
   activerecord:
     models:
-      acts_as_taggable_on/tag: タグ付け可能/タグとして動作する  #g
-      acts_as_taggable_on/tagging: タグ付け可能/タグ付けとして動作する  #g
       attachment: アタッチメント  #g
       favorite: お気に入り  #g
       option: オプション  #g
-      public_activity/orm/active_record/activity: 公共の活動/オーマン/活動記録/活動  #g
       user: ユーザー  #g
       webhook: Webhook  #g
-      word: 単語  #g
+      word: 記事  #g
 
     attributes:
       acts_as_taggable_on/tag:
@@ -72,7 +69,7 @@ ja:
         favorites: お気に入り  #g
         tag_taggings: タグのタグ付け  #g
         taggings: タギング  #g
-        tags: タグ  #g
+        tags: タグリスト  #g
         title: タイトル  #g
         versions: バージョン  #g
 
