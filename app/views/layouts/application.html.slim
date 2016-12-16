@@ -28,7 +28,7 @@ html lang="en"
           .hidden-xs
             = search_form_for @search, url: words_index_path, method: :get, html: { class: 'navbar-form navbar-left' } do |f|
               .form-group
-                = f.text_field :title_or_body_cont, class: 'form-control', placeholder: 'Search'
+                = f.text_field :title_or_body_cont, class: 'form-control', placeholder: t('search')
 
           .navbar-text.navbar-right
             - if user_signed_in?

@@ -1,5 +1,5 @@
-h2 Tag list
+h2 = t('tag_list')
 ul
   - Word.active_tags.each do |tag|
     li = link_to tag, word_tag_path(tag.name)
-= link_to 'more tags', tags_index_path, class: 'pull-right'
+= link_to t('more'), tags_index_path, class: 'pull-right'

@@ -9,6 +9,15 @@ GIT
       railties (>= 3.0.0)
 
 GIT
+  remote: git://github.com/svenfuchs/rails-i18n.git
+  revision: 6d61011c12b31e20ea5da09be41517644bf4bb9f
+  branch: master
+  specs:
+    rails-i18n (5.0.1)
+      i18n (~> 0.7)
+      railties (~> 5.0)
+
+GIT
   remote: git://github.com/toyoshi/acts_as_favable.git
   revision: 07dd99743cde8c702333be71173c47173a18c2cc
   specs:
@@ -145,6 +154,8 @@ GEM
     http-cookie (1.0.3)
       domain_name (~> 0.5)
     i18n (0.7.0)
+    i18n_generators (2.1.1)
+      rails (>= 3.0.0)
     jbuilder (2.6.0)
       activesupport (>= 3.0.0, < 5.1)
       multi_json (~> 1.2)
@@ -361,6 +372,7 @@ DEPENDENCIES
   guard
   guard-minitest
   honoka-rails (>= 3.3.6.3)
+  i18n_generators
   jbuilder (~> 2.5)
   jquery-rails
   jquery-ui-rails
@@ -376,6 +388,7 @@ DEPENDENCIES
   puma (~> 3.0)
   qiita-markdown
   rails (~> 5.0.0, >= 5.0.0.1)
+  rails-i18n!
   ransack
   rubocop
   rubyzip

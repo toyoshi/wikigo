@@ -1,0 +1,75 @@
+ja:
+  activerecord:
+    models:
+      attachment: アタッチメント  #g
+      favorite: お気に入り  #g
+      option: オプション  #g
+      user: ユーザー  #g
+      webhook: Webhook  #g
+      word: 記事  #g
+
+    attributes:
+      acts_as_taggable_on/tag:
+        name: 名  #g
+        taggings: タギング  #g
+
+      acts_as_taggable_on/tagging:
+        context: コンテキスト  #g
+        tag: :activerecord.models.tag  #g
+        taggable: :activerecord.models.taggable  #g
+        taggable_type: タグ付タイプ  #g
+        tagger: :activerecord.models.tagger  #g
+        tagger_type: タガタイプ  #g
+
+      attachment:
+        file: ファイル  #g
+        user: :activerecord.models.user  #g
+
+      favorite:
+        favable: :activerecord.models.favable  #g
+        favable_type: 好きなタイプ  #g
+        note: 注意  #g
+        user: :activerecord.models.user  #g
+
+      option:
+        option_key: オプションキー  #g
+        option_value: オプション値  #g
+
+      public_activity/orm/active_record/activity:
+        key: キー  #g
+        owner: :activerecord.models.owner  #g
+        owner_type: 所有者の種類  #g
+        parameters: パラメーター  #g
+        recipient: :activerecord.models.recipient  #g
+        recipient_type: 受信者の種類  #g
+        trackable: :activerecord.models.trackable  #g
+        trackable_type: トラッキング可能なタイプ  #g
+
+      user:
+        current_sign_in_at: 現在のログイン  #g
+        current_sign_in_ip: 現在の郵便番号  #g
+        email: Eメール  #g
+        encrypted_password: 暗号化されたパスワード  #g
+        last_sign_in_at: 最後にログインする  #g
+        last_sign_in_ip: ipの最後のサイン  #g
+        remember_created_at: 作成時の覚え書き  #g
+        reset_password_sent_at: 送信されたパスワードのリセット  #g
+        reset_password_token: パスワードトークンをリセットする  #g
+        role: 役割  #g
+        username: ユーザー名  #g
+
+      webhook:
+        title: タイトル  #g
+        url: URL  #g
+
+      word:
+        activities: アクティビティ  #g
+        base_tags: ベースタグ  #g
+        body: 本文
+        favorites: お気に入り  #g
+        tag_taggings: タグのタグ付け  #g
+        taggings: タギング  #g
+        tags: タグリスト  #g
+        title: タイトル  #g
+        versions: バージョン  #g
+

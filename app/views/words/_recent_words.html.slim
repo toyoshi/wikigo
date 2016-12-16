@@ -1,8 +1,8 @@
 //TODO:move this to module or plugin
 - return if recent_words.empty?
 
-h2 Recent words
+h2 = t('recent_words')
 ul
   - recent_words.each do |w|
       li = link_to w.title, w
-= link_to 'more words', words_index_path, class: 'pull-right'
+= link_to t('more'), words_index_path, class: 'pull-right'

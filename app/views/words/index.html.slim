@@ -7,7 +7,7 @@
       = f.button 'Search', class: 'btn btn-default'
   - else
     h1
-      | Words
+      = t('word_list')
 
 .list-group
   - @words.each do |word|
@@ -18,6 +18,6 @@
         = word.body.truncate(100, omission: '...')
 
 section.right-align
-  = link_to_previous_page @words, 'Previous Page'
+  = link_to_previous_page @words, t('Previous Page')
   |    
-  = link_to_next_page @words, 'Next Page'
+  = link_to_next_page @words, t('Next Page')
