@@ -20,9 +20,9 @@
       - if user_signed_in?
         seciotn
           ul
-            li = link_to('Edit', edit_word_path(@word))
+            li = link_to(t('edit'), edit_word_path(@word))
             - if has_version?(@word)
-              li = link_to('Versions', word_versions_path(@word))
+              li = link_to(t('versions'), word_versions_path(@word))
       section.clearfix
         = render 'recent_words'
       section.clearfix
