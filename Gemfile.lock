@@ -181,7 +181,7 @@ GEM
       activerecord
       kaminari-core (= 1.1.1)
     kaminari-core (1.1.1)
-    libv8 (3.16.14.19-x86_64-linux)
+    libv8 (3.16.14.19)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -250,7 +250,7 @@ GEM
       mem
       pygments.rb (~> 1.0)
       sanitize
-    rack (2.0.5)
+    rack (2.0.8)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.0.7)
