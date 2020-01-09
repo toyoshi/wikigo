@@ -1,12 +1,13 @@
-FROM ruby:2.3
+FROM ruby:2.5
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
-        postgresql-client ruby2.3-dev pkg-config cmake libssl-dev \
+        postgresql-client cmake libssl-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /src
 COPY Gemfile Gemfile.lock /src/
+RUN bundle update --bundler
 RUN bundle install
 COPY . .
 
