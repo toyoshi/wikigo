@@ -1,5 +1,5 @@
 GIT
-  remote: git://github.com/chaps-io/public_activity.git
+  remote: https://github.com/chaps-io/public_activity.git
   revision: aff5b50ff474c9434e619c0fb0f8daa6acf47655
   specs:
     public_activity (2.0)
@@ -9,7 +9,7 @@ GIT
       railties (>= 3.0.0)
 
 GIT
-  remote: git://github.com/toyoshi/acts_as_favable.git
+  remote: https://github.com/toyoshi/acts_as_favable.git
   revision: 07dd99743cde8c702333be71173c47173a18c2cc
   specs:
     acts_as_favable (1.0.1)
@@ -459,4 +459,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   1.17.3
+   2.1.2
