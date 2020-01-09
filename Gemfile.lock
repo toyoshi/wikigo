@@ -352,7 +352,6 @@ GEM
       sprockets-rails
       tilt
     shellany (0.0.1)
-    simplemde-rails (1.11.2)
     slim (4.0.1)
       temple (>= 0.7.6, < 0.9)
       tilt (>= 2.0.6, < 2.1)
@@ -447,7 +446,6 @@ DEPENDENCIES
   rubocop
   rubyzip
   sass-rails
-  simplemde-rails
   slim-rails
   spring
   spring-watcher-listen

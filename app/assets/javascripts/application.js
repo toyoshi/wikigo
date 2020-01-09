@@ -14,7 +14,5 @@
 //= require jquery_ujs
 //= require jquery-ui
 //= require turbolinks
-//= require simplemde.min
 //= require bootstrap-sprockets
-//= require dropzone
 //= require_tree .
