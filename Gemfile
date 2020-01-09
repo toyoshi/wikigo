@@ -22,6 +22,7 @@ gem 'slim-rails'
 gem 'honoka-rails'
 gem 'simplemde-rails'
 gem 'paper_trail'
+gem 'paper_trail-association_tracking'
 gem 'diffy'
 gem 'kaminari'
 
