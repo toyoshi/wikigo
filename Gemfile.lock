@@ -181,7 +181,7 @@ GEM
       activerecord
       kaminari-core (= 1.1.1)
     kaminari-core (1.1.1)
-    libv8 (3.16.14.19-x86_64-linux)
+    libv8 (3.16.14.19)
     listen (3.0.8)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -238,7 +238,8 @@ GEM
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
     public_suffix (3.0.2)
-    puma (3.11.4)
+    puma (4.3.1)
+      nio4r (~> 2.0)
     pygments.rb (1.2.1)
       multi_json (>= 1.0.0)
     qiita-markdown (0.25.0)
