@@ -110,10 +110,10 @@ ActiveRecord::Schema.define(version: 20161123124722) do
   end
 
   create_table "webhooks", force: :cascade do |t|
-    t.string   "title"
-    t.string   "url"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "title",      default: "", null: false
+    t.string   "url",        default: "", null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "words", force: :cascade do |t|
