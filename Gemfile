@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '5.2.4.1'
+gem 'rails', '~> 6.0'
 
 gem 'bootsnap', require: false
 gem 'puma'
@@ -36,7 +36,7 @@ gem 'public_activity', github: 'chaps-io/public_activity'
 gem 'acts_as_favable', github: 'toyoshi/acts_as_favable'
 
 gem 'faraday'
-gem 'rails-i18n', '~> 5.1'
+gem 'rails-i18n', '~> 6.0'
 
 
 group :development, :test do
