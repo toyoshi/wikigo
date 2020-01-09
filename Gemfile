@@ -16,7 +16,6 @@ gem 'jbuilder'
 gem 'gon'
 gem 'rubyzip'
 
-gem 'qiita-markdown'
 gem 'devise'
 gem 'slim-rails'
 gem 'honoka-rails'
@@ -25,9 +24,7 @@ gem 'paper_trail-association_tracking'
 gem 'diffy'
 gem 'kaminari'
 
-gem 'carrierwave'
 gem 'cloudinary'
-gem 'dropzonejs-rails'
 
 gem 'acts-as-taggable-on'
 gem 'ransack'

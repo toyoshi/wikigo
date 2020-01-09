@@ -11,7 +11,6 @@ Wiki engine by Ruby on Rails
 <img src='https://cloud.githubusercontent.com/assets/188394/19829747/d9d0b680-9e24-11e6-9d1d-40e20604f170.png' width='500'>
 
 - Multiuser
-- Markdown
 - Auto keyword link
 
 ## Setup

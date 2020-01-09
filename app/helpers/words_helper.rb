@@ -1,9 +1,4 @@
 module WordsHelper
-  def markdown(str)
-    processor = Qiita::Markdown::Processor.new( hostname: request.host_with_port )
-    processor.call(str)[:output].to_s
-  end
-
   def add_word_link(word)
     body = word.body
     except_word = word.title
