@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+gem 'rails', '5.2.4.1'
+
 gem 'bootsnap', require: false
 gem 'puma'
 gem 'therubyracer'
@@ -35,11 +36,13 @@ gem 'public_activity', github: 'chaps-io/public_activity'
 gem 'acts_as_favable', github: 'toyoshi/acts_as_favable'
 
 gem 'faraday'
-gem 'rails-i18n', github: 'svenfuchs/rails-i18n', branch: 'master' # For 5.x
+gem 'rails-i18n', '~> 5.1'
+
 
 group :development, :test do
   gem 'byebug', platform: :mri
 end
+
 
 group :development do
   gem 'sqlite3'

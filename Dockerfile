@@ -6,8 +6,7 @@ RUN apt-get update \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /src
-COPY Gemfile Gemfile.lock /src/
-RUN bundle update --bundler
+COPY Gemfile* /src/
 RUN bundle install
 COPY . .
 
