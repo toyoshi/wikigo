@@ -1,4 +1,4 @@
-class CreateFavorites < ActiveRecord::Migration
+class CreateFavorites < ActiveRecord::Migration[5.0]
   def self.up
     create_table :favorites do |t|
       t.string :note, :limit => 50, :default => "" 
