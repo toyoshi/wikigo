@@ -9,7 +9,7 @@ class CreateFavorites < ActiveRecord::Migration[5.0]
 
     add_index :favorites, :favable_type
     add_index :favorites, :favable_id
-    add_index :favorites, :user_id
+    add_index :favorites, :user_id unless index_exists?(:favorites, :user_id)
   end
 
   def self.down
