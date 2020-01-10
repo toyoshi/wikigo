@@ -13,6 +13,8 @@ gem 'jquery-ui-rails'
 gem 'turbolinks'
 gem 'jbuilder'
 
+gem 'webpacker'
+
 gem 'gon'
 gem 'rubyzip'
 

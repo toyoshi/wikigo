@@ -4,6 +4,7 @@ module WordsHelper
     except_word = word.title
 
     word_list(except_word).each do |w|
+      return body
       body = body.gsub(w, link_to(w, url_for(controller: :words, action: :show, id: w.sub(' ', '-'))))
       #TODO: To DRY logic of space to dash (models/concerns/title_converter.rb)
     end

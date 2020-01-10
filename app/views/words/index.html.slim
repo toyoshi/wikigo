@@ -15,7 +15,7 @@
       h4.list-group-item-heading
         = word.title
       p.list-group-item-text
-        = word.body.truncate(100, omission: '...')
+        = word.body
 
 section.right-align
   = link_to_previous_page @words, t('Previous Page')
