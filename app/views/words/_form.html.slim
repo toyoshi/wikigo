@@ -21,11 +21,9 @@
       .form-group.field
         = f.label :tag_list
         = f.text_field :tag_list, value: word.tag_list.to_s, class: 'form-control'
-  .row
-    #edit.col.s12.m12
       .from-group.field
         = f.label :body
-        = f.rich_text_area :body, class: ''
-
-      .actions
-        = f.submit class: 'btn btn-default'
+        = f.rich_text_area :body
+      .form-group.field
+        .actions
+          = f.submit class: 'btn btn-default'
