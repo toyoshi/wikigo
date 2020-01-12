@@ -4,6 +4,11 @@ Word.find_or_create_by(title: 'Main Page') do |word|
   word.body = "Wiki wiki go!"
 end
 
+Word.find_or_create_by(title: 'Side Bar') do |word|
+  word.title = 'Side Bar'
+  word.body = "--- menu ---"
+end
+
 #Site Title
 Option.site_title = 'Wiki Go' if Option.site_title.blank?
 
