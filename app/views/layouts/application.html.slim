@@ -40,7 +40,21 @@ html lang="en"
         - if notice
           p#notice.alert.alert-info = notice
         - unless settings?
-            = yield
+            .row'
+              .sidebar.col-md-3
+                .page-nav
+                  = raw Word.find_by_title('Side Bar').body
+
+                - if user_signed_in?
+                  span.m
+                    strong メニュー
+                  seciotn
+                    ul
+                      li = link_to(t('edit'), edit_word_path(@word))
+                      - if has_version?(@word)
+                        li = link_to(t('versions'), word_versions_path(@word))
+              .col-md-9
+                = yield
         - else
             .row
               = render 'layouts/settings'

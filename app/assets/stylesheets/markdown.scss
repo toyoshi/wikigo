@@ -1,5 +1,4 @@
 .markdown, .editor-preview-side, .editor-preview {
-  margin-top: 15px;
   > *,
   > blockquote {
     &:first-child {
@@ -129,7 +128,13 @@
     }
   }
 
-  h1,
+  h1 {
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 10px;
+    margin-top: 0px;
+  }
+  
   h2,
   h3,
   h4,
