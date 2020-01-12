@@ -40,12 +40,12 @@ html lang="en"
         - if notice
           p#notice.alert.alert-info = notice
         - unless settings?
-            .row'
+            .row
               .sidebar.col-md-3
                 .page-nav
                   = raw Word.find_by_title('Side Bar').body
 
-                - if user_signed_in?
+                - if user_signed_in? && controller_name == 'words' && action_name == 'show'
                   span.m
                     strong メニュー
                   seciotn

@@ -10,4 +10,4 @@
       h4.list-group-item-heading
         = word.title
       p.list-group-item-text
-        = word.body.truncate(100, omission: '...')
+        = word.body.to_plain_text.truncate(100, omission: '...')

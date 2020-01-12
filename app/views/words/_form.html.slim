@@ -12,6 +12,9 @@
             = message
   .row
     .col.s12
+      .form-group.field.clearfix
+        .actions.pull-right
+          = f.submit class: 'btn btn-default'
       - unless template_list.empty?
         .form-group.field
           = select_tag :template, options_for_select(template_list), {id: 'template-selector', class: 'form-control', include_blank: true }
@@ -24,6 +27,3 @@
       .from-group.field
         = f.label :body
         = f.rich_text_area :body
-      .form-group.field
-        .actions
-          = f.submit class: 'btn btn-default'
