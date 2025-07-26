@@ -1,37 +1,18 @@
-FROM ruby:2.7-alpine
+FROM ruby:2.7
 
-# Install system dependencies
-RUN apk add --no-cache \
-    build-base \
-    postgresql-dev \
-    sqlite-dev \
-    nodejs \
-    git \
-    curl \
-    tzdata \
-    libxml2-dev \
-    libxslt-dev \
-    && rm -rf /var/cache/apk/*
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+RUN apt update && apt install yarn python2 make g++ -y
 
 WORKDIR /src
 
-# Update RubyGems and Bundler
-RUN gem update --system 3.3.22 && gem install bundler
+# Update RubyGems and Bundler for compatibility
+RUN gem update --system 3.3.22 && gem install bundler:2.3.22
 
-# Copy dependency files first for better caching
-COPY Gemfile ./
-
-# Install Ruby gems
-RUN bundle install --jobs 4 --retry 3
-
-# Copy application code
+COPY Gemfile Gemfile.lock package.json yarn.lock /src/
+RUN bundle install
+RUN yarn install
 COPY . .
 
-# Copy and set entrypoint
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-
 EXPOSE 3000
-
-ENTRYPOINT ["docker-entrypoint.sh"]
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+CMD ["rails", "server", "-b", "0.0.0.0"]

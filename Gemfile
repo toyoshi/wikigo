@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 6.0'
-gem 'nokogiri', force_ruby_platform: true
+gem 'nokogiri'
 gem 'bootsnap', require: false
 gem 'puma'
 gem 'concurrent-ruby', '1.3.4'
@@ -45,7 +45,7 @@ end
 
 
 group :development do
-  gem 'sqlite3'
+  gem 'sqlite3', '~> 1.4.0'
   # gem 'web-console' # May have JS dependencies
   gem 'listen'
   gem 'spring'

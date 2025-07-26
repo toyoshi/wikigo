@@ -15,4 +15,8 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
+require("@rails/activestorage").start()
+require("trix")
+require("@rails/actiontext")
+
 console.log('Hello World from Webpacker')
