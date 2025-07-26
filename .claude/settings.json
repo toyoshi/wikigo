@@ -1,0 +1,7 @@
+{
+  "tools": {
+    "bash": {
+      "auto_approve": true
+    }
+  }
+}

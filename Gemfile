@@ -1,19 +1,20 @@
 source 'https://rubygems.org'
 
 gem 'rails', '~> 6.0'
-
+gem 'nokogiri', force_ruby_platform: true
 gem 'bootsnap', require: false
 gem 'puma'
-gem 'therubyracer'
-gem 'sass-rails'
-gem 'uglifier'
-gem 'coffee-rails'
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
+gem 'concurrent-ruby', '1.3.4'
+# gem 'therubyracer' # JS engine - heavy to compile, using Node.js instead
+# gem 'sass-rails' # Asset pipeline - temporarily disabled for faster startup
+# gem 'uglifier' # JS minification - not needed for development
+# gem 'coffee-rails' # CoffeeScript - not needed
+# gem 'jquery-rails' # jQuery - frontend dependency
+# gem 'jquery-ui-rails' # jQuery UI - frontend dependency
 gem 'turbolinks'
 gem 'jbuilder'
 
-gem 'webpacker'
+# gem 'webpacker' # Webpack - complex JS build tool
 
 gem 'gon'
 gem 'rubyzip'
@@ -26,13 +27,13 @@ gem 'paper_trail-association_tracking'
 gem 'diffy'
 gem 'kaminari'
 
-gem 'cloudinary'
+# gem 'cloudinary' # Cloud image service - may have JS dependencies
 
 gem 'acts-as-taggable-on'
 gem 'ransack'
 
-gem 'public_activity', github: 'chaps-io/public_activity'
-gem 'acts_as_favable', github: 'toyoshi/acts_as_favable'
+# gem 'public_activity', github: 'chaps-io/public_activity' # Requires Ruby 3.0+
+# gem 'acts_as_favable', github: 'toyoshi/acts_as_favable' # May have compatibility issues
 
 gem 'faraday'
 gem 'rails-i18n', '~> 6.0'
@@ -45,24 +46,24 @@ end
 
 group :development do
   gem 'sqlite3'
-  gem 'web-console'
+  # gem 'web-console' # May have JS dependencies
   gem 'listen'
   gem 'spring'
   gem 'spring-watcher-listen'
-  gem 'rubocop', require: false
-  gem 'pry-rails'
-  gem 'pry-doc'
-  gem 'pry-byebug'
-  gem 'pry-stack_explorer'
+  # gem 'rubocop', require: false # Development tool - not essential for server
+  # gem 'pry-rails' # Debug tool - not essential for server
+  # gem 'pry-doc' # Debug tool - not essential for server  
+  # gem 'pry-byebug' # Debug tool - not essential for server
+  # gem 'pry-stack_explorer' # Debug tool - not essential for server
 
-  gem 'better_errors'
-  gem 'binding_of_caller'
+  # gem 'better_errors' # May have JS dependencies
+  # gem 'binding_of_caller' # Debug tool - not essential for server
 
-  gem 'guard'
-  gem 'guard-minitest'
+  # gem 'guard' # File watcher - may have JS dependencies
+  # gem 'guard-minitest' # Test runner - not essential for server
 
   gem 'dotenv-rails'
-  gem 'i18n_generators'
+  # gem 'i18n_generators' # Generator - not essential for server
 end
 
 group :test do
