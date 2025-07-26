@@ -1,17 +1,38 @@
-FROM ruby:2.7
+FROM ruby:3.2-alpine
 
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
-RUN apt update && apt install yarn python2 make g++ -y
+# Install system dependencies for Alpine
+RUN apk add --no-cache \
+    build-base \
+    postgresql-dev \
+    sqlite-dev \
+    nodejs \
+    npm \
+    git \
+    curl \
+    tzdata \
+    libxml2-dev \
+    libxslt-dev \
+    yaml-dev \
+    libffi-dev \
+    zlib-dev \
+    openssl-dev \
+    vips-dev \
+    gcompat \
+    linux-headers \
+    && rm -rf /var/cache/apk/*
 
 WORKDIR /src
 
-# Update RubyGems and Bundler for compatibility
-RUN gem update --system 3.3.22 && gem install bundler:2.3.22
+# Update RubyGems and Bundler for Rails 8
+RUN gem update --system && gem install bundler
 
-COPY Gemfile Gemfile.lock package.json yarn.lock /src/
+# Copy dependency files first for better caching
+COPY Gemfile /src/
+
+# Install Ruby gems
 RUN bundle install
-RUN yarn install
+
+# Copy application code
 COPY . .
 
 EXPOSE 3000

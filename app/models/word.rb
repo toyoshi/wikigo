@@ -1,6 +1,6 @@
 class Word < ApplicationRecord
   acts_as_taggable
-  acts_as_favable
+  # acts_as_favable # TODO: Check Rails 8 compatibility issue
   has_rich_text :body
 
   include PublicActivity::Model
@@ -10,6 +10,14 @@ class Word < ApplicationRecord
 
   validates :title, presence: true
   validates :title, uniqueness: true
+
+  def self.ransackable_attributes(auth_object = nil)
+    %w[title body created_at updated_at]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[activities base_tags rich_text_body tag_taggings taggings tags versions]
+  end
 
   def self.find(input)
     if input.is_a?(Integer)

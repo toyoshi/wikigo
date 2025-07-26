@@ -1,20 +1,20 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 6.0'
+gem 'rails', '~> 8.0'
+gem 'sprockets-rails' # Asset pipeline for Rails 8
+gem 'importmap-rails' # ES6 modules via import maps
+gem 'turbo-rails' # Hotwire's SPA-like page accelerator
+gem 'stimulus-rails' # Hotwire's modest JavaScript framework
+
+gem 'solid_cache' # Database-backed ActiveSupport::Cache::Store
+gem 'solid_queue' # Database-backed ActiveJob backend  
+gem 'solid_cable' # Database-backed ActionCable backend
+
 gem 'nokogiri'
 gem 'bootsnap', require: false
 gem 'puma'
-gem 'concurrent-ruby', '1.3.4'
-gem 'mini_racer' # Modern V8 JS engine, replacement for therubyracer
-gem 'sass-rails', '~> 6.0' # SCSS support for Rails 6 with Ruby 2.7
-gem 'uglifier', '~> 4.2' # JS minification compatible with Ruby 2.7
-gem 'coffee-rails', '~> 4.2' # CoffeeScript support for Rails 6
-gem 'jquery-rails', '~> 4.4' # jQuery for Rails 6 compatibility
-gem 'jquery-ui-rails' # jQuery UI components
-gem 'turbolinks'
+gem 'sassc-rails' # SCSS support for Rails 8
 gem 'jbuilder'
-
-gem 'webpacker', '~> 5.4' # Webpack for Rails 6 (stable version)
 
 gem 'gon'
 gem 'rubyzip'
@@ -30,13 +30,13 @@ gem 'kaminari'
 # gem 'cloudinary' # Cloud image service - may have JS dependencies
 
 gem 'acts-as-taggable-on'
-gem 'ransack', '~> 2.4.1' # Ruby 2.7 compatibility
+gem 'ransack' # Latest version for Ruby 3.2 and Rails 8
 
-gem 'public_activity', '~> 2.0' # For Ruby 2.7 compatibility
+gem 'public_activity' # Latest version for Ruby 3.2 compatibility
 gem 'acts_as_favable', github: 'toyoshi/acts_as_favable' # May have compatibility issues
 
 gem 'faraday'
-gem 'rails-i18n', '~> 6.0'
+gem 'rails-i18n', '~> 8.0'
 
 
 group :development, :test do
@@ -45,7 +45,7 @@ end
 
 
 group :development do
-  gem 'sqlite3', '~> 1.4.0'
+  gem 'sqlite3', '~> 2.0'
   # gem 'web-console' # May have JS dependencies
   gem 'listen'
   gem 'spring'

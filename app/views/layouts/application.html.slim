@@ -9,7 +9,7 @@ html lang="en"
     title= content_for?(:title) ? "#{yield(:title)} | #{site_title}" : site_title
     = csrf_meta_tags
     = stylesheet_link_tag "application", :media => "all"
-    / = javascript_pack_tag "application"
+    = javascript_importmap_tags
     = include_gon
 
     meta[name="viewport" content="width=device-width, initial-scale=1.0"]
