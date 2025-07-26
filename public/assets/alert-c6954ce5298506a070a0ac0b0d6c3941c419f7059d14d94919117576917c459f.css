@@ -1,0 +1,97 @@
+/* line 84, app/assets/stylesheets/alert.scss */
+.alert {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+}
+
+/* line 91, app/assets/stylesheets/alert.scss */
+.alert-heading {
+  color: inherit;
+}
+
+/* line 97, app/assets/stylesheets/alert.scss */
+.alert-link {
+  font-weight: bold;
+}
+
+/* line 106, app/assets/stylesheets/alert.scss */
+.alert-dismissible {
+  padding-right: 2rem;
+}
+
+/* line 110, app/assets/stylesheets/alert.scss */
+.alert-dismissible .close {
+  position: relative;
+  top: -.125rem;
+  right: -1rem;
+  color: inherit;
+}
+
+/* line 138, app/assets/stylesheets/alert.scss */
+.alert-success {
+  background-color: #dff0d8;
+  border-color: #d0e9c6;
+  color: #3c763d;
+}
+
+/* line 125, app/assets/stylesheets/alert.scss */
+.alert-success hr {
+  border-top-color: #c1e2b3;
+}
+
+/* line 128, app/assets/stylesheets/alert.scss */
+.alert-success .alert-link {
+  color: #2b542c;
+}
+
+/* line 141, app/assets/stylesheets/alert.scss */
+.alert-info {
+  background-color: #d9edf7;
+  border-color: #bcdff1;
+  color: #31708f;
+}
+
+/* line 125, app/assets/stylesheets/alert.scss */
+.alert-info hr {
+  border-top-color: #a6d5ec;
+}
+
+/* line 128, app/assets/stylesheets/alert.scss */
+.alert-info .alert-link {
+  color: #245269;
+}
+
+/* line 144, app/assets/stylesheets/alert.scss */
+.alert-warning {
+  background-color: #fcf8e3;
+  border-color: #faf2cc;
+  color: #8a6d3b;
+}
+
+/* line 125, app/assets/stylesheets/alert.scss */
+.alert-warning hr {
+  border-top-color: #f7ecb5;
+}
+
+/* line 128, app/assets/stylesheets/alert.scss */
+.alert-warning .alert-link {
+  color: #66512c;
+}
+
+/* line 147, app/assets/stylesheets/alert.scss */
+.alert-danger {
+  background-color: #f2dede;
+  border-color: #ebcccc;
+  color: #a94442;
+}
+
+/* line 125, app/assets/stylesheets/alert.scss */
+.alert-danger hr {
+  border-top-color: #e4b9b9;
+}
+
+/* line 128, app/assets/stylesheets/alert.scss */
+.alert-danger .alert-link {
+  color: #843534;
+}

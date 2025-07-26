@@ -1,0 +1,107 @@
+@media (min-width: 1200px) {
+  /* line 2, app/assets/stylesheets/style.scss */
+  .container {
+    width: 970px;
+  }
+}
+
+/* line 7, app/assets/stylesheets/style.scss */
+body {
+  background-color: #fff;
+}
+
+/* line 11, app/assets/stylesheets/style.scss */
+main {
+  margin-top: 44px;
+  min-height: 500px;
+}
+
+/* line 17, app/assets/stylesheets/style.scss */
+.sidebar h2,
+.sidebar h3,
+.sidebar h4,
+.sidebar h5,
+.sidebar h6 {
+  font-weight: bold;
+  font-size: 100%;
+}
+
+/* line 27, app/assets/stylesheets/style.scss */
+.page-nav {
+  margin: 4px 0;
+}
+
+/* line 30, app/assets/stylesheets/style.scss */
+.page-nav ul li {
+  margin: 0px 0 30px 0;
+  font-weight: bold;
+  color: #333;
+  list-style: none;
+  margin-left: 0px !important;
+  font-size: 20px;
+}
+
+/* line 38, app/assets/stylesheets/style.scss */
+.page-nav ul li li {
+  margin: 6px 0;
+  color: #000;
+  font-weight: normal;
+  font-size: 16px;
+}
+
+/* line 48, app/assets/stylesheets/style.scss */
+.word-footer {
+  margin: 40px 0px 0px;
+}
+
+/* line 52, app/assets/stylesheets/style.scss */
+.page-footer {
+  margin-top: 30px;
+  padding: 40px 0 0 0;
+  color: #999;
+  background-color: #f9f9f9;
+  border-top: 1px solid #e5e5e5;
+}
+
+/* line 60, app/assets/stylesheets/style.scss */
+.setting-nav {
+  margin-top: 48px;
+}
+
+/* line 65, app/assets/stylesheets/style.scss */
+ul.activities li {
+  margin-bottom: 20px;
+}
+
+/* line 70, app/assets/stylesheets/style.scss */
+.code-frame {
+  overflow: hidden;
+  margin: 1em 0;
+}
+
+/* customize bootstrap */
+/* line 76, app/assets/stylesheets/style.scss */
+.form-inline > * {
+  margin: 0px 3px;
+}
+
+/* line 80, app/assets/stylesheets/style.scss */
+a.list-group-item .list-group-item-heading, button.list-group-item .list-group-item-heading {
+  font-weight: bold;
+  color: #2196f3;
+}
+
+/* for facebook like button */
+/* line 86, app/assets/stylesheets/style.scss */
+a.fb-button {
+  vertical-align: top !important;
+  border-radius: 2px;
+  background-color: #3b5998;
+  border-color: #3b5998;
+}
+
+/* for tag-it jQuery */
+/* line 94, app/assets/stylesheets/style.scss */
+.ui-helper-hidden-accessible {
+  display: none;
+}
