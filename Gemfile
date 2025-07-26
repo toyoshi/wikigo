@@ -5,16 +5,16 @@ gem 'nokogiri', force_ruby_platform: true
 gem 'bootsnap', require: false
 gem 'puma'
 gem 'concurrent-ruby', '1.3.4'
-# gem 'therubyracer' # JS engine - heavy to compile, using Node.js instead
-# gem 'sass-rails' # Asset pipeline - temporarily disabled for faster startup
-# gem 'uglifier' # JS minification - not needed for development
-# gem 'coffee-rails' # CoffeeScript - not needed
-# gem 'jquery-rails' # jQuery - frontend dependency
-# gem 'jquery-ui-rails' # jQuery UI - frontend dependency
+gem 'mini_racer' # Modern V8 JS engine, replacement for therubyracer
+gem 'sass-rails', '~> 6.0' # SCSS support for Rails 6 with Ruby 2.7
+gem 'uglifier', '~> 4.2' # JS minification compatible with Ruby 2.7
+gem 'coffee-rails', '~> 4.2' # CoffeeScript support for Rails 6
+gem 'jquery-rails', '~> 4.4' # jQuery for Rails 6 compatibility
+gem 'jquery-ui-rails' # jQuery UI components
 gem 'turbolinks'
 gem 'jbuilder'
 
-# gem 'webpacker' # Webpack - complex JS build tool
+gem 'webpacker', '~> 5.4' # Webpack for Rails 6 (stable version)
 
 gem 'gon'
 gem 'rubyzip'
