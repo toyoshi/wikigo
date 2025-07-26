@@ -6,7 +6,7 @@ gem 'bootsnap', require: false
 gem 'puma'
 gem 'concurrent-ruby', '1.3.4'
 # gem 'therubyracer' # JS engine - heavy to compile, using Node.js instead
-gem 'sass-rails' # Asset pipeline - needed for SCSS compilation
+# gem 'sass-rails' # Asset pipeline - temporarily disabled for faster startup
 # gem 'uglifier' # JS minification - not needed for development
 # gem 'coffee-rails' # CoffeeScript - not needed
 # gem 'jquery-rails' # jQuery - frontend dependency
