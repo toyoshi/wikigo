@@ -32,8 +32,8 @@ gem 'kaminari'
 gem 'acts-as-taggable-on'
 gem 'ransack'
 
-# gem 'public_activity', github: 'chaps-io/public_activity' # Requires Ruby 3.0+
-# gem 'acts_as_favable', github: 'toyoshi/acts_as_favable' # May have compatibility issues
+gem 'public_activity', '~> 2.0' # For Ruby 2.7 compatibility
+gem 'acts_as_favable', github: 'toyoshi/acts_as_favable' # May have compatibility issues
 
 gem 'faraday'
 gem 'rails-i18n', '~> 6.0'

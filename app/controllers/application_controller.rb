@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   # Used for search by ransack gem
   def set_search_obj
-    @search = Word.search(params[:q])
+    @search = Word.ransack(params[:q])
   end
 
   protected
