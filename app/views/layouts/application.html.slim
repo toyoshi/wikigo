@@ -9,7 +9,10 @@ html lang="en"
     title= content_for?(:title) ? "#{yield(:title)} | #{site_title}" : site_title
     = csrf_meta_tags
     = stylesheet_link_tag "application", :media => "all"
+    link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
     = javascript_importmap_tags
+    script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+    script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"
     = include_gon
 
     meta[name="viewport" content="width=device-width, initial-scale=1.0"]
