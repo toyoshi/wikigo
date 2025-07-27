@@ -27,13 +27,16 @@ WORKDIR /src
 RUN gem update --system && gem install bundler
 
 # Copy dependency files first for better caching
-COPY Gemfile /src/
+COPY Gemfile* /src/
 
 # Install Ruby gems
 RUN bundle install
 
 # Copy application code
 COPY . .
+
+# Run bundle install again to ensure all gems including git sources are available
+RUN bundle install
 
 EXPOSE 3000
 CMD ["rails", "server", "-b", "0.0.0.0"]
