@@ -1,18 +1,41 @@
-/* Rails 8 + Propshaft application stylesheet */
+/* Rails 8 + Propshaft + Honoka application stylesheet */
 
-/* Basic styles for testing */
+/* Additional Japanese font optimization */
 body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", 
+               "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans CJK JP", 
+               "Yu Gothic", YuGothic, "Meiryo", sans-serif;
 }
 
-.navbar {
-  background-color: #333;
-  color: white;
-  padding: 10px;
+/* Enhance navbar styling to complement Honoka */
+.navbar-inverse {
+  border-radius: 0;
 }
 
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
+/* Improve sidebar styling */
+.sidebar {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+/* Better spacing for page elements */
+.page-header {
+  margin-top: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Improve form styling */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Footer styling */
+.page-footer {
+  margin-top: 40px;
+  padding: 20px 0;
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
 }
