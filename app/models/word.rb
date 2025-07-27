@@ -1,6 +1,6 @@
 class Word < ApplicationRecord
   acts_as_taggable
-  # acts_as_favable # TODO: Check Rails 8 compatibility issue
+  acts_as_favable
   has_rich_text :body
 
   include PublicActivity::Model
