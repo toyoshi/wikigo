@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/toyoshi/acts_as_favable.git
-  revision: a03e88b1f22179d51ff044c9e3a6d23488695386
+  revision: 2c24ba78bb3dfc5596b030e5422e555cc0307e17
   specs:
     acts_as_favable (2.0.0)
       activerecord (>= 6.0, < 9.0)
@@ -117,14 +117,7 @@ GEM
       logger
     faraday-net_http (3.4.1)
       net-http (>= 0.5.0)
-    ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-aarch64-linux-musl)
-    ffi (1.17.2-arm-linux-gnu)
-    ffi (1.17.2-arm-linux-musl)
-    ffi (1.17.2-arm64-darwin)
-    ffi (1.17.2-x86_64-darwin)
-    ffi (1.17.2-x86_64-linux-gnu)
-    ffi (1.17.2-x86_64-linux-musl)
     fugit (1.11.1)
       et-orbi (~> 1, >= 1.2.11)
       raabro (~> 1.4)
@@ -135,7 +128,6 @@ GEM
       i18n (>= 0.7)
       multi_json
       request_store (>= 1.0)
-    honoka-rails (3.3.7)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
     importmap-rails (2.2.0)
@@ -192,21 +184,7 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.4)
-    nokogiri (1.18.9-aarch64-linux-gnu)
-      racc (~> 1.4)
     nokogiri (1.18.9-aarch64-linux-musl)
-      racc (~> 1.4)
-    nokogiri (1.18.9-arm-linux-gnu)
-      racc (~> 1.4)
-    nokogiri (1.18.9-arm-linux-musl)
-      racc (~> 1.4)
-    nokogiri (1.18.9-arm64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.18.9-x86_64-darwin)
-      racc (~> 1.4)
-    nokogiri (1.18.9-x86_64-linux-gnu)
-      racc (~> 1.4)
-    nokogiri (1.18.9-x86_64-linux-musl)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     paper_trail (16.0.0)
@@ -218,6 +196,10 @@ GEM
     pp (0.6.2)
       prettyprint
     prettyprint (0.2.0)
+    propshaft (1.2.1)
+      actionpack (>= 7.0.0)
+      activesupport (>= 7.0.0)
+      rack
     psych (5.2.6)
       date
       stringio
@@ -289,14 +271,6 @@ GEM
       actionpack (>= 5.2)
       railties (>= 5.2)
     rubyzip (2.4.1)
-    sassc (2.4.0)
-      ffi (~> 1.9)
-    sassc-rails (2.1.2)
-      railties (>= 4.0.0)
-      sassc (>= 2.0)
-      sprockets (> 3.0)
-      sprockets-rails
-      tilt
     securerandom (0.4.1)
     slim (5.2.1)
       temple (~> 0.10.0)
@@ -325,22 +299,7 @@ GEM
     spring-watcher-listen (2.1.0)
       listen (>= 2.7, < 4.0)
       spring (>= 4)
-    sprockets (4.2.2)
-      concurrent-ruby (~> 1.0)
-      logger
-      rack (>= 2.2.4, < 4)
-    sprockets-rails (3.5.2)
-      actionpack (>= 6.1)
-      activesupport (>= 6.1)
-      sprockets (>= 3.0.0)
-    sqlite3 (2.7.3-aarch64-linux-gnu)
     sqlite3 (2.7.3-aarch64-linux-musl)
-    sqlite3 (2.7.3-arm-linux-gnu)
-    sqlite3 (2.7.3-arm-linux-musl)
-    sqlite3 (2.7.3-arm64-darwin)
-    sqlite3 (2.7.3-x86_64-darwin)
-    sqlite3 (2.7.3-x86_64-linux-gnu)
-    sqlite3 (2.7.3-x86_64-linux-musl)
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.1.7)
@@ -364,14 +323,7 @@ GEM
     zeitwerk (2.7.3)
 
 PLATFORMS
-  aarch64-linux-gnu
   aarch64-linux-musl
-  arm-linux-gnu
-  arm-linux-musl
-  arm64-darwin
-  x86_64-darwin
-  x86_64-linux-gnu
-  x86_64-linux-musl
 
 DEPENDENCIES
   acts-as-taggable-on
@@ -383,7 +335,6 @@ DEPENDENCIES
   dotenv-rails
   faraday
   gon
-  honoka-rails
   importmap-rails
   jbuilder
   kaminari
@@ -392,20 +343,19 @@ DEPENDENCIES
   paper_trail
   paper_trail-association_tracking
   pg
+  propshaft
   public_activity
   puma
   rails (~> 8.0)
   rails-i18n (~> 8.0)
   ransack
   rubyzip
-  sassc-rails
   slim-rails
   solid_cable
   solid_cache
   solid_queue
   spring
   spring-watcher-listen
-  sprockets-rails
   sqlite3 (~> 2.0)
   stimulus-rails
   turbo-rails
