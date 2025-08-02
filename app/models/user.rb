@@ -5,7 +5,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  enum role: { editor: 0, admin: 99 }
+  enum :role, { editor: 0, admin: 99 }
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
