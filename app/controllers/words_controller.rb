@@ -92,7 +92,16 @@ class WordsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_word
-      @word = Word.find(params[:id])
+      # Handle both numeric IDs and title-based slugs
+      id_param = params[:id].to_s
+      if id_param.match?(/^\d+$/)
+        # Pure numeric ID - use ActiveRecord's original find
+        @word = Word.where(id: params[:id]).first
+        raise ActiveRecord::RecordNotFound unless @word
+      else
+        # Slug or title - use custom find method
+        @word = Word.find(params[:id])
+      end
     end
 
     def set_tags
