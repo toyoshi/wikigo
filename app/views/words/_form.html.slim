@@ -1,29 +1,40 @@
 -content_for('turolinks-cache') { 'no-cache' }
 
-= form_for(word) do |f|
+= form_for(word, local: true, class: 'needs-validation', novalidate: true) do |f|
   - if word.errors.any?
-    #error_explanation.alert.alert-warning
-      h2
+    .alert.alert-danger.alert-dismissible.fade.show role="alert"
+      button.btn-close type="button" data-bs-dismiss="alert" aria-label="Close"
+      h5.alert-heading
         = pluralize(word.errors.count, "error")
         |  prohibited this word from being saved:
-      ul
+      ul.mb-0
         - word.errors.full_messages.each do |message|
-          li
-            = message
-  .row
-    .col.s12
-      .form-group.field.clearfix
-        .actions.pull-right
-          = f.submit class: 'btn btn-default'
-      - unless template_list.empty?
-        .form-group.field
-          = select_tag :template, options_for_select(template_list), {id: 'template-selector', class: 'form-control', include_blank: true }
-      .form-group.field
-        = f.label :title
-        = f.text_field :title, class: 'form-control'
-      .form-group.field
-        = f.label :tag_list
-        = f.text_field :tag_list, value: word.tag_list.to_s, class: 'form-control'
-      .from-group.field
-        = f.label :body
-        = f.rich_text_area :body
+          li = message
+
+  .px-0
+    .row
+      .col-12
+        - unless template_list.empty?
+          .mb-3
+            = label_tag :template, "Template", class: 'form-label'
+            = select_tag :template, options_for_select(template_list), {id: 'template-selector', class: 'form-select', include_blank: 'Choose a template...' }
+            .form-text Select a template to start with predefined content.
+
+        .mb-3
+          = f.label :title, class: 'form-label'
+          = f.text_field :title, class: 'form-control form-control-lg', placeholder: 'Enter the title for your word', required: true
+          .invalid-feedback Please provide a title.
+
+        .mb-3
+          = f.label :tag_list, "Tags", class: 'form-label'
+          = f.text_field :tag_list, value: word.tag_list.to_s, class: 'form-control', placeholder: 'Add tags separated by commas'
+          .form-text Use tags to categorize and organize your content.
+
+        .mb-4
+          = f.label :body, "Content", class: 'form-label'
+          = f.rich_text_area :body, class: 'form-control rich-text-editor'
+          .form-text Use the toolbar above to format your content with rich text.
+
+        .d-grid.gap-2.d-md-flex.justify-content-md-end
+          = link_to 'Cancel', words_path, class: 'btn btn-outline-secondary me-md-2'
+          = f.submit 'Create Word', class: 'btn btn-primary btn-lg px-5'

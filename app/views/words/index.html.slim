@@ -1,23 +1,51 @@
-  
-.page-header
-  - if params[:q]
-    = search_form_for @search, url: words_index_path, method: :get, html: { class: 'form-inline' } do |f|
-      .form-group
-        = f.text_field :title_or_body_cont, class: 'form-control', placeholder: 'Search'
-      = f.button 'Search', class: 'btn btn-default'
-  - else
-    h1
-      = t('word_list')
+.py-2
+  .row
+    .col-12
+      .d-flex.justify-content-between.align-items-center.mb-4
+        - if params[:q]
+          h1.h3.mb-0 Search Results
+        - else
+          h1.h3.mb-0 = t('word_list')
+        = link_to 'New Word', new_word_path, class: 'btn btn-primary'
 
-.list-group
-  - @words.each do |word|
-    = link_to word, class: 'list-group-item' do
-      h4.list-group-item-heading
-        = word.title
-      p.list-group-item-text
-        = word.body
+      - if params[:q]
+        .mb-4
+          = search_form_for @search, url: words_index_path, method: :get, html: { class: 'd-flex gap-2' } do |f|
+            = f.text_field :title_or_body_cont, class: 'form-control', placeholder: 'Search words...', value: params[:q]
+            = f.button 'Search', class: 'btn btn-outline-secondary'
+            = link_to 'Clear', words_path, class: 'btn btn-outline-danger'
 
-section.right-align
-  = link_to_previous_page @words, t('Previous Page')
-  |    
-  = link_to_next_page @words, t('Next Page')
+  .row
+    .col-12
+      - if @words.any?
+        .list-group.list-group-flush
+          - @words.each do |word|
+            = link_to word, class: 'list-group-item list-group-item-action border-0 border-bottom' do
+              .d-flex.w-100.justify-content-between.align-items-start
+                .flex-grow-1
+                  h5.mb-2 = word.title
+                  p.mb-1.text-muted = truncate(strip_tags(word.body.to_s), length: 120)
+                  - if word.tag_list.any?
+                    .mt-2
+                      - word.tag_list.each do |tag|
+                        span.badge.bg-secondary.me-1 = tag
+                small.text-muted = time_ago_in_words(word.updated_at) + ' ago'
+      - else
+        .text-center.py-5
+          .text-muted
+            h4 No words found
+            p Get started by creating your first word.
+            = link_to 'Create Word', new_word_path, class: 'btn btn-primary'
+
+      - if @words.respond_to?(:current_page)
+        .d-flex.justify-content-center.mt-4
+          nav aria-label="Page navigation"
+            ul.pagination
+              - if @words.prev_page
+                li.page-item
+                  = link_to @words.prev_page ? words_path(page: @words.prev_page) : '#', class: 'page-link' do
+                    = t('Previous Page')
+              - if @words.next_page
+                li.page-item
+                  = link_to @words.next_page ? words_path(page: @words.next_page) : '#', class: 'page-link' do
+                    = t('Next Page')

@@ -22,7 +22,7 @@ html lang="en"
   body
     header
       nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
-        .container
+        .container-fluid.px-4
           = link_to site_title, root_path, { class: 'navbar-brand' }
 
           .collapse.navbar-collapse
@@ -35,41 +35,52 @@ html lang="en"
               = link_to 'New Keyword', new_word_path, { class: 'nav-link' }
             - else
               = link_to 'Sign in', new_user_session_path, { class: 'nav-link' }
-    main
-      .container
+    main.pt-4
+      .container-fluid.px-4
         - if notice
-          p#notice.alert.alert-info = notice
+          .alert.alert-info.alert-dismissible.fade.show.mb-4 role="alert"
+            = notice
+            button.btn-close type="button" data-bs-dismiss="alert" aria-label="Close"
+        
         - unless settings?
-            .row
-              .sidebar.col-md-3
-                .page-nav
-                  = raw Word.find_by_title('Side Bar').body
+          .row.g-4
+            .col-lg-2.col-md-3
+              .sidebar
+                - sidebar_content = Word.find_by_title('Side Bar')&.body
+                - if sidebar_content.present?
+                  = raw sidebar_content
 
                 - if user_signed_in? && controller_name == 'words' && action_name == 'show'
-                  span.m
-                    strong メニュー
-                  seciotn
-                    ul
-                      li = link_to(t('edit'), edit_word_path(@word))
+                  .mt-4
+                    h6.text-muted Quick Actions
+                    ul.list-unstyled
+                      li.mb-2 = link_to t('edit'), edit_word_path(@word), class: 'text-decoration-none'
                       - if has_version?(@word)
-                        li = link_to(t('versions'), word_versions_path(@word))
-              .col-md-9
-                = yield
+                        li.mb-2 = link_to t('versions'), word_versions_path(@word), class: 'text-decoration-none'
+            
+            .col-lg-10.col-md-9
+              = yield
         - else
-            .row
+          .row
+            .col-12
               = render 'layouts/settings'
 
 
-    footer.page-footer
-      .container
-        h5 Menu
-        ul
-          li = link_to 'All words', words_index_path, { class: 'grey-text text-lighten-3'}
-          - if user_signed_in?
-            li = link_to 'Settings', site_activities_path, { class: 'grey-text text-lighten-3'}
-            li = link_to 'Sign out', destroy_user_session_path, { method: :delete, class: 'grey-text text-lighten-3'}
-      .footer-copyright
-        .container
-        = link_to '', '', { class: 'grey-text text-lighten-3'}
+    footer.page-footer.mt-5.py-4
+      .container-fluid.px-4
+        .row
+          .col-md-6
+            h6.text-muted Navigation
+            ul.list-unstyled
+              li.mb-2 = link_to 'All words', words_index_path, class: 'text-decoration-none text-muted'
+              - if user_signed_in?
+                li.mb-2 = link_to 'Settings', site_activities_path, class: 'text-decoration-none text-muted'
+                li.mb-2 = link_to 'Sign out', destroy_user_session_path, method: :delete, class: 'text-decoration-none text-muted'
+          .col-md-6.text-md-end
+            .text-muted
+              small
+                | Powered by WikiGo
+                br
+                = "© #{Date.current.year} All rights reserved"
 
     = raw Option.html_append_body

@@ -1,17 +1,40 @@
 - content_for(:title) { "#{@word.title}" } 
 
-.markdown
-  .page-header
-    h1 = @word.title
-  
-  = raw add_word_link(@word)
+.py-2
+  .row
+    .col-12
+      article.mb-4
+        header.mb-4
+          .d-flex.justify-content-between.align-items-start.mb-3
+            h1.h2.mb-0 = @word.title
+            .dropdown
+              button.btn.btn-outline-secondary.dropdown-toggle type="button" data-bs-toggle="dropdown" aria-expanded="false"
+                | Actions
+              ul.dropdown-menu
+                li = link_to 'Edit', edit_word_path(@word), class: 'dropdown-item'
+                li = link_to 'Delete', @word, method: :delete, data: { confirm: 'Are you sure?' }, class: 'dropdown-item text-danger'
+                li
+                  hr.dropdown-divider
+                li = link_to 'All Words', words_path, class: 'dropdown-item'
 
-  .word-footer
-    .social-buttons.pull-left
-      = render "social_buttons"
+          - if @word.tag_list.any?
+            .mb-3
+              - @word.tag_list.each do |tag|
+                = link_to word_tag_path(tag), class: 'text-decoration-none me-1' do
+                  span.badge.bg-primary = tag
 
-    .pull-right
-      - @word.tag_list.each do |t|
-        span.label.label-primary = link_to t, word_tag_path(t), style: 'color: #fff'
-        span &nbsp;
+        .word-content
+          = raw add_word_link(@word)
+
+      footer.border-top.pt-4.mt-4
+        .row
+          .col-md-6
+            .social-buttons
+              = render "social_buttons"
+          .col-md-6.text-md-end
+            .text-muted
+              small
+                | Last updated 
+                = time_ago_in_words(@word.updated_at)
+                |  ago
 
