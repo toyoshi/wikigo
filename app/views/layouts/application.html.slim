@@ -21,20 +21,20 @@ html lang="en"
     = raw Option.html_append_head
   body
     header
-      nav.navbar.navbar-inverse
+      nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
         .container
           = link_to site_title, root_path, { class: 'navbar-brand' }
 
-          .hidden-xs
-            = search_form_for @search, url: words_index_path, method: :get, html: { class: 'navbar-form navbar-left' } do |f|
-              .form-group
+          .collapse.navbar-collapse
+            = search_form_for @search, url: words_index_path, method: :get, html: { class: 'me-auto' } do |f|
+              .input-group
                 = f.text_field :title_or_body_cont, class: 'form-control', placeholder: t('search')
 
-          .navbar-text.navbar-right
+          .navbar-nav.ms-auto
             - if user_signed_in?
-              = link_to 'New Keyword', new_word_path, { class: 'navbar-link' }
+              = link_to 'New Keyword', new_word_path, { class: 'nav-link' }
             - else
-              = link_to 'Sign in', new_user_session_path, { class: 'navbar-link' }
+              = link_to 'Sign in', new_user_session_path, { class: 'nav-link' }
     main
       .container
         - if notice

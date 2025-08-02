@@ -23,5 +23,8 @@ module Wikigo
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    
+    # Ensure Propshaft can find assets built by dartsass-rails
+    config.assets.paths << Rails.root.join("app/assets/builds")
   end
 end

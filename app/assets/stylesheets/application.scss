@@ -1,0 +1,74 @@
+// Rails 8 + Propshaft application stylesheet
+
+@import "bootstrap";
+@import "trix";
+
+/* Additional Japanese font optimization */
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", 
+               "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Noto Sans CJK JP", 
+               "Yu Gothic", YuGothic, "Meiryo", sans-serif;
+}
+
+/* Custom navbar styling */
+.navbar {
+  border-radius: 0;
+}
+
+/* Improve sidebar styling */
+.sidebar {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+/* Better spacing for page elements */
+.page-header {
+  margin-top: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Improve form styling */
+.form-group {
+  margin-bottom: 15px;
+}
+
+/* Footer styling */
+.page-footer {
+  margin-top: 40px;
+  padding: 20px 0;
+  background-color: #f8f9fa;
+  border-top: 1px solid #dee2e6;
+}
+
+/* ActionText / Trix Editor Fixes */
+trix-editor {
+  display: block !important;
+  width: 100% !important;
+  min-height: 120px !important;
+  border: 1px solid #dee2e6 !important;
+  border-radius: 0.375rem !important;
+  padding: 0.75rem !important;
+  outline: none !important;
+  background-color: #fff !important;
+  color: #212529 !important;
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  
+  &:focus {
+    border-color: #86b7fe !important;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.25) !important;
+  }
+}
+
+/* Ensure toolbar is visible */
+trix-toolbar {
+  display: block !important;
+  border: 1px solid #dee2e6 !important;
+  border-bottom: none !important;
+  border-radius: 0.375rem 0.375rem 0 0 !important;
+  background-color: #f8f9fa !important;
+  padding: 0.5rem !important;
+}

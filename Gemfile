@@ -12,6 +12,8 @@ gem 'solid_cable' # Database-backed ActionCable backend
 
 gem 'nokogiri'
 gem 'image_processing', '~> 1.2'
+gem 'bootstrap', '~> 5.3'
+gem 'dartsass-rails', '~> 0.5'
 gem 'bootsnap', require: false
 gem 'puma'
 gem 'jbuilder'
