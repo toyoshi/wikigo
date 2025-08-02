@@ -11,6 +11,7 @@ gem 'solid_queue' # Database-backed ActiveJob backend
 gem 'solid_cable' # Database-backed ActionCable backend
 
 gem 'nokogiri'
+gem 'image_processing', '~> 1.2'
 gem 'bootsnap', require: false
 gem 'puma'
 gem 'jbuilder'
