@@ -35,8 +35,8 @@
           = f.rich_text_area :body, class: 'form-control rich-text-editor'
           .form-text Use the toolbar above to format your content with rich text.
 
-        .d-grid.gap-2.d-md-flex.justify-content-md-end
-          = link_to 'Cancel', words_path, class: 'btn btn-outline-secondary me-md-2'
+        .d-flex.gap-2.justify-content-end.align-items-center
+          = link_to 'Cancel', words_path, class: 'btn btn-outline-secondary'
           - if word.persisted?
-            = link_to 'Delete', word, method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure you want to delete this word? This action cannot be undone.' }, class: 'btn btn-danger me-md-2'
-          = f.submit word.persisted? ? 'Update Word' : 'Create Word', class: 'btn btn-primary btn-lg px-5'
+            = link_to 'Delete', word, method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure you want to delete this word? This action cannot be undone.' }, class: 'btn btn-danger'
+          = f.submit word.persisted? ? 'Update Word' : 'Create Word', class: 'btn btn-primary px-4'
