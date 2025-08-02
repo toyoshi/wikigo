@@ -16,7 +16,10 @@
                   span.badge.bg-primary = tag
 
         .word-content
-          = add_word_links_to_content(@word.body, @word.title)
+          - if @word.body.present?
+            = add_word_links_to_content(@word.body.to_s, @word.title)
+          - else
+            p.text-muted No content available.
 
       footer.border-top.pt-4.mt-4
         .row

@@ -18,9 +18,14 @@ module WordsHelper
     
     # Sort by length descending to match longer phrases first
     words.sort_by { |w| -w.length }.each do |word_title|
-      # Simple replacement - already-linked text won't match because it's wrapped in <a> tags
-      link = link_to(word_title, word_path(word_title.gsub(' ', '-')), class: 'auto-link')
-      html = html.gsub(/\b#{Regexp.escape(word_title)}\b/, link)
+      # For Japanese text, we don't use word boundaries as they don't work well
+      pattern = /#{Regexp.escape(word_title)}/
+      
+      if html.include?(word_title)
+        link = link_to(word_title, word_path(word_title.gsub(' ', '-')), class: 'auto-link')
+        # Replace all occurrences (gsub does global substitution)
+        html = html.gsub(pattern, link)
+      end
     end
     
     html.html_safe
