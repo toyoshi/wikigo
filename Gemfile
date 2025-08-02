@@ -23,13 +23,11 @@ gem 'rubyzip'
 
 gem 'devise'
 gem 'slim-rails'
-# gem 'honoka-rails' # Temporarily disabled - depends on Sprockets
 gem 'paper_trail'
 gem 'paper_trail-association_tracking'
 gem 'diffy'
 gem 'kaminari'
 
-# gem 'cloudinary' # Cloud image service - may have JS dependencies
 
 gem 'acts-as-taggable-on'
 gem 'ransack' # Latest version for Ruby 3.2 and Rails 8
@@ -48,24 +46,10 @@ end
 
 group :development do
   gem 'sqlite3', '~> 2.0'
-  # gem 'web-console' # May have JS dependencies
   gem 'listen'
   gem 'spring'
   gem 'spring-watcher-listen'
-  # gem 'rubocop', require: false # Development tool - not essential for server
-  # gem 'pry-rails' # Debug tool - not essential for server
-  # gem 'pry-doc' # Debug tool - not essential for server  
-  # gem 'pry-byebug' # Debug tool - not essential for server
-  # gem 'pry-stack_explorer' # Debug tool - not essential for server
-
-  # gem 'better_errors' # May have JS dependencies
-  # gem 'binding_of_caller' # Debug tool - not essential for server
-
-  # gem 'guard' # File watcher - may have JS dependencies
-  # gem 'guard-minitest' # Test runner - not essential for server
-
   gem 'dotenv-rails'
-  # gem 'i18n_generators' # Generator - not essential for server
 end
 
 group :test do

@@ -1,0 +1,8 @@
+development:
+  database: storage/development_cache.sqlite3
+
+test:
+  database: storage/test_cache.sqlite3
+
+production:
+  database: storage/production_cache.sqlite3
