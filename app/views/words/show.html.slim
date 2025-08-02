@@ -24,7 +24,7 @@
                   span.badge.bg-primary = tag
 
         .word-content
-          = raw add_word_link(@word)
+          = add_word_links_to_content(@word.body, @word.title)
 
       footer.border-top.pt-4.mt-4
         .row

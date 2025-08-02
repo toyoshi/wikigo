@@ -1,0 +1,39 @@
+/ Navigation Sidebar Component
+- sidebar_content = Word.find_by_title('Side Bar')&.body
+- if sidebar_content.present?
+  .sidebar-content
+    = add_word_links_to_content(sidebar_content, 'Side Bar')
+
+/ Quick Actions (only on word show pages)
+- if user_signed_in? && controller_name == 'words' && action_name == 'show'
+  .quick-actions
+    .quick-actions-header Quick Actions
+    = link_to t('edit'), edit_word_path(@word), class: 'quick-action-link'
+    - if has_version?(@word)
+      = link_to t('versions'), word_versions_path(@word), class: 'quick-action-link'
+
+/ Default navigation when no Side Bar content exists
+- unless sidebar_content.present?
+  .default-navigation
+    .nav-section
+      .nav-section-header Getting Started
+      ul.nav-section-items.list-unstyled
+        li.nav-item
+          = link_to 'All Words', words_path, class: 'nav-link'
+        li.nav-item
+          = link_to 'Create New Word', new_word_path, class: 'nav-link'
+    
+    - if user_signed_in?
+      .nav-section
+        .nav-section-header Account
+        ul.nav-section-items.list-unstyled
+          li.nav-item
+            = link_to 'Settings', site_activities_path, class: 'nav-link'
+          li.nav-item
+            = link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'nav-link'
+    - else
+      .nav-section
+        .nav-section-header Account  
+        ul.nav-section-items.list-unstyled
+          li.nav-item
+            = link_to 'Sign In', new_user_session_path, class: 'nav-link'

@@ -19,6 +19,90 @@ html lang="en"
       | <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.2/html5shiv.min.js" type="text/javascript"></script
     link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /
     = raw Option.html_append_head
+    css:
+      /* OpenAI-style Navigation for sidebar content */
+      .sidebar-content h1,
+      .sidebar-content h2,
+      .sidebar-content h3,
+      .sidebar-content h4,
+      .sidebar-content h5,
+      .sidebar-content h6 {
+        color: #374151 !important;
+        font-size: 1rem !important;
+        font-weight: 600 !important;
+        letter-spacing: 0 !important;
+        margin: 1rem 0 0.5rem 0 !important;
+        padding: 0 !important;
+        text-transform: none !important;
+      }
+      .sidebar-content h1:first-child,
+      .sidebar-content h2:first-child,
+      .sidebar-content h3:first-child,
+      .sidebar-content h4:first-child,
+      .sidebar-content h5:first-child,
+      .sidebar-content h6:first-child {
+        margin-top: 0 !important;
+      }
+      .sidebar-content ul,
+      .sidebar-content ol {
+        margin: 0 0 0 0 !important;
+        padding: 0 0 0 0 !important;
+        list-style: none !important;
+      }
+      /* Indent nested lists */
+      .sidebar-content ul ul,
+      .sidebar-content ul ol,
+      .sidebar-content ol ul,
+      .sidebar-content ol ol {
+        padding-left: 1rem !important;
+      }
+      .sidebar-content ul li,
+      .sidebar-content ol li {
+        margin: 0 0 0.06rem 0 !important;
+        padding: 0 !important;
+        list-style: none !important;
+        list-style-type: none !important;
+      }
+      .sidebar-content ul li:last-child,
+      .sidebar-content ol li:last-child {
+        margin-bottom: 0 !important;
+      }
+      .sidebar-content ul li::before,
+      .sidebar-content ol li::before,
+      .sidebar-content ul li::marker,
+      .sidebar-content ol li::marker {
+        display: none !important;
+        content: none !important;
+      }
+      .sidebar-content a {
+        color: #6b7280 !important;
+        font-size: 0.875rem !important;
+        padding: 0.25rem 0.5rem !important;
+        margin-left: -0.5rem !important;
+        margin-right: -0.5rem !important;
+        border-radius: 0.375rem !important;
+        transition: all 0.15s ease-in-out !important;
+        display: block !important;
+        text-decoration: none !important;
+      }
+      .sidebar-content a:hover {
+        background-color: #f3f4f6 !important;
+        color: #374151 !important;
+        text-decoration: none !important;
+      }
+      .sidebar-content a:focus {
+        outline: none !important;
+        box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.25) !important;
+      }
+      /* Remove bullets from Trix content */
+      .sidebar-content .trix-content ul,
+      .sidebar-content .trix-content ol {
+        list-style: none !important;
+      }
+      .sidebar-content .trix-content ul li::before,
+      .sidebar-content .trix-content ol li::before {
+        display: none !important;
+      }
   body
     header
       nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
@@ -44,22 +128,12 @@ html lang="en"
         
         - unless settings?
           .row.g-4
-            .col-lg-2.col-md-3
-              .sidebar
-                - sidebar_content = Word.find_by_title('Side Bar')&.body
-                - if sidebar_content.present?
-                  = raw sidebar_content
-
-                - if user_signed_in? && controller_name == 'words' && action_name == 'show'
-                  .mt-4
-                    h6.text-muted Quick Actions
-                    ul.list-unstyled
-                      li.mb-2 = link_to t('edit'), edit_word_path(@word), class: 'text-decoration-none'
-                      - if has_version?(@word)
-                        li.mb-2 = link_to t('versions'), word_versions_path(@word), class: 'text-decoration-none'
-            
-            .col-lg-10.col-md-9
+            .col-lg-10.col-md-9.order-1.order-md-2
               = yield
+            
+            .col-lg-2.col-md-3.order-2.order-md-1
+              .sidebar
+                = render 'shared/navigation_sidebar'
         - else
           .row
             .col-12

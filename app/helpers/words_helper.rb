@@ -9,6 +9,22 @@ module WordsHelper
     end
     body
   end
+  
+  def add_word_links_to_content(content, except_word = nil)
+    return content if content.blank?
+    
+    html = content.to_s
+    words = word_list(except_word)
+    
+    # Sort by length descending to match longer phrases first
+    words.sort_by { |w| -w.length }.each do |word_title|
+      # Simple replacement - already-linked text won't match because it's wrapped in <a> tags
+      link = link_to(word_title, word_path(word_title.gsub(' ', '-')), class: 'auto-link')
+      html = html.gsub(/\b#{Regexp.escape(word_title)}\b/, link)
+    end
+    
+    html.html_safe
+  end
 
   def has_version?(w)
     w.versions.count > 0
