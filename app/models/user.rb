@@ -6,6 +6,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   enum :role, { editor: 0, admin: 99 }
+  
+  has_many :api_tokens, dependent: :destroy
 
   # Virtual attribute for authenticating by either username or email
   # This is in addition to a real persisted field like 'username'
@@ -21,6 +23,26 @@ class User < ApplicationRecord
     elsif conditions.has_key?(:username) || conditions.has_key?(:email)
       where(conditions.to_hash).first
     end
+  end
+  
+  # Generate a new API token for this user
+  def generate_api_token(name = "Default API Key")
+    # Remove existing token with same name
+    api_tokens.where(name: name).destroy_all
+    
+    # If name is Default API Key and already exists, make it unique
+    if name == "Default API Key" && api_tokens.where("name LIKE ?", "Default API Key%").exists?
+      counter = api_tokens.where("name LIKE ?", "Default API Key%").count + 1
+      name = "Default API Key #{counter}"
+    end
+    
+    # Create new token
+    ApiToken.create_for_user(self, name)
+  end
+  
+  # Get the current API token (assumes one token per user for now)
+  def current_api_token
+    api_tokens.first
   end
 
   private

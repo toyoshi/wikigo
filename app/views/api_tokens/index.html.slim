@@ -1,0 +1,117 @@
+.page-header
+  h1 API Access Tokens
+
+.api-tokens-section
+  h3 Your API Tokens
+  
+  - if @new_api_token
+    .alert.alert-success.mb-4
+      strong Your new API token:
+      br
+      code.token-display style="font-size: 14px; word-break: break-all;" = @new_api_token
+      br
+      small.text-muted
+        | Please copy this token now. You won't be able to see it again.
+
+  - if @api_tokens.any?
+    .table-responsive
+      table.table.table-striped
+        thead
+          tr
+            th Name
+            th Created
+            th Last Used
+            th Actions
+        tbody
+          - @api_tokens.each do |token|
+            tr
+              td = token.name
+              td = time_ago_in_words(token.created_at) + ' ago'
+              td = token.last_used_at ? time_ago_in_words(token.last_used_at) + ' ago' : 'Never'
+              td
+                = link_to 'Delete', api_token_path(token), method: :delete, 
+                  class: 'btn btn-sm btn-danger',
+                  data: { confirm: 'Are you sure? This will permanently delete this API token.' }
+  - else
+    .alert.alert-info
+      | No API tokens configured. Generate one to access the REST API.
+
+  h4 Generate New Token
+  = form_with url: api_tokens_path, method: :post, local: true, class: 'mb-3' do |f|
+    .form-group.mb-3
+      = f.label :name, 'Token Name', class: 'form-label'
+      = f.text_field :name, class: 'form-control', placeholder: 'My API Token', value: ''
+      small.text-muted Give your token a descriptive name (optional - will use "Default API Key" if empty)
+    = f.submit 'Generate API Token', class: 'btn btn-primary'
+
+.api-documentation.mt-5
+  h3 API Documentation
+  
+  .card
+    .card-body
+      h5.card-title REST API Endpoints
+      
+      h6 Authentication
+      p Use your API token in the Authorization header:
+      pre.bg-light.p-2
+        code Authorization: Bearer YOUR_API_TOKEN
+      
+      h6 Base URL
+      pre.bg-light.p-2
+        code = request.base_url + "/api/v1"
+      
+      h6 Available Endpoints
+      
+      .row
+        .col-md-6
+          strong Words
+          ul.list-unstyled.mt-2
+            li
+              code GET /api/v1/words
+              br
+              small List all words (with pagination)
+            li
+              code GET /api/v1/words/:id
+              br
+              small Get a specific word
+            li
+              code POST /api/v1/words
+              br
+              small Create a new word
+            li
+              code PUT /api/v1/words/:id
+              br
+              small Update a word
+            li
+              code DELETE /api/v1/words/:id
+              br
+              small Delete a word
+        
+        .col-md-6
+          strong Search & Tags
+          ul.list-unstyled.mt-2
+            li
+              code GET /api/v1/words/search?q=term
+              br
+              small Search words
+            li
+              code GET /api/v1/words/tags
+              br
+              small Get all tags
+            li
+              code GET /api/v1/words/tagged/:tag
+              br
+              small Get words by tag
+      
+      h6 Parameters
+      p Common query parameters:
+      ul
+        li
+          code page
+          | - Page number for pagination
+        li
+          code per_page
+          | - Items per page (max 100)
+        li
+          code sort
+          | - Sort order: created_at_asc, created_at_desc, updated_at_asc, updated_at_desc, title_asc, title_desc

@@ -1,4 +1,18 @@
 Rails.application.routes.draw do
+  # API Routes
+  namespace :api do
+    namespace :v1 do
+      resources :words do
+        collection do
+          get :search
+          get :tags
+        end
+      end
+      get 'words/tagged/:tag', to: 'words#tagged', as: 'words_tagged'
+    end
+  end
+
+  # Web Routes
   resources :attachments, path: '/-/attachments'
 
   scope :settings do
@@ -15,6 +29,7 @@ Rails.application.routes.draw do
     put 'site/update_user_role', as: 'update_user_role'
     put 'site/regenerate_token', as: 'regenerate_registration'
 
+    resources :api_tokens, only: [:index, :create, :destroy]
     resources :webhooks, except: [:show]
 
     devise_for :users, skip: :registrations
@@ -29,7 +44,6 @@ Rails.application.routes.draw do
         end
     end
   end
-
 
   root to: 'words#show', id: 1 # ID決め打ちは良くない
 
