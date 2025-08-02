@@ -38,5 +38,11 @@ COPY . .
 # Run bundle install again to ensure all gems including git sources are available
 RUN bundle install
 
+# Copy and make entrypoint script executable
+COPY entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
 EXPOSE 3000
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
 CMD ["rails", "server", "-b", "0.0.0.0"]
