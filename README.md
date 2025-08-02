@@ -14,6 +14,7 @@ A simple, modern wiki engine built with Ruby on Rails 8. WikiGo automatically cr
 - **Tagging system**: Organize content with tags
 - **Version history**: Track changes with PaperTrail
 - **Search functionality**: Find content across all pages
+- **REST API**: Full API access for integrations and automation
 - **Modern UI**: Bootstrap 5 responsive design
 - **Rails 8 native**: Uses Solid Cache, Solid Queue, and Solid Cable
 
@@ -80,6 +81,48 @@ docker run -p 3000:3000 wikigo
 ## How It Works
 
 WikiGo's key feature is **automatic keyword linking**. When you create a page with a title like "Ruby on Rails", that exact phrase will automatically become a clickable link on any other page where it appears. This creates a natural, interconnected knowledge base without manual link management.
+
+## REST API
+
+WikiGo provides a comprehensive REST API for programmatic access to all wiki functionality. Perfect for integrations, automation, and building custom applications.
+
+### API Features
+
+- **Full CRUD operations** for wiki pages (Words)
+- **Search and filtering** capabilities
+- **Tag management** and filtering by tags
+- **Bearer token authentication** for secure access
+- **Pagination and sorting** for large datasets
+- **Comprehensive error handling** with detailed responses
+
+### Quick API Example
+
+```bash
+# Get all pages
+curl -H "Authorization: Bearer YOUR_API_TOKEN" \
+     https://your-wikigo-instance.com/api/v1/words
+
+# Search pages
+curl -H "Authorization: Bearer YOUR_API_TOKEN" \
+     "https://your-wikigo-instance.com/api/v1/words/search?q=documentation"
+
+# Create a new page
+curl -X POST \
+     -H "Authorization: Bearer YOUR_API_TOKEN" \
+     -H "Content-Type: application/json" \
+     -d '{"word":{"title":"API Guide","body":"Content here","tag_list":"api,guide"}}' \
+     https://your-wikigo-instance.com/api/v1/words
+```
+
+### API Documentation
+
+📖 **[Complete REST API Documentation](./WikiGo-REST-API-Documentation.md)**
+
+- Authentication setup
+- All available endpoints
+- Request/response examples
+- Error handling
+- SDK examples in multiple languages
 
 ## Contributing
 

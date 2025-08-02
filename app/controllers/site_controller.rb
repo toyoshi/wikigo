@@ -47,4 +47,5 @@ class SiteController < ApplicationController
     end
     redirect_to site_settings_path, notice: 'Import completed'
   end
+  
 end
