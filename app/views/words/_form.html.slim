@@ -37,4 +37,6 @@
 
         .d-grid.gap-2.d-md-flex.justify-content-md-end
           = link_to 'Cancel', words_path, class: 'btn btn-outline-secondary me-md-2'
-          = f.submit 'Create Word', class: 'btn btn-primary btn-lg px-5'
+          - if word.persisted?
+            = link_to 'Delete', word, method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure you want to delete this word? This action cannot be undone.' }, class: 'btn btn-danger me-md-2'
+          = f.submit word.persisted? ? 'Update Word' : 'Create Word', class: 'btn btn-primary btn-lg px-5'
