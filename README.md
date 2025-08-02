@@ -1,29 +1,99 @@
-[![Build Status](https://travis-ci.org/toyoshi/wikigo.svg?branch=master)](https://travis-ci.org/toyoshi/wikigo)
-
-## wikigo
+# WikiGo
 
 <img src='https://cloud.githubusercontent.com/assets/188394/19829766/528c7046-9e25-11e6-9271-0fa6916b770b.png' width='500'>
 
-Wiki engine by Ruby on Rails
+A simple, modern wiki engine built with Ruby on Rails 8. WikiGo automatically creates links between pages when you mention a page title anywhere in your content.
 
 ## Features
 
 <img src='https://cloud.githubusercontent.com/assets/188394/19829747/d9d0b680-9e24-11e6-9d1d-40e20604f170.png' width='500'>
 
-- Multiuser
-- Auto keyword link
+- **Auto-linking**: Page titles automatically become links throughout the wiki
+- **Multi-user**: User authentication and role-based access
+- **Rich text editing**: ActionText editor with Trix for content creation
+- **Tagging system**: Organize content with tags
+- **Version history**: Track changes with PaperTrail
+- **Search functionality**: Find content across all pages
+- **Modern UI**: Bootstrap 5 responsive design
+- **Rails 8 native**: Uses Solid Cache, Solid Queue, and Solid Cable
 
-## Setup
+## Technology Stack
 
-Just deploy to Heroku
+- **Ruby on Rails 8.0** - Modern web framework
+- **Solid Trifecta** - Database-backed cache, queue, and cable (no Redis required)
+- **ActionText** - Rich text editing with Trix editor
+- **Bootstrap 5** - Responsive UI framework
+- **SQLite/PostgreSQL** - Database options for development/production
+- **Propshaft** - Rails 8 asset pipeline
+- **Importmaps** - ES6 modules without bundling
 
+## Quick Start
+
+### Development
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/toyoshi/wikigo.git
+   cd wikigo
+   ```
+
+2. **Using Docker (Recommended)**
+   ```bash
+   docker-compose up
+   ```
+   Visit http://localhost:3000
+
+3. **Local development**
+   ```bash
+   bundle install
+   rails db:create db:migrate db:seed
+   rails server
+   ```
+
+### Production Deployment
+
+WikiGo is designed to be simple to deploy with minimal infrastructure requirements.
+
+**Heroku Deployment**
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-### Image upload
-
-WikiGo support [Cloudinary](http://cloudinary.com/ )
-Define the CLOUDINARY_URL environment variable to upload
-
+**Docker Deployment**
 ```bash
-$ heroku config:set CLOUDIONNARY_URL=cloudinary://{api_key}:{api_secret}@{cloud_name}
+docker build -t wikigo .
+docker run -p 3000:3000 wikigo
 ```
+
+## Configuration
+
+### Environment Variables
+
+- `RAILS_ENV` - Set to `production` for production deployment
+- `SECRET_KEY_BASE` - Rails secret key (auto-generated)
+- `DATABASE_URL` - PostgreSQL connection string for production
+
+### Optional Features
+
+- **Image uploads**: Configure Active Storage for file attachments
+- **Email notifications**: Set up Action Mailer for user notifications
+- **Custom themes**: Modify Bootstrap variables in `app/assets/stylesheets/`
+
+## How It Works
+
+WikiGo's key feature is **automatic keyword linking**. When you create a page with a title like "Ruby on Rails", that exact phrase will automatically become a clickable link on any other page where it appears. This creates a natural, interconnected knowledge base without manual link management.
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+## License
+
+This project is available under the MIT License.
+
+## Support
+
+- Create an issue for bug reports or feature requests
+- Check the wiki for documentation and examples
+- Review the codebase - it's designed to be readable and educational
