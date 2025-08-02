@@ -11,4 +11,7 @@ ul.activities
       strong
         = "#{activity.owner.username} "
       | edited page 
-      = link_to activity.trackable.title, activity.trackable
+      - if activity.trackable.present?
+        = link_to activity.trackable.title, activity.trackable
+      - else
+        span.text-muted (deleted page)
