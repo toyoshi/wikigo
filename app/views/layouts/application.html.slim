@@ -20,13 +20,14 @@ html lang="en"
     link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" /
     = raw Option.html_append_head
     css:
-      /* OpenAI-style Navigation for sidebar content */
+      /* OpenAI-style Navigation for sidebar areas */
       .sidebar-content h1,
       .sidebar-content h2,
       .sidebar-content h3,
       .sidebar-content h4,
       .sidebar-content h5,
-      .sidebar-content h6 {
+      .sidebar-content h6,
+      .sidebar h3 {
         color: #374151 !important;
         font-size: 1rem !important;
         font-weight: 600 !important;
@@ -44,7 +45,8 @@ html lang="en"
         margin-top: 0 !important;
       }
       .sidebar-content ul,
-      .sidebar-content ol {
+      .sidebar-content ol,
+      .recently-edited-list {
         margin: 0 0 0 0 !important;
         padding: 0 0 0 0 !important;
         list-style: none !important;
@@ -57,24 +59,28 @@ html lang="en"
         padding-left: 1rem !important;
       }
       .sidebar-content ul li,
-      .sidebar-content ol li {
+      .sidebar-content ol li,
+      .recently-edited-list li {
         margin: 0 0 0.06rem 0 !important;
         padding: 0 !important;
         list-style: none !important;
         list-style-type: none !important;
       }
       .sidebar-content ul li:last-child,
-      .sidebar-content ol li:last-child {
+      .sidebar-content ol li:last-child,
+      .recently-edited-list li:last-child {
         margin-bottom: 0 !important;
       }
       .sidebar-content ul li::before,
       .sidebar-content ol li::before,
       .sidebar-content ul li::marker,
-      .sidebar-content ol li::marker {
+      .sidebar-content ol li::marker,
+      .recently-edited-list li::before {
         display: none !important;
         content: none !important;
       }
-      .sidebar-content a {
+      .sidebar-content a,
+      .recently-edited-link {
         color: #6b7280 !important;
         font-size: 0.875rem !important;
         padding: 0.25rem 0.5rem !important;
@@ -85,7 +91,8 @@ html lang="en"
         display: block !important;
         text-decoration: none !important;
       }
-      .sidebar-content a:hover {
+      .sidebar-content a:hover,
+      .recently-edited-link:hover {
         background-color: #f3f4f6 !important;
         color: #374151 !important;
         text-decoration: none !important;
@@ -102,6 +109,22 @@ html lang="en"
       .sidebar-content .trix-content ul li::before,
       .sidebar-content .trix-content ol li::before {
         display: none !important;
+      }
+      
+      .recently-edited-list small {
+        font-size: 0.55rem !important;
+        color: #d1d5db !important;
+        margin-top: 0.125rem !important;
+        margin-left: -0.5rem !important;
+        padding-left: 0.5rem !important;
+      }
+      
+      /* Remove shadow from sidebar */
+      .sidebar {
+        box-shadow: none !important;
+        -webkit-box-shadow: none !important;
+        -moz-box-shadow: none !important;
+        border: none !important;
       }
   body
     header
@@ -134,6 +157,7 @@ html lang="en"
             .col-lg-2.col-md-3.order-2.order-md-1
               .sidebar
                 = render 'shared/navigation_sidebar'
+              = render 'shared/recently_edited'
         - else
           .row
             .col-12

@@ -22,3 +22,6 @@ Option.list_size_of_recent_words_parts = 5 if Option.list_size_of_recent_words_p
 %w(theme html_append_head html_append_body).each do |str|
   Option.send("#{str}=", '') if Option.send(str).blank?
 end
+
+#Recently edited items visibility setting
+Option.show_recently_edited_items = 'true' if Option.show_recently_edited_items.blank?

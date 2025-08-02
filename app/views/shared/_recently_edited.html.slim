@@ -1,0 +1,11 @@
+/ Recently Edited Items Component
+- limit = Option.list_size_of_recent_words_parts&.to_i || 10
+- if Option.show_recently_edited_items == 'true' && limit > 0
+  .sidebar.mt-4
+    h3 最近編集した項目
+    ul.recently-edited-list
+      - Word.recently_edited.each do |word|
+        li
+          = link_to word.title, word_path(word), class: 'recently-edited-link'
+          small.text-muted.d-block
+            = time_ago_in_words(word.updated_at) + '前'

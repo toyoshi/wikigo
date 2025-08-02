@@ -27,6 +27,12 @@ class Word < ApplicationRecord
     end
   end
 
+  def self.recently_edited(limit = nil)
+    limit ||= Option.list_size_of_recent_words_parts&.to_i || 10
+    return none if limit <= 0
+    order(updated_at: :desc).limit(limit)
+  end
+
   def to_param
     title_to_param
   end
