@@ -37,6 +37,6 @@
 
         .d-flex.gap-2.justify-content-end.align-items-center
           = link_to 'Cancel', words_path, class: 'btn btn-outline-secondary'
-          - if word.persisted?
+          - if word.persisted? && word.id != 1
             = link_to 'Delete', word, method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure you want to delete this word? This action cannot be undone.' }, class: 'btn btn-danger'
           = f.submit word.persisted? ? 'Update Word' : 'Create Word', class: 'btn btn-primary px-4'

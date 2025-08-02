@@ -45,7 +45,7 @@ Rails.application.routes.draw do
     end
   end
 
-  root to: 'words#show', id: 1 # ID決め打ちは良くない
+  root to: 'words#show', id: 1
 
   get '/-/index', to: 'words#index', as: 'words_index'
   get '/tags', to: 'words#tags', as: 'tags_index'

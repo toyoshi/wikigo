@@ -10,6 +10,9 @@ class Word < ApplicationRecord
 
   validates :title, presence: true
   validates :title, uniqueness: true
+  
+  # Prevent deletion of the home page (ID=1)
+  before_destroy :prevent_home_page_deletion
 
   def self.ransackable_attributes(auth_object = nil)
     %w[title body created_at updated_at]
@@ -52,5 +55,14 @@ wiki:word_id: #{self.id}
 
 #{self.body}
 EOS
+  end
+  
+  private
+  
+  def prevent_home_page_deletion
+    if id == 1
+      errors.add(:base, "ホームページ（ID=1）は削除できません")
+      throw(:abort)
+    end
   end
 end
