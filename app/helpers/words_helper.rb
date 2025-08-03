@@ -15,19 +15,29 @@ module WordsHelper
     
     html = content.to_s
     words = word_list(except_word)
+    placeholders = {}
+    placeholder_id = 0
     
     # Sort by length descending to match longer phrases first
     words.sort_by { |w| -w.length }.each do |word_title|
-      # Skip if word is already linked (avoid nested links)
-      next if html.include?("<a") && html.match?(/>.*#{Regexp.escape(word_title)}.*<\/a>/)
-      
       escaped_word = Regexp.escape(word_title)
       
       if html.include?(word_title)
         link = link_to(word_title, word_path(word_title.gsub(' ', '-')), class: 'auto-link')
-        # Replace occurrences that are not inside HTML tags
-        html = html.gsub(/#{escaped_word}(?![^<]*>)(?![^<]*<\/a>)/, link)
+        
+        # Create unique placeholder for this link
+        placeholder_key = "{{WORD_LINK_#{placeholder_id}}}"
+        placeholders[placeholder_key] = link
+        placeholder_id += 1
+        
+        # Replace word with placeholder (safe from nested replacements)
+        html = html.gsub(escaped_word, placeholder_key)
       end
+    end
+    
+    # Restore all placeholders to actual links at the end
+    placeholders.each do |placeholder, link|
+      html = html.gsub(placeholder, link)
     end
     
     html.html_safe
