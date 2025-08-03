@@ -20,8 +20,8 @@ fi
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] Running database migrations..."
 bundle exec rails db:migrate
 
-# Seed database if empty
-if [ "${RAILS_SEED:-false}" = "true" ]; then
+# Seed database if empty (only in development or when explicitly requested)
+if [ "${RAILS_SEED:-false}" = "true" ] || [ "$RAILS_ENV" = "development" ]; then
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] Seeding database..."
   bundle exec rails db:seed
 fi

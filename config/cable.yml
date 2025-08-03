@@ -6,6 +6,7 @@ test:
 
 production:
   adapter: solid_cable
+  database: <%= ENV['DATABASE_URL'] %>
   connects_to:
     database:
       writing: cable
