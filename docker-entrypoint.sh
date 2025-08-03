@@ -19,23 +19,20 @@ elif [ "$RAILS_ENV" = "production" ]; then
   bundle exec rails db:create 2>/dev/null || echo "Database already exists or will be created by Railway"
 fi
 
-# Install Solid trifecta (Cache, Queue, Cable) in production
+# Install Solid Cache and Cable in production
 if [ "$RAILS_ENV" = "production" ]; then
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] Installing Solid Cache, Queue, and Cable..."
-  bundle exec rails solid_cache:install:migrations 2>/dev/null || echo "Solid Cache migrations already exist"
-  bundle exec rails solid_queue:install:migrations 2>/dev/null || echo "Solid Queue migrations already exist"
-  bundle exec rails solid_cable:install:migrations 2>/dev/null || echo "Solid Cable migrations already exist"
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] Installing Solid Cache and Cable..."
+  bundle exec rails solid_cache:install 2>/dev/null || echo "Solid Cache already installed"
+  bundle exec rails solid_cable:install 2>/dev/null || echo "Solid Cable already installed"
 fi
 
 # Run database migrations
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] Running database migrations..."
 bundle exec rails db:migrate
 
-# Seed database if empty (only in development or when explicitly requested)
-if [ "${RAILS_SEED:-false}" = "true" ] || [ "$RAILS_ENV" = "development" ]; then
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] Seeding database..."
-  bundle exec rails db:seed
-fi
+# Seed database in all environments to ensure required data exists
+echo "[$(date '+%Y-%m-%d %H:%M:%S')] Seeding database..."
+bundle exec rails db:seed
 
 # Precompile assets if needed (development mode)
 if [ "$RAILS_ENV" = "production" ]; then

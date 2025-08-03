@@ -7,8 +7,8 @@ gem 'turbo-rails' # Hotwire's SPA-like page accelerator
 gem 'stimulus-rails' # Hotwire's modest JavaScript framework
 
 gem 'solid_cache' # Database-backed ActiveSupport::Cache::Store
-gem 'solid_queue' # Database-backed ActiveJob backend  
-gem 'solid_cable' # Database-backed ActionCable backend
+# gem 'solid_queue' # Removed - switched to synchronous webhook processing
+gem 'solid_cable' # Database-backed ActionCable backend - required in Rails 8
 
 gem 'nokogiri'
 gem 'image_processing', '~> 1.2'
