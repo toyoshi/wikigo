@@ -135,7 +135,7 @@ html lang="en"
           .collapse.navbar-collapse
             = search_form_for @search, url: words_index_path, method: :get, html: { class: 'me-auto' } do |f|
               .input-group
-                = f.text_field :title_or_body_cont, class: 'form-control', placeholder: t('search')
+                = f.text_field :title_cont, class: 'form-control', placeholder: t('search')
 
           .navbar-nav.ms-auto
             - if user_signed_in?

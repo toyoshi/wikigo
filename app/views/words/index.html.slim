@@ -11,9 +11,9 @@
       - if params[:q]
         .mb-4
           = search_form_for @search, url: words_index_path, method: :get, html: { class: 'd-flex gap-2' } do |f|
-            = f.text_field :title_or_body_cont, class: 'form-control', placeholder: 'Search words...', value: params[:q]
+            = f.text_field :title_cont, class: 'form-control', placeholder: 'Search words...'
             = f.button 'Search', class: 'btn btn-outline-secondary'
-            = link_to 'Clear', words_path, class: 'btn btn-outline-danger'
+            = link_to 'Clear', words_index_path, class: 'btn btn-outline-danger'
 
   .row
     .col-12
@@ -43,9 +43,9 @@
             ul.pagination
               - if @words.prev_page
                 li.page-item
-                  = link_to @words.prev_page ? words_path(page: @words.prev_page) : '#', class: 'page-link' do
+                  = link_to @words.prev_page ? words_index_path(page: @words.prev_page, q: params[:q]) : '#', class: 'page-link' do
                     = t('Previous Page')
               - if @words.next_page
                 li.page-item
-                  = link_to @words.next_page ? words_path(page: @words.next_page) : '#', class: 'page-link' do
+                  = link_to @words.next_page ? words_index_path(page: @words.next_page, q: params[:q]) : '#', class: 'page-link' do
                     = t('Next Page')
