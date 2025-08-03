@@ -10,10 +10,21 @@ bundle check || bundle install
 # Wait for database to be ready (if needed)
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] Checking database connectivity..."
 
-# Create database if it doesn't exist
-if [ ! -f db/development.sqlite3 ]; then
+# Create database if it doesn't exist (only for development SQLite)
+if [ "$RAILS_ENV" = "development" ] && [ ! -f db/development.sqlite3 ]; then
   echo "[$(date '+%Y-%m-%d %H:%M:%S')] Creating database..."
   bundle exec rails db:create
+elif [ "$RAILS_ENV" = "production" ]; then
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] Creating production database if needed..."
+  bundle exec rails db:create 2>/dev/null || echo "Database already exists or will be created by Railway"
+fi
+
+# Install Solid trifecta (Cache, Queue, Cable) in production
+if [ "$RAILS_ENV" = "production" ]; then
+  echo "[$(date '+%Y-%m-%d %H:%M:%S')] Installing Solid Cache, Queue, and Cable..."
+  bundle exec rails solid_cache:install:migrations 2>/dev/null || echo "Solid Cache migrations already exist"
+  bundle exec rails solid_queue:install:migrations 2>/dev/null || echo "Solid Queue migrations already exist"
+  bundle exec rails solid_cable:install:migrations 2>/dev/null || echo "Solid Cable migrations already exist"
 fi
 
 # Run database migrations
