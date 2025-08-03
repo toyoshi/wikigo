@@ -47,5 +47,32 @@ class SiteController < ApplicationController
     end
     redirect_to site_settings_path, notice: 'Import completed'
   end
+
+  def reset_content
+    begin
+      # Delete all tags first
+      tags_count = ActsAsTaggableOn::Tag.count
+      ActsAsTaggableOn::Tag.destroy_all
+      
+      # Delete all words except Main Page and Side Bar
+      protected_titles = ['Main Page', 'Side Bar']
+      deleted_count = Word.where.not(title: protected_titles).destroy_all.count
+      
+      # Reset Main Page and Side Bar to default content
+      main_page = Word.find_by(title: 'Main Page')
+      if main_page
+        main_page.update(body: "Wiki wiki go!", tag_list: [])
+      end
+      
+      side_bar = Word.find_by(title: 'Side Bar')
+      if side_bar
+        side_bar.update(body: "--- menu ---", tag_list: [])
+      end
+      
+      redirect_to site_settings_path, notice: "Content reset completed: #{deleted_count} words and #{tags_count} tags deleted. Main Page and Side Bar reset to defaults."
+    rescue => e
+      redirect_to site_settings_path, alert: "Failed to reset content: #{e.message}"
+    end
+  end
   
 end

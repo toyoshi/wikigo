@@ -32,3 +32,18 @@ h2 Import
   .form-group
     = file_field_tag 'archive'
   = submit_tag 'Import', class: 'btn btn-default' 
+
+.mt-4.border.border-danger.p-4.bg-light
+  h2.text-danger
+    i.fa.fa-exclamation-triangle.me-2
+    | Danger Zone
+  
+  p.text-muted This operation will completely reset all wiki content and cannot be undone.
+
+  .alert.alert-danger.mb-3
+    strong Warning!
+    | This will delete ALL words (except Main Page and Side Bar) and ALL tags. 
+    | Main Page and Side Bar will be reset to their default content.
+
+  - confirm_message = 'Are you ABSOLUTELY SURE you want to reset ALL content? This will delete all words (except Main Page/Side Bar) and all tags. This action CANNOT be undone!'
+  = button_to 'Reset All Content', reset_content_path, method: :delete, class: 'btn btn-danger btn-lg', data: { turbo_confirm: confirm_message }

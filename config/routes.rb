@@ -28,6 +28,7 @@ Rails.application.routes.draw do
     put 'site/update_settings'
     put 'site/update_user_role', as: 'update_user_role'
     put 'site/regenerate_token', as: 'regenerate_registration'
+    delete 'site/reset_content', as: 'reset_content'
 
     resources :api_tokens, only: [:index, :create, :destroy]
     resources :webhooks, except: [:show]
