@@ -11,7 +11,7 @@
       - if params[:q]
         .mb-4
           = search_form_for @search, url: words_index_path, method: :get, html: { class: 'd-flex gap-2' } do |f|
-            = f.text_field :title_cont, class: 'form-control', placeholder: 'Search words...'
+            = f.search_field :title_or_body_contains, class: 'form-control', placeholder: 'Search in title and content...'
             = f.button 'Search', class: 'btn btn-outline-secondary'
             = link_to 'Clear', words_index_path, class: 'btn btn-outline-danger'
 
