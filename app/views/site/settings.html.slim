@@ -1,37 +1,37 @@
-.page-header
-  h1 Settings
+.page-header.mb-4
+  h1.h2 Settings
 
 = form_for @setting, url: site_update_settings_path, method: :put do |f|
-  .form-group
-    = label_tag 'Site Title'
+  .mb-3
+    = label_tag 'Site Title', nil, class: 'form-label'
     = f.text_field :site_title, class: 'form-control'
-  .form-group
-    = label_tag 'List size of Recent words'
+  .mb-3
+    = label_tag 'List size of Recent words', nil, class: 'form-label'
     = f.text_field :list_size_of_recent_words_parts, class: 'form-control', placeholder: 'Set to 0 to hide entire section'
-  .form-group
-    = label_tag 'Theme'
+  .mb-3
+    = label_tag 'Theme', nil, class: 'form-label'
     = f.text_field :theme, class: 'form-control'
 
-  .form-group
-    = label_tag 'HTML for head tag'
+  .mb-3
+    = label_tag 'HTML for head tag', nil, class: 'form-label'
     = f.text_area :html_append_head, class: 'form-control'
 
-  .form-group
-    = label_tag 'HTML for end of body tag'
+  .mb-3
+    = label_tag 'HTML for end of body tag', nil, class: 'form-label'
     = f.text_area :html_append_body, class: 'form-control'
 
-  = f.submit :update, class: 'btn btn-default'
+  = f.submit :update, class: 'btn btn-primary'
 
-h2 Export
+h2.mt-4 Export
 
-= link_to 'Export', site_export_path(format: :zip), class: 'btn btn-default'
+= link_to 'Export', site_export_path(format: :zip), class: 'btn btn-outline-secondary'
 
-h2 Import
+h2.mt-4 Import
 
 = form_tag site_import_path, { multipart: true } do |f|
-  .form-group
-    = file_field_tag 'archive'
-  = submit_tag 'Import', class: 'btn btn-default' 
+  .mb-3
+    = file_field_tag 'archive', class: 'form-control'
+  = submit_tag 'Import', class: 'btn btn-outline-secondary' 
 
 .mt-4.border.border-danger.p-4.bg-light
   h2.text-danger

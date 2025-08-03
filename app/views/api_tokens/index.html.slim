@@ -1,5 +1,5 @@
-.page-header
-  h1 API Access Tokens
+.page-header.mb-4
+  h1.h2 API Access Tokens
 
 .api-tokens-section
   h3 Your API Tokens
@@ -38,10 +38,10 @@
 
   h4 Generate New Token
   = form_with url: api_tokens_path, method: :post, local: true, class: 'mb-3' do |f|
-    .form-group.mb-3
+    .mb-3
       = f.label :name, 'Token Name', class: 'form-label'
       = f.text_field :name, class: 'form-control', placeholder: 'My API Token', value: ''
-      small.text-muted Give your token a descriptive name (optional - will use "Default API Key" if empty)
+      .form-text Give your token a descriptive name (optional - will use "Default API Key" if empty)
     = f.submit 'Generate API Token', class: 'btn btn-primary'
 
 .api-documentation.mt-5

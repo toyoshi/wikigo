@@ -6,11 +6,11 @@
         - @webhook.errors.full_messages.each do |message|
           li = message
 
-  .form-group.field
-    = f.label :title
+  .mb-3.field
+    = f.label :title, class: 'form-label'
     = f.text_field :title, class: 'form-control'
-  .form-group.field
-    = f.label :url
+  .mb-3.field
+    = f.label :url, class: 'form-label'
     = f.text_field :url, class: 'form-control'
   .actions
-    = f.submit class: 'btn btn-default'
+    = f.submit class: 'btn btn-primary'

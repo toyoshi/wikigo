@@ -1,12 +1,12 @@
 .row
-  .col-md-3.col-xs12
+  .col-md-3.col-12
     .list-group.setting-nav
-      = link_to 'Activities', site_activities_path, { class: 'list-group-item'}
-      = link_to 'Edit Profile', edit_user_registration_path, { class: 'list-group-item'}
-      = link_to 'API Tokens', api_tokens_path, { class: 'list-group-item'}
-      = link_to 'Members', site_members_path, { class: 'list-group-item'} 
+      = link_to 'Activities', site_activities_path, { class: 'list-group-item list-group-item-action'}
+      = link_to 'Edit Profile', edit_user_registration_path, { class: 'list-group-item list-group-item-action'}
+      = link_to 'API Tokens', api_tokens_path, { class: 'list-group-item list-group-item-action'}
+      = link_to 'Members', site_members_path, { class: 'list-group-item list-group-item-action'} 
       - if current_user.try('admin?')
-        = link_to 'Site Settings', site_settings_path, { class: 'list-group-item'}
-        = link_to 'Webhooks', webhooks_path, { class: 'list-group-item'}
-  .col-md-9.col-xs12
+        = link_to 'Site Settings', site_settings_path, { class: 'list-group-item list-group-item-action'}
+        = link_to 'Webhooks', webhooks_path, { class: 'list-group-item list-group-item-action'}
+  .col-md-9.col-12
     = yield

@@ -1,11 +1,11 @@
-.page-header
-  h1 Activities
+.page-header.mb-4
+  h1.h2 Activities
 
 ul.activities 
   - @activities.each do |activity|
     li.list-unstyled
       small.text-muted 
-        span.glyphicon.glyphicon-time aria-hidden="true"
+        i.fa.fa-clock.me-2 aria-hidden="true"
         = activity.created_at
       br
       strong
