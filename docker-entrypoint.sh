@@ -34,5 +34,8 @@ fi
 
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting Rails server..."
 
+# Set default port if not provided by Railway
+export PORT=${PORT:-3000}
+
 # Execute the main command
 exec "$@"
