@@ -185,37 +185,6 @@ html lang="en"
     = raw Option.html_append_body
     
     script type="text/javascript"
-      | function handleApiTest(wordId) {
-      |   const btn = document.getElementById('test-api-btn');
-      |   const originalText = btn.innerHTML;
-      |   btn.disabled = true;
-      |   btn.innerHTML = '🔄 テスト中...';
-      |   
-      |   fetch('/' + wordId + '/ai_edit', {
-      |     method: 'POST',
-      |     headers: {
-      |       'Content-Type': 'application/json',
-      |       'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-      |     }
-      |   })
-      |   .then(response => response.json())
-      |   .then(data => {
-      |     if (data.success) {
-      |       showMessage('API接続テスト成功！', 'success');
-      |     } else {
-      |       showMessage('API接続エラー: ' + data.error, 'error');
-      |     }
-      |   })
-      |   .catch(error => {
-      |     console.error('Error:', error);
-      |     showMessage('ネットワークエラーが発生しました', 'error');
-      |   })
-      |   .finally(() => {
-      |     btn.disabled = false;
-      |     btn.innerHTML = originalText;
-      |   });
-      | }
-      | 
       | function handleAiEdit(wordId) {
       |   const btn = document.getElementById('ai-edit-btn');
       |   const trixEditor = document.querySelector('trix-editor');

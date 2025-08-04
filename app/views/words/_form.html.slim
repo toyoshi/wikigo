@@ -31,10 +31,7 @@
               data: { word_id: word.id }, 
               onclick: "handleAiEdit(#{word.id})" do
               | 🤖 AIエディット
-            = button_tag type: 'button', class: 'btn btn-outline-secondary btn-sm ms-2', id: 'test-api-btn',
-              onclick: "handleApiTest(#{word.id})" do
-              | テスト
-            .form-text Generate content using AI based on the word title. Click "テスト" to check API connection.
+            .form-text Generate content using AI based on the word title.
 
         .mb-3
           = f.label :tag_list, "Tags", class: 'form-label'
