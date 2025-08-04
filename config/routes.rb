@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  # Sitemap
+  get '/sitemap.xml', to: 'sitemap#index', defaults: { format: 'xml' }
+  
   # API Routes
   namespace :api do
     namespace :v1 do
