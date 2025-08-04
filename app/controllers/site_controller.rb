@@ -58,7 +58,7 @@ class SiteController < ApplicationController
           file_header = parts[1]
           file_body = parts[2]
 
-          header = YAML.load(file_header)
+          header = YAML.safe_load(file_header, permitted_classes: [Date, Time, DateTime])
           
           # Use string keys instead of symbols
           title = header['title'] || header[:title]
