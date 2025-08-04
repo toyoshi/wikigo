@@ -8,15 +8,16 @@ class WordTest < ActiveSupport::TestCase
   test "format to middleman" do
     @word = words(:one)
     txt = @word.to_middleman
-    assert_equal txt, <<"EOS"
+    expected = <<"EOS"
 ---
 title: MyString
-date: 2016/01/01 10:00
+date: #{@word.created_at}
 tags: Very good, Bad
 wiki:word_id: #{@word.id}
 ---
 
-MyText
+#{@word.body.to_s}
 EOS
+    assert_equal expected, txt
   end
 end

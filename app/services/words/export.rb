@@ -9,7 +9,7 @@ module Words
       Zip::OutputStream.open(t.path) do |z|
         Word.all.find_in_batches do |batch|
           batch.each do |w|
-            z.put_next_entry("#{w.id}.md")
+            z.put_next_entry("#{w.id}.html")
             z.print w.to_middleman
           end
         end
@@ -22,7 +22,7 @@ module Words
 
     def temp_dir
       path = Rails.root.join('tmp')
-      Dir.mkdir(path) unless Dir.exists?(path)
+      Dir.mkdir(path) unless Dir.exist?(path)
       path
     end
   end

@@ -77,7 +77,7 @@ tags: #{self.tag_list}
 wiki:word_id: #{self.id}
 ---
 
-#{self.body}
+#{self.body.to_s}
 EOS
   end
   

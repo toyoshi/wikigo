@@ -1,4 +1,6 @@
-# one:
-#   record: name_of_fixture (ClassOfFixture)
-#   name: content
-#   body: <p>In a <i>million</i> stars!</p>
+# ActionText fixtures for Word body
+
+word_one_body:
+  record: one (Word)
+  name: body
+  body: MyText
