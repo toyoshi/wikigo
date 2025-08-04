@@ -25,6 +25,12 @@
           = f.text_field :title, class: 'form-control form-control-lg', placeholder: 'Enter the title for your word', required: true
           .invalid-feedback Please provide a title.
 
+        - if word.persisted?
+          .mb-3
+            = button_tag type: 'button', class: 'btn btn-outline-primary', id: 'ai-edit-btn', data: { word_id: word.id } do
+              | 🤖 AIエディット
+            .form-text Generate content using AI based on the word title.
+
         .mb-3
           = f.label :tag_list, "Tags", class: 'form-label'
           = f.text_field :tag_list, value: word.tag_list.to_s, class: 'form-control', placeholder: 'Add tags separated by commas'
