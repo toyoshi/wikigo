@@ -20,6 +20,11 @@
     = label_tag 'HTML for end of body tag', nil, class: 'form-label'
     = f.text_area :html_append_body, class: 'form-control'
 
+  .mb-3
+    = label_tag 'OpenAI API Key', nil, class: 'form-label'
+    = f.password_field :openai_api_key, class: 'form-control', placeholder: 'sk-...'
+    .form-text Used for AI content generation features. Keep this key secure.
+
   = f.submit :update, class: 'btn btn-primary'
 
 h2.mt-4 Export

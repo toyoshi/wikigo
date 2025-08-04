@@ -1,6 +1,6 @@
 class WordsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :tags, :tag]
-  before_action :set_word, only: [:show, :version, :edit, :destroy]
+  before_action :set_word, only: [:show, :version, :edit, :destroy, :ai_edit]
   before_action :set_tags, only: [:new, :create, :edit, :update]
 
   # GET /words
@@ -86,6 +86,29 @@ class WordsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to words_url, notice: 'Word was successfully destroyed.' }
       format.json { head :no_content }
+    end
+  end
+
+  # POST /words/1/ai_edit
+  def ai_edit
+    result = AiContentGenerator.new(@word.title).call
+    
+    respond_to do |format|
+      if result.success?
+        format.json { 
+          render json: { 
+            success: true, 
+            content: result.content 
+          } 
+        }
+      else
+        format.json { 
+          render json: { 
+            success: false, 
+            error: result.error 
+          }, status: :unprocessable_entity 
+        }
+      end
     end
   end
 
