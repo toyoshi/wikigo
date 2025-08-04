@@ -239,7 +239,7 @@ html lang="en"
       |   .then(response => response.json())
       |   .then(data => {
       |     if (data.success) {
-      |       trixEditor.editor.setDocument(Trix.Document.fromString(data.content));
+      |       trixEditor.value = data.content;
       |       showMessage('AIによるコンテンツ生成が完了しました', 'success');
       |     } else {
       |       showMessage('エラー: ' + data.error, 'error');

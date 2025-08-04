@@ -44,9 +44,7 @@ class AiContentGenerator
         id: PROMPT_ID,
         version: PROMPT_VERSION
       },
-      input: {
-        title: @word_title
-      }
+      input: @word_title
     }
     
     connection.post('https://api.openai.com/v1/responses', payload.to_json)
