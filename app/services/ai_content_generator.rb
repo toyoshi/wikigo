@@ -20,7 +20,8 @@ class AiContentGenerator
         content = parse_response(response.body)
         success_result(content)
       else
-        failure_result("API request failed: #{response.status}")
+        error_message = parse_error_response(response)
+        failure_result(error_message)
       end
     rescue Faraday::Error => e
       failure_result("Network error: #{e.message}")
@@ -61,6 +62,31 @@ class AiContentGenerator
     "Generated content for: #{@word_title}"
   rescue JSON::ParserError
     "Error parsing AI response"
+  end
+  
+  def parse_error_response(response)
+    case response.status
+    when 401
+      "Invalid API key. Please check your OpenAI API key in Settings."
+    when 403
+      "Access forbidden. Your API key may not have the required permissions."
+    when 429
+      "Rate limit exceeded. Please try again later."
+    when 404
+      "API endpoint not found. The prompt ID may be invalid."
+    when 500..599
+      "OpenAI server error. Please try again later."
+    else
+      begin
+        parsed = JSON.parse(response.body)
+        error_msg = parsed.dig('error', 'message') || 
+                   parsed['message'] || 
+                   "API request failed"
+        "API Error: #{error_msg}"
+      rescue JSON::ParserError
+        "API request failed with status #{response.status}"
+      end
+    end
   end
   
   def success_result(content)
