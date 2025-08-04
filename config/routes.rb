@@ -56,6 +56,9 @@ Rails.application.routes.draw do
   get '/tag::tag_list', to: 'words#tag', as: 'word_tag'
 
   resources :words, path: '/' do
+    collection do
+      post :ai_generate
+    end
     member do
       post :ai_edit
     end
