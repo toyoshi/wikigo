@@ -32,20 +32,29 @@ class SiteController < ApplicationController
   end
 
   def import
-    Zip::File.open(params['archive'].tempfile) do |zip_file|
-      zip_file.each do |entry|
-        _, file_header, file_body = entry.get_input_stream.read.force_encoding('utf-8').split('---')
-
-        header = YAML.load(file_header)
-        body = file_body.is_a?(Array) ? file_body.join('---') : file_body
-
-        w = Word.find_or_create_by({title: header[:title]})
-        w.tag_list = header[:tags]
-        w.body = body
-        w.save
-      end
+    unless params['archive'].present?
+      redirect_to site_settings_path, alert: 'Please select a file to import'
+      return
     end
-    redirect_to site_settings_path, notice: 'Import completed'
+
+    begin
+      Zip::File.open(params['archive'].tempfile) do |zip_file|
+        zip_file.each do |entry|
+          _, file_header, file_body = entry.get_input_stream.read.force_encoding('utf-8').split('---')
+
+          header = YAML.load(file_header)
+          body = file_body.is_a?(Array) ? file_body.join('---') : file_body
+
+          w = Word.find_or_create_by({title: header[:title]})
+          w.tag_list = header[:tags]
+          w.body = body
+          w.save
+        end
+      end
+      redirect_to site_settings_path, notice: 'Import completed'
+    rescue => e
+      redirect_to site_settings_path, alert: "Import failed: #{e.message}"
+    end
   end
 
   def reset_content
