@@ -5,7 +5,7 @@ class Setting
     attr_accessor p
   end
   
-  # Add API key accessor separately
+  # Add attr_accessor for any keys that might not be in Option.keys yet
   attr_accessor :openai_api_key
   
 end

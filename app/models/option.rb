@@ -17,7 +17,7 @@ class Option < ApplicationRecord
 
   def self.update_all(options)
     options.each do |k, v|
-      self.send("#{k}=",v) if keys.include?(k)
+      self.send("#{k}=", v)
     end
   end
 
