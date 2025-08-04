@@ -177,7 +177,8 @@ html lang="en"
           .col-md-6.text-md-end
             .text-muted
               small
-                | Powered by WikiGo
+                | Powered by 
+                = link_to 'WikiGo', 'https://github.com/toyoshi/wikigo', target: '_blank', rel: 'noopener', class: 'text-muted'
                 br
                 = "© #{Date.current.year} All rights reserved"
 
