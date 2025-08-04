@@ -46,7 +46,7 @@ script type="text/javascript"
   |       this.disabled = true;
   |       this.innerHTML = '🔄 テスト中...';
   |       
-  |       fetch(`/${wordId}/ai_edit`, {
+  |       fetch('/' + wordId + '/ai_edit', {
   |         method: 'POST',
   |         headers: {
   |           'Content-Type': 'application/json',
@@ -58,7 +58,7 @@ script type="text/javascript"
   |         if (data.success) {
   |           showMessage('API接続テスト成功！', 'success');
   |         } else {
-  |           showMessage(`API接続エラー: ${data.error}`, 'error');
+  |           showMessage('API接続エラー: ' + data.error, 'error');
   |         }
   |       })
   |       .catch(error => {
@@ -86,7 +86,7 @@ script type="text/javascript"
   |       this.disabled = true;
   |       this.innerHTML = '🔄 生成中...';
   |       
-  |       fetch(`/${wordId}/ai_edit`, {
+  |       fetch('/' + wordId + '/ai_edit', {
   |         method: 'POST',
   |         headers: {
   |           'Content-Type': 'application/json',
@@ -99,7 +99,7 @@ script type="text/javascript"
   |           trixEditor.editor.setDocument(Trix.Document.fromString(data.content));
   |           showMessage('AIによるコンテンツ生成が完了しました', 'success');
   |         } else {
-  |           showMessage(`エラー: ${data.error}`, 'error');
+  |           showMessage('エラー: ' + data.error, 'error');
   |         }
   |       })
   |       .catch(error => {
@@ -120,11 +120,8 @@ script type="text/javascript"
   |     }
   |     
   |     const messageDiv = document.createElement('div');
-  |     messageDiv.className = `alert alert-${type === 'success' ? 'success' : 'danger'} alert-dismissible fade show ai-edit-message`;
-  |     messageDiv.innerHTML = `
-  |       ${message}
-  |       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-  |     `;
+  |     messageDiv.className = 'alert alert-' + (type === 'success' ? 'success' : 'danger') + ' alert-dismissible fade show ai-edit-message';
+  |     messageDiv.innerHTML = message + '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
   |     
   |     const form = document.querySelector('form');
   |     if (form) {
