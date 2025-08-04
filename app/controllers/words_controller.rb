@@ -89,6 +89,32 @@ class WordsController < ApplicationController
     end
   end
 
+  # POST /words/ai_generate
+  def ai_generate
+    title = params[:title]
+    return render json: { success: false, error: "Title is required" }, status: :bad_request if title.blank?
+    
+    result = AiContentGenerator.new(title).call
+    
+    respond_to do |format|
+      if result.success?
+        format.json { 
+          render json: { 
+            success: true, 
+            content: result.content 
+          } 
+        }
+      else
+        format.json { 
+          render json: { 
+            success: false, 
+            error: result.error 
+          }, status: :unprocessable_entity 
+        }
+      end
+    end
+  end
+
   # POST /words/1/ai_edit
   def ai_edit
     result = AiContentGenerator.new(@word.title).call

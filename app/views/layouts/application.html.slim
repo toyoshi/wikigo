@@ -224,6 +224,55 @@ html lang="en"
       |   });
       | }
       | 
+      | function handleAiEditNew() {
+      |   const btn = document.getElementById('ai-edit-btn');
+      |   const trixEditor = document.querySelector('trix-editor');
+      |   const titleInput = document.querySelector('input[name="word[title]"]');
+      |   
+      |   if (!trixEditor) {
+      |     alert('エディターが見つかりません');
+      |     return;
+      |   }
+      |   
+      |   if (!titleInput || !titleInput.value.trim()) {
+      |     alert('まずタイトルを入力してください');
+      |     if (titleInput) titleInput.focus();
+      |     return;
+      |   }
+      |   
+      |   const originalText = btn.innerHTML;
+      |   btn.disabled = true;
+      |   btn.innerHTML = '🔄 生成中...';
+      |   
+      |   fetch('/ai_generate', {
+      |     method: 'POST',
+      |     headers: {
+      |       'Content-Type': 'application/json',
+      |       'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+      |     },
+      |     body: JSON.stringify({
+      |       title: titleInput.value.trim()
+      |     })
+      |   })
+      |   .then(response => response.json())
+      |   .then(data => {
+      |     if (data.success) {
+      |       trixEditor.value = data.content;
+      |       showMessage('AIによるコンテンツ生成が完了しました', 'success');
+      |     } else {
+      |       showMessage('エラー: ' + data.error, 'error');
+      |     }
+      |   })
+      |   .catch(error => {
+      |     console.error('Error:', error);
+      |     showMessage('ネットワークエラーが発生しました', 'error');
+      |   })
+      |   .finally(() => {
+      |     btn.disabled = false;
+      |     btn.innerHTML = originalText;
+      |   });
+      | }
+      | 
       | function showMessage(message, type) {
       |   const existingMessage = document.querySelector('.ai-edit-message');
       |   if (existingMessage) {
