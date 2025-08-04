@@ -25,21 +25,19 @@
           = f.text_field :title, class: 'form-control form-control-lg', placeholder: 'Enter the title for your word', required: true
           .invalid-feedback Please provide a title.
 
-        - if word.persisted?
-          .mb-3
-            = button_tag type: 'button', class: 'btn btn-outline-primary', id: 'ai-edit-btn', 
-              data: { word_id: word.id }, 
-              onclick: "handleAiEdit(#{word.id})" do
-              | 🤖 AIエディット
-            .form-text Generate content using AI based on the word title.
-
         .mb-3
           = f.label :tag_list, "Tags", class: 'form-label'
           = f.text_field :tag_list, value: word.tag_list.to_s, class: 'form-control', placeholder: 'Add tags separated by commas'
           .form-text Use tags to categorize and organize your content.
 
         .mb-4
-          = f.label :body, "Content", class: 'form-label'
+          .d-flex.justify-content-between.align-items-center.mb-2
+            = f.label :body, "Content", class: 'form-label mb-0'
+            - if word.persisted?
+              = button_tag type: 'button', class: 'btn btn-outline-primary btn-sm ms-3', id: 'ai-edit-btn', 
+                data: { word_id: word.id }, 
+                onclick: "handleAiEdit(#{word.id})" do
+                | 🤖 AIで本文生成
           = f.rich_text_area :body, class: 'form-control rich-text-editor'
           .form-text Use the toolbar above to format your content with rich text.
 
