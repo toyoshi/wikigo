@@ -1,5 +1,9 @@
 - content_for(:title) { "#{@word.title}" } 
 
+- if @word.body.blank?
+  - content_for(:meta_tags) do
+    meta name="robots" content="noindex, nofollow"
+
 .py-2
   .row
     .col-12
