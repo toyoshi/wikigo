@@ -4,8 +4,8 @@ class SitemapController < ActionController::Base
     # Set appropriate headers for XML sitemap
     response.headers['Content-Type'] = 'application/xml; charset=utf-8'
     
-    # Get all words ordered by updated_at for efficient caching
-    @words = Word.all.order(:updated_at)
+    # Get only words with content ordered by updated_at for efficient caching
+    @words = Word.has_content.order(:updated_at)
     
     # Cache the sitemap for 1 hour
     expires_in 1.hour, public: true

@@ -35,12 +35,12 @@ xml.urlset xmlns: 'http://www.sitemaps.org/schemas/sitemap/0.9' do
     end
   end
   
-  # Tag pages (if any tags exist)
-  if Word.tag_counts_on(:tags).any?
-    Word.tag_counts_on(:tags).find_each do |tag|
+  # Tag pages (if any tags exist for words with content)
+  if Word.has_content.tag_counts_on(:tags).any?
+    Word.has_content.tag_counts_on(:tags).find_each do |tag|
       xml.url do
         xml.loc word_tag_url(tag_list: tag.name)
-        xml.lastmod @words.tagged_with(tag.name).maximum(:updated_at)&.iso8601
+        xml.lastmod Word.has_content.tagged_with(tag.name).maximum(:updated_at)&.iso8601
         xml.changefreq 'weekly'
         xml.priority '0.5'
       end

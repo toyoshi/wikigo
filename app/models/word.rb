@@ -46,6 +46,21 @@ class Word < ApplicationRecord
       .distinct
   }
 
+  # Scope for words with content
+  scope :has_content, -> {
+    joins(:rich_text_body)
+      .where.not(action_text_rich_texts: { body: [nil, ''] })
+      .distinct
+  }
+
+  # Scope for words without content
+  scope :empty_content, -> {
+    left_outer_joins(:rich_text_body)
+      .where(action_text_rich_texts: { body: [nil, ''] })
+      .or(left_outer_joins(:rich_text_body).where(action_text_rich_texts: { id: nil }))
+      .distinct
+  }
+
   def self.find(input)
     if input.is_a?(Integer)
       super
