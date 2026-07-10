@@ -30,17 +30,17 @@ class Word < ApplicationRecord
   scope :body_contains, ->(query) {
     return all if query.blank?
     joins(:rich_text_body)
-      .where("action_text_rich_texts.body LIKE ?", "%#{sanitize_sql_like(query)}%")
+      .where("action_text_rich_texts.body LIKE ? ESCAPE '\\'", "%#{sanitize_sql_like(query)}%")
   }
 
   # Custom scope for searching title or body
   scope :title_or_body_contains, ->(query) {
     return all if query.blank?
     escaped_query = "%#{sanitize_sql_like(query)}%"
-    
+
     left_outer_joins(:rich_text_body)
       .where(
-        "words.title LIKE :query OR action_text_rich_texts.body LIKE :query",
+        "words.title LIKE :query ESCAPE '\\' OR action_text_rich_texts.body LIKE :query ESCAPE '\\'",
         query: escaped_query
       )
       .distinct

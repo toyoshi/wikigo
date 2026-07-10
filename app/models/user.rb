@@ -14,7 +14,11 @@ class User < ApplicationRecord
   attr_accessor :login
 
   validates :username, presence: true, uniqueness: { :case_sensitive => false }, length: { in: 3..255 }
-  validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, multiline: true
+  # NOTE: previously used /^[a-zA-Z0-9_\.]*$/ with multiline: true, but Ruby's
+  # ^ and $ anchor to line boundaries (not string boundaries), so a username
+  # like "good\nbad!!!" would incorrectly pass validation. \A/\z anchor to the
+  # whole string and close that bypass.
+  validates_format_of :username, with: /\A[a-zA-Z0-9_\.]*\z/
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
