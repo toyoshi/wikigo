@@ -65,10 +65,10 @@ class WordsController < ApplicationController
   # PATCH/PUT /words/1
   # PATCH/PUT /words/1.json
   def update
-    respond_to do |format|
-      result = Words::Update.new(current_user, params[:id], word_params).call
-      @word = result.word
+    result = Words::Update.new(current_user, params[:id], word_params).call
+    @word = result.word
 
+    respond_to do |format|
       if result.success?
         format.html { redirect_to @word, notice: 'Word was successfully updated.' }
         format.json { render :show, status: :ok, location: @word }
