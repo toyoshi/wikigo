@@ -9,6 +9,15 @@ class SiteControllerTest < ActionDispatch::IntegrationTest
     sign_in(@user)
   end
 
+  test "should get activities" do
+    word = Word.first
+    word.create_activity(key: 'word.update', owner: users(:bob), recipient: @user)
+
+    get site_activities_url
+    assert_response :success
+    assert_match word.title, response.body
+  end
+
   test "should get members" do
     get site_members_url
     assert_response :success
