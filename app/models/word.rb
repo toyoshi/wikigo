@@ -1,4 +1,5 @@
 class Word < ApplicationRecord
+  # === Plugins / rich content ===
   acts_as_taggable
   acts_as_favable
   has_rich_text :body
@@ -8,32 +9,23 @@ class Word < ApplicationRecord
   include TitleConverter
   has_paper_trail on: [:update, :destroy]
 
+  # === Validations ===
   validates :title, presence: true
   validates :title, uniqueness: true
-  
+
+  # === Callbacks ===
   # Prevent deletion of the home page (ID=1)
   before_destroy :prevent_home_page_deletion
 
-  def self.ransackable_attributes(auth_object = nil)
-    %w[title created_at updated_at]
-  end
-
-  def self.ransackable_associations(auth_object = nil)
-    %w[activities base_tags rich_text_body tag_taggings taggings tags versions]
-  end
-
-  def self.ransackable_scopes(auth_object = nil)
-    [:body_contains, :title_or_body_contains]
-  end
-
-  # Custom scope for searching ActionText content
+  # === Scopes ===
+  # Search ActionText content only.
   scope :body_contains, ->(query) {
     return all if query.blank?
     joins(:rich_text_body)
       .where("action_text_rich_texts.body LIKE ? ESCAPE '\\'", "%#{sanitize_sql_like(query)}%")
   }
 
-  # Custom scope for searching title or body
+  # Search title or ActionText content.
   scope :title_or_body_contains, ->(query) {
     return all if query.blank?
     escaped_query = "%#{sanitize_sql_like(query)}%"
@@ -46,14 +38,14 @@ class Word < ApplicationRecord
       .distinct
   }
 
-  # Scope for words with content
+  # Words that have a non-empty body.
   scope :has_content, -> {
     joins(:rich_text_body)
       .where.not(action_text_rich_texts: { body: [nil, ''] })
       .distinct
   }
 
-  # Scope for words without content
+  # Words with no body (missing or empty rich text).
   scope :empty_content, -> {
     left_outer_joins(:rich_text_body)
       .where(action_text_rich_texts: { body: [nil, ''] })
@@ -61,11 +53,26 @@ class Word < ApplicationRecord
       .distinct
   }
 
+  # === Ransack allow-lists ===
+  def self.ransackable_attributes(auth_object = nil)
+    %w[title created_at updated_at]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    %w[activities base_tags rich_text_body tag_taggings taggings tags versions]
+  end
+
+  def self.ransackable_scopes(auth_object = nil)
+    [:body_contains, :title_or_body_contains]
+  end
+
+  # === Class methods ===
+  # Look up by numeric id, or by title when given a slug/string.
   def self.find(input)
     if input.is_a?(Integer)
       super
     else
-      find_by_title(self.param_to_title(input))
+      find_by_title(param_to_title(input))
     end
   end
 
@@ -75,29 +82,31 @@ class Word < ApplicationRecord
     order(updated_at: :desc).limit(limit)
   end
 
+  def self.recent_words(num)
+    all.limit(num).order(updated_at: :desc)
+  end
+
+  # === Instance methods ===
   def to_param
     title_to_param
   end
 
-  def self.recent_words(num)
-    Word.all.limit(num).order('updated_at desc')
-  end
-
+  # Serialize to Middleman-flavored Markdown with YAML front matter.
   def to_middleman
     <<"EOS"
 ---
-title: #{self.title}
-date: #{self.created_at}
-tags: #{self.tag_list}
-wiki:word_id: #{self.id}
+title: #{title}
+date: #{created_at}
+tags: #{tag_list}
+wiki:word_id: #{id}
 ---
 
-#{self.body.to_s}
+#{body.to_s}
 EOS
   end
-  
+
   private
-  
+
   def prevent_home_page_deletion
     if id == 1
       errors.add(:base, "ホームページ（ID=1）は削除できません")
