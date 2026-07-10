@@ -1,12 +1,11 @@
 class User < ApplicationRecord
-  after_save :keep_admin_exist
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   enum :role, { editor: 0, admin: 99 }
-  
+
   has_many :api_tokens, dependent: :destroy
 
   # Virtual attribute for authenticating by either username or email
@@ -15,6 +14,8 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: { :case_sensitive => false }, length: { in: 3..255 }
   validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, multiline: true
+
+  after_save :keep_admin_exist
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
