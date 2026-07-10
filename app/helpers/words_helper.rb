@@ -12,34 +12,25 @@ module WordsHelper
   
   def add_word_links_to_content(content, except_word = nil)
     return content if content.blank?
-    
+
     html = content.to_s
-    words = word_list(except_word)
     placeholders = {}
-    placeholder_id = 0
-    
-    # Sort by length descending to match longer phrases first
-    words.sort_by { |w| -w.length }.each do |word_title|
-      escaped_word = Regexp.escape(word_title)
-      
-      if html.include?(word_title)
-        link = link_to(word_title, word_link_path(word_title), class: 'auto-link')
-        
-        # Create unique placeholder for this link
-        placeholder_key = "{{WORD_LINK_#{placeholder_id}}}"
-        placeholders[placeholder_key] = link
-        placeholder_id += 1
-        
-        # Replace word with placeholder (safe from nested replacements)
-        html = html.gsub(escaped_word, placeholder_key)
-      end
+
+    # Match longer titles first, and swap each match for a unique placeholder
+    # before inserting the real links. This keeps a shorter title from
+    # rewriting the markup of a link already produced by a longer one, which
+    # would otherwise create nested <a> tags.
+    titles_by_length_desc(except_word).each do |title|
+      next unless html.include?(title)
+
+      placeholder = "{{WORD_LINK_#{placeholders.size}}}"
+      placeholders[placeholder] = link_to(title, word_link_path(title), class: 'auto-link')
+      html = html.gsub(Regexp.escape(title), placeholder)
     end
-    
-    # Restore all placeholders to actual links at the end
-    placeholders.each do |placeholder, link|
-      html = html.gsub(placeholder, link)
-    end
-    
+
+    # Restore all placeholders to their real links once every title is matched.
+    placeholders.each { |placeholder, link| html = html.gsub(placeholder, link) }
+
     html.html_safe
   end
 
@@ -59,8 +50,15 @@ module WordsHelper
   end
 
   private
+
   def word_list(except_word)
     Word.where.not(title: except_word).pluck(:title)
+  end
+
+  # Linkable titles ordered longest-first so multi-word titles win over the
+  # shorter titles they contain.
+  def titles_by_length_desc(except_word)
+    word_list(except_word).sort_by { |title| -title.length }
   end
 
   # Generates the path for a word link. In a real request the view context
