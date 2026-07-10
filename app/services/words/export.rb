@@ -1,8 +1,5 @@
 module Words
   class Export
-    def initialize
-    end
-
     def call
       t = Tempfile.new('export-', temp_dir)
 
