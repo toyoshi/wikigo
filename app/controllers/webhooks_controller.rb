@@ -1,5 +1,5 @@
 class WebhooksController < ApplicationController
-  before_action :set_webhook, only: [:show, :edit, :update, :destroy]
+  before_action :set_webhook, only: [:edit, :update, :destroy]
 
   # GET /webhooks
   # GET /webhooks.json
