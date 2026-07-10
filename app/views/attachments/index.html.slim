@@ -1,0 +1,20 @@
+- content_for(:title) { "Attachments" }
+
+.page-header.mb-4
+  h1.h2 Listing attachments
+
+table.table
+  thead
+    tr
+      th File
+      th User
+      th
+
+  tbody
+    - @attachments.each do |attachment|
+      tr
+        td = attachment.file
+        td = attachment.user&.username
+        td = link_to 'Destroy', attachment, method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger'
+
+= link_to 'New Attachment', new_attachment_path, class: 'btn btn-primary'
