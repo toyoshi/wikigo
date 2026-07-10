@@ -68,3 +68,6 @@ wikigo.code-workspace
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+
+# Claude Code agent worktrees
+/.claude/worktrees/

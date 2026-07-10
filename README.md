@@ -16,12 +16,12 @@ A simple, modern wiki engine built with Ruby on Rails 8. WikiGo automatically cr
 - **Search functionality**: Find content across all pages
 - **REST API**: Full API access for integrations and automation
 - **Modern UI**: Bootstrap 5 responsive design
-- **Rails 8 native**: Uses Solid Cache, Solid Queue, and Solid Cable
+- **Rails 8 native**: Uses Solid Cache and Solid Cable
 
 ## Technology Stack
 
 - **Ruby on Rails 8.0** - Modern web framework
-- **Solid Trifecta** - Database-backed cache, queue, and cable (no Redis required)
+- **Solid Cache / Solid Cable** - Database-backed cache and cable (no Redis required)
 - **ActionText** - Rich text editing with Trix editor
 - **Bootstrap 5** - Responsive UI framework
 - **SQLite/PostgreSQL** - Database options for development/production
