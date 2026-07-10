@@ -23,7 +23,23 @@ module Webhooks
       end
     end
 
-    private 
+    private
+
+    # Generating absolute URLs (root_url) outside of a real request requires
+    # a host. ApplicationController#set_host stashes the current request's
+    # host on Rails.application.routes.default_url_options, but that never
+    # happens for API-only controllers (ActionController::API doesn't inherit
+    # ApplicationController) or for any non-controller invocation (console,
+    # jobs, tests). Without this, root_url raises
+    # "ArgumentError: Missing host to link to!" and the whole word
+    # create/update request blows up. Fall back to the host already
+    # configured for exactly this purpose (generating absolute URLs outside
+    # a request) via action_mailer.default_url_options.
+    def default_url_options
+      Rails.application.routes.default_url_options.presence ||
+        Rails.application.config.action_mailer.default_url_options ||
+        {}
+    end
 
     def send_webhook(url, payload)
       # Direct HTTP POST using Faraday (previously in WebhookJob)

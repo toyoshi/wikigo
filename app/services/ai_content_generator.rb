@@ -1,3 +1,5 @@
+require 'ostruct'
+
 class AiContentGenerator
   include ActiveModel::Model
   
