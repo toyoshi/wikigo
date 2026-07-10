@@ -9,7 +9,7 @@ ul.activities
         = activity.created_at
       br
       strong
-        = "#{activity.owner.username} "
+        = "#{activity.owner&.username || '(deleted user)'} "
       | edited page 
       - if activity.trackable.present?
         = link_to activity.trackable.title, activity.trackable

@@ -13,7 +13,7 @@ module Words
       if r
         #Create Activity
         @word.favorites.each do |f|
-          @word.create_activity(key: 'update', owner: @user, recipient: f.user) unless me?(f)
+          @word.create_activity(key: 'update', owner: @user, recipient: f.user) unless me?(f.user)
           # TODO: Send Notification
         end
 
