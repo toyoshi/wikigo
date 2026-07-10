@@ -1,0 +1,8 @@
+- content_for(:title) { "New Attachment" }
+
+.page-header.mb-4
+  h1.h2 New Attachment
+
+== render 'form'
+
+= link_to 'Back', attachments_path, class: 'btn btn-secondary'
