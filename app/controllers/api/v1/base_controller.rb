@@ -1,6 +1,7 @@
 class Api::V1::BaseController < ActionController::API
   include ActionController::HttpAuthentication::Token::ControllerMethods
-  
+  include HostConfiguration
+
   before_action :authenticate_api_user
   before_action :set_default_format
   before_action :set_host
@@ -45,16 +46,6 @@ class Api::V1::BaseController < ActionController::API
     request.format = :json unless params[:format]
   end
 
-  # ActionController::API (unlike ApplicationController) does not configure
-  # default_url_options[:host], so any code that generates full URLs (e.g.
-  # Webhooks::Send#call, which builds root_url) blows up with
-  # "ArgumentError: Missing host to link to!" when invoked from the API
-  # (see Words::Create/Words::Update, triggered by create/update). Mirror
-  # ApplicationController#set_host so URL helpers work from API requests too.
-  def set_host
-    Rails.application.routes.default_url_options[:host] = request.host_with_port
-  end
-  
   # Error handlers
   def render_not_found(exception = nil)
     render json: {
@@ -69,15 +60,26 @@ class Api::V1::BaseController < ActionController::API
       message: exception.message
     }, status: :bad_request
   end
-  
+
   def render_unprocessable_entity(exception)
+    render_validation_failed(exception.message, exception.record&.errors&.full_messages)
+  end
+
+  def render_bad_request(message)
+    render json: {
+      error: 'Bad Request',
+      message: message
+    }, status: :bad_request
+  end
+
+  def render_validation_failed(message, details)
     render json: {
       error: 'Validation Failed',
-      message: exception.message,
-      details: exception.record&.errors&.full_messages
+      message: message,
+      details: details
     }, status: :unprocessable_entity
   end
-  
+
   def render_unauthorized(message = 'Invalid or missing API token')
     render json: {
       error: 'Unauthorized',
