@@ -23,7 +23,7 @@ module WordsHelper
       escaped_word = Regexp.escape(word_title)
       
       if html.include?(word_title)
-        link = link_to(word_title, word_path(word_title.gsub(' ', '-')), class: 'auto-link')
+        link = link_to(word_title, word_link_path(word_title), class: 'auto-link')
         
         # Create unique placeholder for this link
         placeholder_key = "{{WORD_LINK_#{placeholder_id}}}"
@@ -58,8 +58,22 @@ module WordsHelper
     end
   end
 
-  private 
+  private
   def word_list(except_word)
     Word.where.not(title: except_word).pluck(:title)
+  end
+
+  # Generates the path for a word link. In a real request the view context
+  # has a controller, so the regular named route helper is used (preserving
+  # request context such as script_name). Outside a request (e.g. helper
+  # tests), route helpers that rely on the controller raise NameError, so
+  # fall back to the application's routes proxy instead.
+  def word_link_path(title)
+    id = title.gsub(' ', '-')
+    if respond_to?(:controller) && controller
+      word_path(id)
+    else
+      Rails.application.routes.url_helpers.word_path(id)
+    end
   end
 end
