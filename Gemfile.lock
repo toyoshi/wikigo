@@ -123,8 +123,10 @@ GEM
       logger
     faraday-net_http (3.4.4)
       net-http (~> 0.5)
+    ffi (1.17.4-aarch64-linux-gnu)
     ffi (1.17.4-aarch64-linux-musl)
     ffi (1.17.4-arm64-darwin)
+    ffi (1.17.4-x86_64-linux-gnu)
     globalid (1.4.0)
       activesupport (>= 6.1)
     gon (7.1.0)
@@ -132,10 +134,16 @@ GEM
       activesupport
       i18n (>= 0.7)
       multi_json
+    google-protobuf (4.35.1-aarch64-linux-gnu)
+      bigdecimal
+      rake (~> 13.3)
     google-protobuf (4.35.1-aarch64-linux-musl)
       bigdecimal
       rake (~> 13.3)
     google-protobuf (4.35.1-arm64-darwin)
+      bigdecimal
+      rake (~> 13.3)
+    google-protobuf (4.35.1-x86_64-linux-gnu)
       bigdecimal
       rake (~> 13.3)
     i18n (1.15.2)
@@ -204,9 +212,13 @@ GEM
     net-smtp (0.5.1)
       net-protocol
     nio4r (2.7.5)
+    nokogiri (1.19.4-aarch64-linux-gnu)
+      racc (~> 1.4)
     nokogiri (1.19.4-aarch64-linux-musl)
       racc (~> 1.4)
     nokogiri (1.19.4-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.19.4-x86_64-linux-gnu)
       racc (~> 1.4)
     orm_adapter (0.5.0)
     paper_trail (17.0.0)
@@ -214,8 +226,10 @@ GEM
       request_store (~> 1.4)
     paper_trail-association_tracking (2.3.0)
       paper_trail (>= 12.0)
+    pg (1.6.3-aarch64-linux)
     pg (1.6.3-aarch64-linux-musl)
     pg (1.6.3-arm64-darwin)
+    pg (1.6.3-x86_64-linux)
     popper_js (2.11.8)
     pp (0.6.4)
       prettyprint
@@ -302,9 +316,13 @@ GEM
       ffi (~> 1.12)
       logger
     rubyzip (3.4.1)
+    sass-embedded (1.101.0-aarch64-linux-gnu)
+      google-protobuf (~> 4.31)
     sass-embedded (1.101.0-aarch64-linux-musl)
       google-protobuf (~> 4.31)
     sass-embedded (1.101.0-arm64-darwin)
+      google-protobuf (~> 4.31)
+    sass-embedded (1.101.0-x86_64-linux-gnu)
       google-protobuf (~> 4.31)
     securerandom (0.4.1)
     slim (5.2.1)
@@ -327,8 +345,10 @@ GEM
     spring-watcher-listen (2.1.0)
       listen (>= 2.7, < 4.0)
       spring (>= 4)
+    sqlite3 (2.9.5-aarch64-linux-gnu)
     sqlite3 (2.9.5-aarch64-linux-musl)
     sqlite3 (2.9.5-arm64-darwin)
+    sqlite3 (2.9.5-x86_64-linux-gnu)
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     temple (0.10.4)
@@ -352,8 +372,10 @@ GEM
     zeitwerk (2.8.2)
 
 PLATFORMS
+  aarch64-linux-gnu
   aarch64-linux-musl
   arm64-darwin-24
+  x86_64-linux
 
 DEPENDENCIES
   acts-as-taggable-on
