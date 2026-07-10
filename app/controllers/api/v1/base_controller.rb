@@ -3,6 +3,7 @@ class Api::V1::BaseController < ActionController::API
   
   before_action :authenticate_api_user
   before_action :set_default_format
+  before_action :set_host
   
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   rescue_from ActionController::ParameterMissing, with: :render_parameter_missing
@@ -30,9 +31,28 @@ class Api::V1::BaseController < ActionController::API
   def current_api_token
     @current_api_token
   end
+
+  # Overrides ActionController::HttpAuthentication::Token::ControllerMethods.
+  # By default this renders a plain-text "HTTP Token: Access denied." body,
+  # which does not match the JSON error format documented for the API
+  # (see WikiGo-REST-API-Documentation.md, Authentication Errors). Render the
+  # documented JSON error instead so API clients can reliably parse 401s.
+  def request_http_token_authentication(realm = "Application", message = nil)
+    render_unauthorized(message || 'Invalid or missing API token')
+  end
   
   def set_default_format
     request.format = :json unless params[:format]
+  end
+
+  # ActionController::API (unlike ApplicationController) does not configure
+  # default_url_options[:host], so any code that generates full URLs (e.g.
+  # Webhooks::Send#call, which builds root_url) blows up with
+  # "ArgumentError: Missing host to link to!" when invoked from the API
+  # (see Words::Create/Words::Update, triggered by create/update). Mirror
+  # ApplicationController#set_host so URL helpers work from API requests too.
+  def set_host
+    Rails.application.routes.default_url_options[:host] = request.host_with_port
   end
   
   # Error handlers

@@ -88,11 +88,17 @@ class Api::V1::WordsController < Api::V1::BaseController
   
   # DELETE /api/v1/words/:id
   def destroy
-    @word.destroy
-    
-    render json: {
-      message: 'Word deleted successfully'
-    }
+    if @word.destroy
+      render json: {
+        message: 'Word deleted successfully'
+      }
+    else
+      render json: {
+        error: 'Validation Failed',
+        message: 'Could not delete word',
+        details: @word.errors.full_messages
+      }, status: :unprocessable_entity
+    end
   end
   
   # GET /api/v1/words/search
@@ -106,7 +112,7 @@ class Api::V1::WordsController < Api::V1::BaseController
     end
     
     @words = Word.ransack(
-      title_or_body_cont: params[:q]
+      title_or_body_contains: params[:q]
     ).result
     
     # Apply sorting
