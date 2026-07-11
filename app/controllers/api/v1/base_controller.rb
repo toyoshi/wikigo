@@ -1,8 +1,10 @@
 class Api::V1::BaseController < ActionController::API
   include ActionController::HttpAuthentication::Token::ControllerMethods
-  
+  include HostConfiguration
+
   before_action :authenticate_api_user
   before_action :set_default_format
+  before_action :set_host
   
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   rescue_from ActionController::ParameterMissing, with: :render_parameter_missing
@@ -30,11 +32,20 @@ class Api::V1::BaseController < ActionController::API
   def current_api_token
     @current_api_token
   end
+
+  # Overrides ActionController::HttpAuthentication::Token::ControllerMethods.
+  # By default this renders a plain-text "HTTP Token: Access denied." body,
+  # which does not match the JSON error format documented for the API
+  # (see WikiGo-REST-API-Documentation.md, Authentication Errors). Render the
+  # documented JSON error instead so API clients can reliably parse 401s.
+  def request_http_token_authentication(realm = "Application", message = nil)
+    render_unauthorized(message || 'Invalid or missing API token')
+  end
   
   def set_default_format
     request.format = :json unless params[:format]
   end
-  
+
   # Error handlers
   def render_not_found(exception = nil)
     render json: {
@@ -49,15 +60,26 @@ class Api::V1::BaseController < ActionController::API
       message: exception.message
     }, status: :bad_request
   end
-  
+
   def render_unprocessable_entity(exception)
+    render_validation_failed(exception.message, exception.record&.errors&.full_messages)
+  end
+
+  def render_bad_request(message)
+    render json: {
+      error: 'Bad Request',
+      message: message
+    }, status: :bad_request
+  end
+
+  def render_validation_failed(message, details)
     render json: {
       error: 'Validation Failed',
-      message: exception.message,
-      details: exception.record&.errors&.full_messages
+      message: message,
+      details: details
     }, status: :unprocessable_entity
   end
-  
+
   def render_unauthorized(message = 'Invalid or missing API token')
     render json: {
       error: 'Unauthorized',

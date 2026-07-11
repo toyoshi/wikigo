@@ -1,12 +1,11 @@
 class User < ApplicationRecord
-  after_save :keep_admin_exist
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
   enum :role, { editor: 0, admin: 99 }
-  
+
   has_many :api_tokens, dependent: :destroy
 
   # Virtual attribute for authenticating by either username or email
@@ -14,7 +13,13 @@ class User < ApplicationRecord
   attr_accessor :login
 
   validates :username, presence: true, uniqueness: { :case_sensitive => false }, length: { in: 3..255 }
-  validates_format_of :username, with: /^[a-zA-Z0-9_\.]*$/, multiline: true
+  # NOTE: previously used /^[a-zA-Z0-9_\.]*$/ with multiline: true, but Ruby's
+  # ^ and $ anchor to line boundaries (not string boundaries), so a username
+  # like "good\nbad!!!" would incorrectly pass validation. \A/\z anchor to the
+  # whole string and close that bypass.
+  validates_format_of :username, with: /\A[a-zA-Z0-9_\.]*\z/
+
+  after_save :keep_admin_exist
 
   def self.find_for_database_authentication(warden_conditions)
     conditions = warden_conditions.dup
