@@ -2,7 +2,9 @@
 
 <img src='https://cloud.githubusercontent.com/assets/188394/19829766/528c7046-9e25-11e6-9271-0fa6916b770b.png' width='500'>
 
-A simple, modern wiki engine built with Ruby on Rails 8. WikiGo automatically creates links between pages when you mention a page title anywhere in your content.
+**A simple, modern wiki engine — a wiki you can self-host with nothing but Rails and a single Docker command.**
+
+WikiGo's signature is automatic keyword linking: mention a page title anywhere in your content and it becomes a link. Built natively on Rails 8 with minimal infrastructure, so teams and individuals can stand up and grow their own knowledge base with low operational overhead.
 
 ## Features
 

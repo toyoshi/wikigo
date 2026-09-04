@@ -4,6 +4,8 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
+**Purpose:** a simple, modern wiki you can self-host with nothing but Rails and a single Docker command — low operational overhead for teams and individuals to build and grow their own knowledge base.
+
 WikiGo is a multi-user wiki engine built with Ruby on Rails 8 (Ruby 3.3). Its signature feature is automatic keyword linking: any page title mentioned in another page's content becomes a link. It also provides tagging, versioning, webhooks, a REST API, and AI-assisted content editing. Authentication is Devise; rich text is ActionText/Trix.
 
 ## Development Commands
