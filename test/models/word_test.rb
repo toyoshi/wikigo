@@ -65,10 +65,10 @@ EOS
     assert_equal word, Word.find("Dash-Title-Example")
   end
 
-  test "find by string returns nil when no word matches the title" do
-    # find_by_title (a dynamic finder) is used internally, so unlike the
-    # integer/id branch this does not raise RecordNotFound.
-    assert_nil Word.find("does-not-exist-anywhere")
+  test "find by string raises RecordNotFound when no word matches the title" do
+    assert_raises(ActiveRecord::RecordNotFound) do
+      Word.find("does-not-exist-anywhere")
+    end
   end
 
   # --- home page protection ---

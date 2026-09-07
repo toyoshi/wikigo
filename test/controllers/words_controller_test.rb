@@ -49,6 +49,11 @@ class WordsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to word_url(@word)
   end
 
+  test "unknown word title returns 404 instead of 500" do
+    get word_url("definitely-not-a-word")
+    assert_response :not_found
+  end
+
   test "should destroy word" do
     assert_difference('Word.count', -1) do
       delete word_url(@word)

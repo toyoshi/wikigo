@@ -1,6 +1,6 @@
 class VersionsController < ApplicationController
   before_action :authenticate_user!, only: [:rollback]
-  before_action :set_word, only: [:show, :rollback, :destroy]
+  before_action :set_word, only: [:show, :rollback]
 
   def rollback
     word = @version
