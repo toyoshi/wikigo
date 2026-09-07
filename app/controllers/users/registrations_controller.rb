@@ -12,7 +12,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if token == Option.user_registration_token
       session[:rt] = token
     else
-      redirect_to root_path, notice: 'invalid token' 
+      redirect_to root_path, notice: 'Registration is invitation-only. Please use the invitation URL provided by an admin.'
     end
   end
 end
