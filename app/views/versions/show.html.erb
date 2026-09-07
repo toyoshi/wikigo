@@ -23,7 +23,9 @@
       Version:
       <%= @version.updated_at %>
     </h2>
-    <%= link_to 'roll_back', rollback_word_version_path(@version), method: :patch, data: { confirm: 'Are you sure?' }, class: 'btn btn-default pull-right' %>
+    <% unless params[:id] == '0' %>
+      <%= link_to 'roll_back', rollback_word_version_path(@word, params[:id]), method: :patch, data: { confirm: 'Are you sure?' }, class: 'btn btn-default pull-right' %>
+    <% end %>
     <ul class="nav nav-tabs" role="tab-list">
       <li class="active" role="presentation">
         <a href="#html" role="tab" aria-controls="html" data-toggle="tab">html</a>

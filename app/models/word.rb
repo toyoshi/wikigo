@@ -68,11 +68,13 @@ class Word < ApplicationRecord
 
   # === Class methods ===
   # Look up by numeric id, or by title when given a slug/string.
+  # Raises ActiveRecord::RecordNotFound (404) when nothing matches.
   def self.find(input)
-    if input.is_a?(Integer)
+    if input.to_s.match?(/\A\d+\z/)
       super
     else
-      find_by_title(param_to_title(input))
+      word = find_by_title(param_to_title(input))
+      word || raise(ActiveRecord::RecordNotFound, "Couldn't find Word with 'title' = #{param_to_title(input).inspect}")
     end
   end
 
