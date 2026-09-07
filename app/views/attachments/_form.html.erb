@@ -1,0 +1,23 @@
+<%= form_for @attachment do |f| %>
+  <% if @attachment.errors.any? %>
+    <div class="alert alert-danger" role="alert">
+      <h5 class="alert-heading">
+        <%= pluralize(@attachment.errors.count, "error") %>
+        prohibited this attachment from being saved:
+      </h5>
+      <ul class="mb-0">
+        <% @attachment.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :file, class: 'form-label' %>
+    <%= f.file_field :file, class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <%= f.submit class: 'btn btn-primary' %>
+  </div>
+<% end %>

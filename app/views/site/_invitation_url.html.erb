@@ -1,0 +1,10 @@
+<section>
+  <div class="mb-3">
+    <label class="form-label">Invitation URL</label>
+    <%= text_field_tag '#', invitation_url(@key), class: 'form-control' %>
+  </div>
+</section>
+
+<section>
+  <%= link_to 'Regenerate URL', regenerate_registration_path, { method: 'put', class: 'btn btn-outline-secondary' } %>
+</section>

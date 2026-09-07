@@ -1,0 +1,10 @@
+<%# TODO: move this to module or plugin %>
+<% return if recent_words.empty? %>
+
+<h2><%= t('recent_words') %></h2>
+<ul>
+  <% recent_words.each do |w| %>
+    <li><%= link_to w.title, w %></li>
+  <% end %>
+</ul>
+<%= link_to t('more'), words_index_path, class: 'pull-right' %>

@@ -1,0 +1,82 @@
+<div class="py-2">
+  <div class="row">
+    <div class="col-12">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <% if params[:q] %>
+          <h1 class="h3 mb-0">Search Results</h1>
+        <% else %>
+          <h1 class="h3 mb-0"><%= t('word_list') %></h1>
+        <% end %>
+        <%= link_to 'New Word', new_word_path, class: 'btn btn-primary' %>
+      </div>
+
+      <% if params[:q] %>
+        <div class="mb-4">
+          <%= search_form_for @search, url: words_index_path, method: :get, html: { class: 'd-flex gap-2' } do |f| %>
+            <%= f.search_field :title_or_body_contains, class: 'form-control', placeholder: 'Search in title and content...' %>
+            <%= f.button 'Search', class: 'btn btn-outline-secondary' %>
+            <%= link_to 'Clear', words_index_path, class: 'btn btn-outline-danger' %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-12">
+      <% if @words.any? %>
+        <div class="list-group list-group-flush">
+          <% @words.each do |word| %>
+            <%= link_to word, class: 'list-group-item list-group-item-action border-0 border-bottom' do %>
+              <div class="d-flex w-100 justify-content-between align-items-start">
+                <div class="flex-grow-1">
+                  <h5 class="mb-2"><%= word.title %></h5>
+                  <p class="mb-1 text-muted"><%= truncate(strip_tags(word.body.to_s), length: 120) %></p>
+                  <% if word.tag_list.any? %>
+                    <div class="mt-2">
+                      <% word.tag_list.each do |tag| %>
+                        <span class="badge bg-secondary me-1"><%= tag %></span>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+                <small class="text-muted"><%= time_ago_in_words(word.updated_at) + ' ago' %></small>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-center py-5">
+          <div class="text-muted">
+            <h4>No words found</h4>
+            <p>Get started by creating your first word.</p>
+            <%= link_to 'Create Word', new_word_path, class: 'btn btn-primary' %>
+          </div>
+        </div>
+      <% end %>
+
+      <% if @words.respond_to?(:current_page) %>
+        <div class="d-flex justify-content-center mt-4">
+          <nav aria-label="Page navigation">
+            <ul class="pagination">
+              <% if @words.prev_page %>
+                <li class="page-item">
+                  <%= link_to @words.prev_page ? words_index_path(page: @words.prev_page, q: params[:q]) : '#', class: 'page-link' do %>
+                    <%= t('Previous Page') %>
+                  <% end %>
+                </li>
+              <% end %>
+              <% if @words.next_page %>
+                <li class="page-item">
+                  <%= link_to @words.next_page ? words_index_path(page: @words.next_page, q: params[:q]) : '#', class: 'page-link' do %>
+                    <%= t('Next Page') %>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </nav>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,67 @@
+<div class="page-header mb-4">
+  <h1 class="h2">Settings</h1>
+</div>
+
+<%= form_for @setting, url: site_update_settings_path, method: :put do |f| %>
+  <div class="mb-3">
+    <%= label_tag 'Site Title', nil, class: 'form-label' %>
+    <%= f.text_field :site_title, class: 'form-control' %>
+  </div>
+  <div class="mb-3">
+    <%= label_tag 'List size of Recent words', nil, class: 'form-label' %>
+    <%= f.text_field :list_size_of_recent_words_parts, class: 'form-control', placeholder: 'Set to 0 to hide entire section' %>
+  </div>
+  <div class="mb-3">
+    <%= label_tag 'Theme', nil, class: 'form-label' %>
+    <%= f.text_field :theme, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= label_tag 'HTML for head tag', nil, class: 'form-label' %>
+    <%= f.text_area :html_append_head, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= label_tag 'HTML for end of body tag', nil, class: 'form-label' %>
+    <%= f.text_area :html_append_body, class: 'form-control' %>
+  </div>
+
+  <div class="mb-3">
+    <%= label_tag 'OpenAI API Key', nil, class: 'form-label' %>
+    <%= f.password_field :openai_api_key, class: 'form-control', placeholder: 'sk-...' %>
+    <div class="form-text">Used for AI content generation features. Keep this key secure.</div>
+  </div>
+
+  <%= f.submit :update, class: 'btn btn-primary' %>
+<% end %>
+
+<h2 class="mt-4">Export</h2>
+
+<%= link_to 'Export', site_export_path(format: :zip), class: 'btn btn-outline-secondary' %>
+
+<h2 class="mt-4">Import</h2>
+
+<%= form_tag site_import_path, { multipart: true } do |f| %>
+  <div class="mb-3">
+    <%= file_field_tag 'archive', class: 'form-control' %>
+  </div>
+  <%= submit_tag 'Import', class: 'btn btn-outline-secondary' %>
+<% end %>
+
+<div class="mt-4 border border-danger p-4 bg-light">
+  <h2 class="text-danger">
+    <i class="fa fa-exclamation-triangle me-2"></i>
+    Danger Zone
+  </h2>
+
+  <p class="text-muted">This operation will completely reset all wiki content and cannot be undone.</p>
+
+  <div class="alert alert-danger mb-3">
+    <strong>Warning!</strong>
+    This will delete ALL words (except Main Page and Side Bar) and ALL tags.
+    Main Page and Side Bar will be reset to their default content.
+  </div>
+
+  <% confirm_message = 'Are you ABSOLUTELY SURE you want to reset ALL content? This will delete all words (except Main Page/Side Bar) and all tags. This action CANNOT be undone!' %>
+  <%= button_to 'Reset All Content', reset_content_path, method: :delete, class: 'btn btn-danger btn-lg', data: { turbo_confirm: confirm_message } %>
+</div>
