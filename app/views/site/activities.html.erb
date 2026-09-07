@@ -1,0 +1,24 @@
+<div class="page-header mb-4">
+  <h1 class="h2">Activities</h1>
+</div>
+
+<ul class="activities">
+  <% @activities.each do |activity| %>
+    <li class="list-unstyled">
+      <small class="text-muted">
+        <i class="fa fa-clock me-2" aria-hidden="true"></i>
+        <%= activity.created_at %>
+      </small>
+      <br>
+      <strong>
+        <%= "#{activity.owner&.username || '(deleted user)'} " %>
+      </strong>
+      edited page
+      <% if activity.trackable.present? %>
+        <%= link_to activity.trackable.title, activity.trackable %>
+      <% else %>
+        <span class="text-muted">(deleted page)</span>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

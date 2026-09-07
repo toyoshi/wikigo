@@ -1,0 +1,7 @@
+<%= form_for(u, url: update_user_role_path, method: :put, html: {class: 'd-inline-flex align-items-center'}) do |f| %>
+  <%= f.hidden_field :id %>
+  <div class="me-2">
+    <%= f.select :role, User.roles.keys.to_a, {}, class: 'form-select form-select-sm' %>
+  </div>
+  <%= f.submit :update, class: 'btn btn-outline-primary btn-sm' %>
+<% end %>

@@ -1,0 +1,47 @@
+<%# Navigation Sidebar Component %>
+<% sidebar_content = Word.find_by_title('Side Bar')&.body %>
+<% if sidebar_content.present? %>
+  <div class="sidebar-content">
+    <%= add_word_links_to_content(sidebar_content, 'Side Bar') %>
+  </div>
+<% end %>
+
+<%# Default navigation when no Side Bar content exists %>
+<% unless sidebar_content.present? %>
+  <div class="default-navigation">
+    <div class="nav-section">
+      <div class="nav-section-header">Getting Started</div>
+      <ul class="nav-section-items list-unstyled">
+        <li class="nav-item">
+          <%= link_to 'All Words', words_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Create New Word', new_word_path, class: 'nav-link' %>
+        </li>
+      </ul>
+    </div>
+
+    <% if user_signed_in? %>
+      <div class="nav-section">
+        <div class="nav-section-header">Account</div>
+        <ul class="nav-section-items list-unstyled">
+          <li class="nav-item">
+            <%= link_to 'Settings', site_activities_path, class: 'nav-link' %>
+          </li>
+          <li class="nav-item">
+            <%= link_to 'Sign Out', destroy_user_session_path, method: :delete, class: 'nav-link' %>
+          </li>
+        </ul>
+      </div>
+    <% else %>
+      <div class="nav-section">
+        <div class="nav-section-header">Account</div>
+        <ul class="nav-section-items list-unstyled">
+          <li class="nav-item">
+            <%= link_to 'Sign In', new_user_session_path, class: 'nav-link' %>
+          </li>
+        </ul>
+      </div>
+    <% end %>
+  </div>
+<% end %>

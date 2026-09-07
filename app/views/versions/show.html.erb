@@ -1,0 +1,48 @@
+<% content_for(:title) { "#{@word.title}" } %>
+
+<div class="page-header">
+  <h1>
+    <%= @word.title %>
+    : Version history
+  </h1>
+</div>
+
+<div class="row">
+  <div class="col-md-3 col-xs12">
+    <h2>Versions</h2>
+    <ul>
+      <li><%= link_to @word.updated_at, word_version_path(@word, 0) %></li>
+      <% @versions.each do |v| %>
+        <li><%= link_to v.reify.updated_at, word_version_path(@word, v) %></li>
+      <% end %>
+    </ul>
+  </div>
+
+  <div class="col-md-9 col-xs12">
+    <h2>
+      Version:
+      <%= @version.updated_at %>
+    </h2>
+    <%= link_to 'roll_back', rollback_word_version_path(@version), method: :patch, data: { confirm: 'Are you sure?' }, class: 'btn btn-default pull-right' %>
+    <ul class="nav nav-tabs" role="tab-list">
+      <li class="active" role="presentation">
+        <a href="#html" role="tab" aria-controls="html" data-toggle="tab">html</a>
+      </li>
+      <li role="presentation">
+        <a href="#diff" role="tab" aria-controls="diff" data-toggle="tab">diff</a>
+      </li>
+    </ul>
+
+    <div class="tab-content">
+      <div id="html" class="tab-pane active" role="tabpanel">
+        <div class="markdown">
+          <%= add_word_link(@version) %>
+        </div>
+      </div>
+      <div id="diff" class="tab-pane" role="tabpanel">
+        <br>
+        <%= diff(@version.body, @version.paper_trail.previous_version.try(:body)) %>
+      </div>
+    </div>
+  </div>
+</div>

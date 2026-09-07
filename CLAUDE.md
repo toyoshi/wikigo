@@ -60,7 +60,7 @@ WikiGo is a multi-user wiki engine built with Ruby on Rails 8 (Ruby 3.3). Its si
 - Solid Cache / Solid Cable (database-backed; no Redis)
 
 ### Frontend
-- Slim templates
+- ERB templates
 - Propshaft asset pipeline + importmap-rails (no Node/Webpacker)
 - Hotwire (Turbo + Stimulus)
 - Bootstrap 5.3 via dartsass-rails

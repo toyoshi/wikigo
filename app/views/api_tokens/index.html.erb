@@ -1,0 +1,151 @@
+<div class="page-header mb-4">
+  <h1 class="h2">API Access Tokens</h1>
+</div>
+
+<div class="api-tokens-section">
+  <h3>Your API Tokens</h3>
+
+  <% if @new_api_token %>
+    <div class="alert alert-success mb-4">
+      <strong>Your new API token:</strong>
+      <br>
+      <code class="token-display" style="font-size: 14px; word-break: break-all;"><%= @new_api_token %></code>
+      <br>
+      <small class="text-muted">
+        Please copy this token now. You won't be able to see it again.
+      </small>
+    </div>
+  <% end %>
+
+  <% if @api_tokens.any? %>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Created</th>
+            <th>Last Used</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @api_tokens.each do |token| %>
+            <tr>
+              <td><%= token.name %></td>
+              <td><%= time_ago_in_words(token.created_at) + ' ago' %></td>
+              <td><%= token.last_used_at ? time_ago_in_words(token.last_used_at) + ' ago' : 'Never' %></td>
+              <td>
+                <%= link_to 'Delete', api_token_path(token), method: :delete, class: 'btn btn-sm btn-danger', data: { confirm: 'Are you sure? This will permanently delete this API token.' } %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <div class="alert alert-info">
+      No API tokens configured. Generate one to access the REST API.
+    </div>
+  <% end %>
+
+  <h4>Generate New Token</h4>
+  <%= form_with url: api_tokens_path, method: :post, local: true, class: 'mb-3' do |f| %>
+    <div class="mb-3">
+      <%= f.label :name, 'Token Name', class: 'form-label' %>
+      <%= f.text_field :name, class: 'form-control', placeholder: 'My API Token', value: '' %>
+      <div class="form-text">Give your token a descriptive name (optional - will use "Default API Key" if empty)</div>
+    </div>
+    <%= f.submit 'Generate API Token', class: 'btn btn-primary' %>
+  <% end %>
+</div>
+
+<div class="api-documentation mt-5">
+  <h3>API Documentation</h3>
+
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">REST API Endpoints</h5>
+
+      <h6>Authentication</h6>
+      <p>Use your API token in the Authorization header:</p>
+      <pre class="bg-light p-2">
+        <code>Authorization: Bearer YOUR_API_TOKEN</code>
+      </pre>
+
+      <h6>Base URL</h6>
+      <pre class="bg-light p-2">
+        <code><%= request.base_url + "/api/v1" %></code>
+      </pre>
+
+      <h6>Available Endpoints</h6>
+
+      <div class="row">
+        <div class="col-md-6">
+          <strong>Words</strong>
+          <ul class="list-unstyled mt-2">
+            <li>
+              <code>GET /api/v1/words</code>
+              <br>
+              <small>List all words (with pagination)</small>
+            </li>
+            <li>
+              <code>GET /api/v1/words/:id</code>
+              <br>
+              <small>Get a specific word</small>
+            </li>
+            <li>
+              <code>POST /api/v1/words</code>
+              <br>
+              <small>Create a new word</small>
+            </li>
+            <li>
+              <code>PUT /api/v1/words/:id</code>
+              <br>
+              <small>Update a word</small>
+            </li>
+            <li>
+              <code>DELETE /api/v1/words/:id</code>
+              <br>
+              <small>Delete a word</small>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-md-6">
+          <strong>Search &amp; Tags</strong>
+          <ul class="list-unstyled mt-2">
+            <li>
+              <code>GET /api/v1/words/search?q=term</code>
+              <br>
+              <small>Search words</small>
+            </li>
+            <li>
+              <code>GET /api/v1/words/tags</code>
+              <br>
+              <small>Get all tags</small>
+            </li>
+            <li>
+              <code>GET /api/v1/words/tagged/:tag</code>
+              <br>
+              <small>Get words by tag</small>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <h6>Parameters</h6>
+      <p>Common query parameters:</p>
+      <ul>
+        <li>
+          <code>page</code> - Page number for pagination
+        </li>
+        <li>
+          <code>per_page</code> - Items per page (max 100)
+        </li>
+        <li>
+          <code>sort</code> - Sort order: created_at_asc, created_at_desc, updated_at_asc, updated_at_desc, title_asc, title_desc
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

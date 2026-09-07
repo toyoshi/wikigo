@@ -1,0 +1,27 @@
+<% content_for(:title) { "Attachments" } %>
+
+<div class="page-header mb-4">
+  <h1 class="h2">Listing attachments</h1>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>File</th>
+      <th>User</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @attachments.each do |attachment| %>
+      <tr>
+        <td><%= attachment.file %></td>
+        <td><%= attachment.user&.username %></td>
+        <td><%= link_to 'Destroy', attachment, method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-sm btn-outline-danger' %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Attachment', new_attachment_path, class: 'btn btn-primary' %>

@@ -1,0 +1,33 @@
+<div class="page-header mb-4">
+  <h1 class="h2">Member Settings</h1>
+</div>
+
+<% if current_user.admin? %>
+  <%= render 'invitation_url' %>
+<% end %>
+
+<section>
+  <h2>Members</h2>
+
+  <table class="table table-striped">
+    <tr>
+      <th></th>
+      <th>E-mail</th>
+      <th>Role</th>
+    </tr>
+
+    <% @users.each do |u| %>
+      <tr>
+        <td><%= u.id %></td>
+        <td><%= u.email %></td>
+        <td>
+          <% if current_user.admin? && (current_user != u) %>
+            <%= render partial: 'update_role_form', locals: {u: u} %>
+          <% else %>
+            <%= u.role %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </table>
+</section>

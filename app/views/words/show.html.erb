@@ -1,0 +1,57 @@
+<% content_for(:title) { "#{@word.title}" } %>
+
+<% if @word.body.blank? %>
+  <% content_for(:meta_tags) do %>
+    <meta name="robots" content="noindex, nofollow">
+  <% end %>
+<% end %>
+
+<div class="py-2">
+  <div class="row">
+    <div class="col-12">
+      <article class="mb-4">
+        <header class="mb-4">
+          <div class="d-flex justify-content-between align-items-start mb-3">
+            <h1 class="h2 mb-0"><%= @word.title %></h1>
+            <%= link_to 'Edit', edit_word_path(@word), class: 'btn btn-outline-secondary btn-sm' %>
+          </div>
+
+          <% if @word.tag_list.any? %>
+            <div class="mb-3">
+              <% @word.tag_list.each do |tag| %>
+                <%= link_to word_tag_path(tag), class: 'text-decoration-none me-1' do %>
+                  <span class="badge bg-primary"><%= tag %></span>
+                <% end %>
+              <% end %>
+            </div>
+          <% end %>
+        </header>
+
+        <div class="word-content">
+          <% if @word.body.present? %>
+            <%= add_word_links_to_content(@word.body.to_s, @word.title) %>
+          <% else %>
+            <p class="text-muted">No content available.</p>
+          <% end %>
+        </div>
+      </article>
+
+      <footer class="border-top pt-4 mt-4">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="social-buttons">
+              <%= render "social_buttons" %>
+            </div>
+          </div>
+          <div class="col-md-6 text-md-end">
+            <div class="text-muted">
+              <small>
+                Last updated <%= time_ago_in_words(@word.updated_at) %> ago
+              </small>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </div>
+</div>

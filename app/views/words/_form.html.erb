@@ -1,0 +1,65 @@
+<% content_for('turolinks-cache') { 'no-cache' } %>
+
+<%= form_for(word, local: true, class: 'needs-validation', novalidate: true) do |f| %>
+  <% if word.errors.any? %>
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <h5 class="alert-heading">
+        <%= pluralize(word.errors.count, "error") %>
+        prohibited this word from being saved:
+      </h5>
+      <ul class="mb-0">
+        <% word.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="px-0">
+    <div class="row">
+      <div class="col-12">
+        <% unless template_list.empty? %>
+          <div class="mb-3">
+            <%= label_tag :template, "Template", class: 'form-label' %>
+            <%= select_tag :template, options_for_select(template_list), {id: 'template-selector', class: 'form-select', include_blank: 'Choose a template...'} %>
+            <div class="form-text">Select a template to start with predefined content.</div>
+          </div>
+        <% end %>
+
+        <div class="mb-3">
+          <%= f.label :title, class: 'form-label' %>
+          <%= f.text_field :title, class: 'form-control form-control-lg', placeholder: 'Enter the title for your word', required: true %>
+          <div class="invalid-feedback">Please provide a title.</div>
+        </div>
+
+        <div class="mb-3">
+          <%= f.label :tag_list, "Tags", class: 'form-label' %>
+          <%= f.text_field :tag_list, value: word.tag_list.to_s, class: 'form-control', placeholder: 'Add tags separated by commas' %>
+          <div class="form-text">Use tags to categorize and organize your content.</div>
+        </div>
+
+        <div class="mb-4">
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <%= f.label :body, "Content", class: 'form-label mb-0' %>
+            <% if word.persisted? %>
+              <%= button_tag type: 'button', class: 'btn btn-outline-primary btn-sm ms-3', id: 'ai-edit-btn', data: { word_id: word.id }, onclick: "handleAiEdit(#{word.id})" do %>
+                🤖 AIで本文生成
+              <% end %>
+            <% end %>
+          </div>
+          <%= f.rich_text_area :body, class: 'form-control rich-text-editor' %>
+          <div class="form-text">Use the toolbar above to format your content with rich text.</div>
+        </div>
+
+        <div class="d-flex gap-2 justify-content-end align-items-center">
+          <%= link_to 'Cancel', words_path, class: 'btn btn-outline-secondary' %>
+          <% if word.persisted? && word.id != 1 %>
+            <%= link_to 'Delete', word, method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Are you sure you want to delete this word? This action cannot be undone.' }, class: 'btn btn-danger' %>
+          <% end %>
+          <%= f.submit word.persisted? ? 'Update Word' : 'Create Word', class: 'btn btn-primary px-4' %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

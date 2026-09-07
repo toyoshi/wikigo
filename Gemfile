@@ -22,7 +22,6 @@ gem 'gon'
 gem 'rubyzip'
 
 gem 'devise'
-gem 'slim-rails'
 gem 'paper_trail'
 gem 'paper_trail-association_tracking'
 gem 'diffy'
