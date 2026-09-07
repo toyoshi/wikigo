@@ -3,7 +3,15 @@
 </div>
 
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+  <% if resource.errors.any? %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% resource.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
   <%= f.hidden_field :reset_password_token %>
 
   <div class="field mb-3">
