@@ -27,6 +27,26 @@ class Users::RegistrationsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "sign up fails closed when the invitation token is not configured" do
+    Option.where(option_key: 'user_registration_token').destroy_all
+    assert_equal '', Option.user_registration_token
+    assert_operator User.count, :>=, 1
+
+    get new_user_registration_url(rt: '')
+
+    assert_redirected_to root_url
+    follow_redirect!
+    assert_match 'invitation', response.body
+  end
+
+  test "sign up is blocked with an incorrect invitation token" do
+    get new_user_registration_url(rt: 'wrong-token')
+
+    assert_redirected_to root_url
+    follow_redirect!
+    assert_match 'invitation', response.body
+  end
+
   test "registration with a valid invitation token creates a user" do
     get new_user_registration_url(rt: 'test-invite-token')
     assert_response :success

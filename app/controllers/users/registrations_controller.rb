@@ -8,8 +8,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     return true if User.count == 0
 
     #TOKEN is valid
-    token = params[:rt] || session[:rt]
-    if token == Option.user_registration_token
+    # Fail closed if the invitation token has not been configured.
+    configured_token = Option.user_registration_token.to_s
+    token = (params[:rt] || session[:rt]).to_s
+    if configured_token.present? &&
+        token.present? &&
+        ActiveSupport::SecurityUtils.secure_compare(token, configured_token)
       session[:rt] = token
     else
       redirect_to root_path, notice: 'Registration is invitation-only. Please use the invitation URL provided by an admin.'
