@@ -5,8 +5,6 @@ RUN apk add --no-cache \
     build-base \
     postgresql-dev \
     sqlite-dev \
-    nodejs \
-    npm \
     git \
     curl \
     tzdata \
