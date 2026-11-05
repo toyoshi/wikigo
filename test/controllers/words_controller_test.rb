@@ -39,6 +39,19 @@ class WordsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "should show word as json" do
+    get word_url(@word), headers: { "Accept" => "application/json" }
+    assert_response :success
+    assert_equal "application/json; charset=utf-8", response.media_type + "; charset=" + response.charset
+    assert_equal @word.title, JSON.parse(response.body)["title"]
+  end
+
+  test "should show word as markdown" do
+    get word_url(@word), headers: { "Accept" => "text/markdown" }
+    assert_response :success
+    assert_equal "# #{@word.title}\n\n", response.body.lines.first + "\n"
+  end
+
   test "should get edit" do
     get edit_word_url(@word)
     assert_response :success

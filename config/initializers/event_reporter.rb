@@ -19,6 +19,6 @@ end
 
 Rails.application.configure do
   config.after_initialize do
-    Rails.event.subscribers << EventLogSubscriber.new
+    Rails.event.subscribe(EventLogSubscriber.new)
   end
 end

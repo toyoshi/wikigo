@@ -30,6 +30,15 @@ class SiteControllerTest < ActionDispatch::IntegrationTest
     assert_not_equal old_role, @user2.reload.role
   end
 
+  test "update user role rejects roles outside the enum whitelist" do
+    @user2 = users( :bob )
+    before = @user2.role
+    put update_user_role_url, params: { user: { id: @user2.id, role: 'destroy_all' } }
+    assert_redirected_to site_members_path
+    assert_equal 'Invalid role', flash[:alert]
+    assert_equal before, @user2.reload.role
+  end
+
   test "AdminでなくてはSite Settingのページにアクセスできない" do
     @user2 = users( :bob )
     sign_in(@user2)
