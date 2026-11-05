@@ -1,0 +1,55 @@
+# Keep the reference app current: security advisories immediately, freshness
+# weekly. The Gemfile requirement constraints (e.g. rails ~> 8.1.4) bound how
+# far dependabot may widen, and bin/ci plus the CI workflow guard every PR.
+version: 2
+
+updates:
+  # Security-only patching, not rate-limited by the weekly schedule.
+  - package-ecosystem: bundler
+    directory: "/"
+    security-only-updates: true
+    open-pull-request-limit: 5
+    commit-message:
+      prefix: "chore(deps):"
+      include-co-authors: false
+
+  # Weekly freshness bumps for patch/minor releases, collapsed per stack so
+  # review load stays sane on a small app.
+  - package-ecosystem: bundler
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "05:00"
+      timezone: Asia/Tokyo
+    open-pull-request-limit: 5
+    allow:
+      - dependency-type: direct
+        update-types:
+          - version-update: bump
+    groups:
+      rails-stack:
+        patterns:
+          - "rails"
+          - "rails-*"
+          - "action*"
+          - "active*"
+          - "railties"
+          - "activesupport"
+          - "propshaft"
+          - "importmap-rails"
+      html-parsing:
+        patterns:
+          - "nokogiri"
+          - "loofah"
+          - "crass"
+      server-and-http:
+        patterns:
+          - "puma"
+          - "faraday"
+          - "concurrent-ruby"
+
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
