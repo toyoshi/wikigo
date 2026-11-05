@@ -3,9 +3,16 @@ class VersionsController < ApplicationController
   before_action :set_word, only: [:show, :rollback]
 
   def rollback
-    word = @version
-    word.save
-    redirect_to word_path(word)
+    version = @word.versions.find(params[:id])
+    snapshot = version.reify
+
+    # has_rich_text associations do not reify (the body lives in a separate
+    # table), so restore it from the snapshot captured when the version was
+    # saved. The update spins a new version, keeping the rollback itself
+    # undoable. Without this the latest body would silently win (#82).
+    @word.update!(title: snapshot.title, body: snapshot.body_snapshot)
+
+    redirect_to word_path(@word), notice: 'Restored the selected version.'
   end
 
   def show

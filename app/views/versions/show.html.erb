@@ -38,12 +38,12 @@
     <div class="tab-content">
       <div id="html" class="tab-pane active" role="tabpanel">
         <div class="markdown">
-          <%= add_word_link(@version) %>
+          <%= add_word_links_to_content(version_body(@version), @version.title) %>
         </div>
       </div>
       <div id="diff" class="tab-pane" role="tabpanel">
         <br>
-        <%= diff(@version.body, @version.paper_trail.previous_version.try(:body)) %>
+        <%= diff(version_body(@version), version_body(@version.paper_trail.previous_version)) %>
       </div>
     </div>
   </div>

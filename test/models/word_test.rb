@@ -169,6 +169,55 @@ EOS
     assert_equal Word.count, Word.title_or_body_contains("").to_a.uniq.count
   end
 
+  # --- search snapshots (#83) ---
+
+  test "search matches the plain text of the body" do
+    word = Word.create!(title: "Tagged Word")
+    word.body = "<div><p><strong>searchme</strong> text</p></div>"
+    word.save!
+
+    assert_includes Word.body_contains("searchme"), word
+    assert_includes Word.title_or_body_contains("searchme"), word
+  end
+
+  test "search does not match html tags stored in the body (#83)" do
+    word = Word.create!(title: "Tagged Word")
+    word.body = "<figure><figcaption>plain visible words</figcaption></figure>"
+    word.save!
+
+    # The raw rich-text column contains <figure>/<figcaption>, so a query that
+    # only matches markup must not be able to return the record.
+    %w[figure figcaption].each do |tag|
+      assert_not_includes Word.body_contains(tag), word,
+        "searching for #{tag.inspect} leaked a record only via its HTML tags"
+      assert_not_includes Word.title_or_body_contains(tag), word,
+        "searching for #{tag.inspect} leaked a record only via its HTML tags"
+    end
+  end
+
+  test "body snapshots stay in sync with the rich text body" do
+    word = Word.create!(title: "Snapshot Word")
+    word.body = "<h1>Head</h1><p>Body text</p>"
+    word.save!
+
+    assert_equal "Head Body text", word.body_plain_text.squish
+    assert_equal "<h1>Head</h1><p>Body text</p>", word.body_snapshot
+  end
+
+  test "body_plain_text is captured into PaperTrail versions (#82)" do
+    word = Word.create!(title: "Version Snapshot Word")
+    word.body = "first generation"
+    word.save!
+    word.body = "second generation"
+    word.save!
+    word.body = "third generation"
+    word.save!
+
+    older = word.versions.to_a.find { |v| v.reify.body_plain_text == "first generation" }
+    assert_not_nil older, "expected a version carrying the first generation"
+    assert_equal "second generation", word.versions.last.reify.body_plain_text
+  end
+
   test "has_content only returns words with a non-blank rich text body" do
     assert_includes Word.has_content, words(:one)
     assert_not_includes Word.has_content, words(:two)

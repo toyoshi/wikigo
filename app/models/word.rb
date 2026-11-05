@@ -14,28 +14,30 @@ class Word < ApplicationRecord
   validates :title, uniqueness: true
 
   # === Callbacks ===
+  # Keep the searchable / history snapshots of the ActionText body in sync.
+  before_save :sync_body_snapshots
   # Prevent deletion of the home page (ID=1)
   before_destroy :prevent_home_page_deletion
 
   # === Scopes ===
-  # Search ActionText content only.
+  # Search the body content. Runs against body_plain_text (saved at write
+  # time with HTML tags removed), so markup such as <strong> never leaks into
+  # results and no rich-text join is required.
   scope :body_contains, ->(query) {
     return all if query.blank?
-    joins(:rich_text_body)
-      .where("action_text_rich_texts.body LIKE ? ESCAPE '\\'", "%#{sanitize_sql_like(query)}%")
+    where("words.body_plain_text LIKE ? ESCAPE '\\'", "%#{sanitize_sql_like(query)}%")
   }
 
-  # Search title or ActionText content.
+  # Search title or body content. See body_contains for why this uses
+  # body_plain_text rather than the raw rich-text HTML.
   scope :title_or_body_contains, ->(query) {
     return all if query.blank?
     escaped_query = "%#{sanitize_sql_like(query)}%"
 
-    left_outer_joins(:rich_text_body)
-      .where(
-        "words.title LIKE :query ESCAPE '\\' OR action_text_rich_texts.body LIKE :query ESCAPE '\\'",
-        query: escaped_query
-      )
-      .distinct
+    where(
+      "words.title LIKE :query ESCAPE '\\' OR words.body_plain_text LIKE :query ESCAPE '\\'",
+      query: escaped_query
+    )
   }
 
   # Words that have a non-empty body.
@@ -109,10 +111,28 @@ EOS
 
   # Rails 8.1 Markdown rendering: render markdown: @word outputs this.
   def to_markdown
-    "# #{title}\n\n#{body.try(:to_plain_text) || body.to_s}\n"
+    "# #{title}\n\n#{body_plain_text.presence || body.try(:to_plain_text) || body.to_s}\n"
   end
 
   private
+
+  # Copy the ActionText body into the plain-text and HTML snapshot columns.
+  # * body_plain_text feeds the search scopes so HTML tags never match (#83).
+  # * body_snapshot is serialized by PaperTrail so version history renders the
+  #   body the record had at that time, since reify cannot restore has_rich_text
+  #   associations (#82).
+  #
+  # The HTML comes from the content fragment rather than RichText#to_s, which
+  # renders through the trix-content layout and would bake that markup into
+  # the stored snapshot. Assign only when the value actually differs so a
+  # no-op update stays a no-op (and does not spin a new PaperTrail version).
+  def sync_body_snapshots
+    rich_text = body
+    plain = rich_text.try(:to_plain_text).to_s
+    html = rich_text&.body&.fragment&.to_s.to_s
+    self.body_plain_text = plain if body_plain_text != plain
+    self.body_snapshot = html if body_snapshot != html
+  end
 
   def prevent_home_page_deletion
     if id == 1
