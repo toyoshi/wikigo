@@ -11,7 +11,13 @@ class WordsController < ApplicationController
 
   # GET /words/1
   # GET /words/1.json
+  # GET /words/1.md  (Rails 8.1 Markdown rendering)
   def show
+    respond_to do |format|
+      format.html
+      format.json { render json: @word }
+      format.md   { render markdown: @word }
+    end
   end
 
   def tags

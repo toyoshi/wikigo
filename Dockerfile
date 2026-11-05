@@ -1,4 +1,4 @@
-FROM ruby:3.3-alpine
+FROM ruby:4.0-alpine
 
 # Install system dependencies for Alpine
 RUN apk add --no-cache \
