@@ -42,7 +42,7 @@ class SiteControllerTest < ActionDispatch::IntegrationTest
   test "AdminでなくてはSite Settingのページにアクセスできない" do
     @user2 = users( :bob )
     sign_in(@user2)
-    assert_raises do
+    assert_raises(RuntimeError, 'Only Admin allowed access') do
       get site_settings_url
     end
   end

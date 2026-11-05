@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 **Purpose:** a simple, modern wiki you can self-host with nothing but Rails and a single Docker command — low operational overhead for teams and individuals to build and grow their own knowledge base.
 
-WikiGo is a multi-user wiki engine built with Ruby on Rails 8 (Ruby 3.3). Its signature feature is automatic keyword linking: any page title mentioned in another page's content becomes a link. It also provides tagging, versioning, webhooks, a REST API, and AI-assisted content editing. Authentication is Devise; rich text is ActionText/Trix.
+WikiGo is a multi-user wiki engine built with Ruby on Rails 8 (Ruby 4.0). Its signature feature is automatic keyword linking: any page title mentioned in another page's content becomes a link. It also provides tagging, versioning, webhooks, a REST API, and AI-assisted content editing. Authentication is Devise; rich text is ActionText/Trix.
 
 ## Development Commands
 
@@ -30,6 +30,7 @@ WikiGo is a multi-user wiki engine built with Ruby on Rails 8 (Ruby 3.3). Its si
 - `docker-compose exec app rails c` - Rails console in container
 
 ### CI
+- `bin/ci` - Rails 8.1 Local CI (`config/ci.rb`): runs gem audit, brakeman, tests, and seeds locally.
 - GitHub Actions (`.github/workflows/ci.yml`) runs `rails test` and `bundle-audit` on push/PR.
 
 ## Architecture Overview
