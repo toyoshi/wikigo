@@ -11,7 +11,15 @@ class SiteController < ApplicationController
 
   def update_user_role
     @user = User.find(params[:user][:id])
-    @user.send("#{params[:user][:role]}!")
+    role = params[:user][:role].to_s
+
+    # Never pass user-supplied input into send: validate the role against the
+    # enum whitelist first, then call the bang method by a verified name.
+    unless User.roles.key?(role)
+      redirect_to site_members_path, alert: 'Invalid role' and return
+    end
+
+    @user.public_send(:"#{role}!")
     redirect_to site_members_path, notice: 'Role updated'
   end
 

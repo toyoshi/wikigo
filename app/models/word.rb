@@ -107,6 +107,11 @@ wiki:word_id: #{id}
 EOS
   end
 
+  # Rails 8.1 Markdown rendering: render markdown: @word outputs this.
+  def to_markdown
+    "# #{title}\n\n#{body.try(:to_plain_text) || body.to_s}\n"
+  end
+
   private
 
   def prevent_home_page_deletion

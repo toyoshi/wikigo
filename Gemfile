@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 8.0'
+gem 'rails', '~> 8.1.4'
 gem 'propshaft' # Rails 8 default asset pipeline
 gem 'importmap-rails' # ES6 modules via import maps
 gem 'turbo-rails' # Hotwire's SPA-like page accelerator
@@ -18,7 +18,7 @@ gem 'bootsnap', require: false
 gem 'puma'
 gem 'jbuilder'
 
-gem 'gon'
+gem 'gon', '~> 8.0'
 gem 'rubyzip'
 
 gem 'devise'
@@ -52,6 +52,7 @@ group :development do
 end
 
 group :test do
+  gem 'ostruct' # Ruby 4.0: no longer a default gem, used by words_import_test
 end
 
 group :production do
@@ -59,3 +60,7 @@ group :production do
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem "brakeman", "~> 8.1", group: :development
+
+gem "bundler-audit", "~> 0.9.3", group: :development

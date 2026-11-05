@@ -1,0 +1,25 @@
+# Run using bin/ci
+
+CI.run do
+  step "Setup", "bin/setup --skip-server"
+
+  step "Security: Gem audit", "bin/bundler-audit"
+
+  # --ignore-model-output: Option.html_append_head/body render admin-managed
+  # HTML snippets through `raw` by design, so model-attribute XSS warnings are safe here.
+  step "Security: Brakeman code analysis", "bin/brakeman --quiet --no-pager --exit-on-warn --exit-on-error --ignore-model-output"
+
+  step "Tests: Rails", "bin/rails test"
+  step "Tests: Seeds", "env RAILS_ENV=test bin/rails db:seed:replant"
+
+  # Optional: Run system tests
+  # step "Tests: System", "bin/rails test:system"
+
+  # Optional: set a green GitHub commit status to unblock PR merge.
+  # Requires the `gh` CLI and `gh extension install basecamp/gh-signoff`.
+  # if success?
+  #   step "Signoff: All systems go. Ready for merge and deploy.", "gh signoff"
+  # else
+  #   failure "Signoff: CI failed. Do not merge or deploy.", "Fix the issues and try again."
+  # end
+end

@@ -36,20 +36,11 @@
         </div>
       </article>
 
-      <footer class="border-top pt-4 mt-4">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="social-buttons">
-              <%= render "social_buttons" %>
-            </div>
-          </div>
-          <div class="col-md-6 text-md-end">
-            <div class="text-muted">
-              <small>
-                Last updated <%= time_ago_in_words(@word.updated_at) %> ago
-              </small>
-            </div>
-          </div>
+      <footer class="border-top pt-3 mt-4">
+        <div class="text-muted">
+          <small>
+            Last updated <%= time_ago_in_words(@word.updated_at) %> ago
+          </small>
         </div>
       </footer>
     </div>

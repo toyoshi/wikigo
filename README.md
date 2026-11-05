@@ -4,7 +4,7 @@
 
 **A simple, modern wiki engine — a wiki you can self-host with nothing but Rails and a single Docker command.**
 
-WikiGo's signature is automatic keyword linking: mention a page title anywhere in your content and it becomes a link. Built natively on Rails 8 with minimal infrastructure, so teams and individuals can stand up and grow their own knowledge base with low operational overhead.
+WikiGo's signature is automatic keyword linking: mention a page title anywhere in your content and it becomes a link. Built natively on **Ruby 4.0** and **Rails 8.1** with minimal infrastructure, WikiGo doubles as a **Rails reference app** that demonstrates the framework's latest features in a small, readable codebase.
 
 ## Features
 
@@ -13,22 +13,33 @@ WikiGo's signature is automatic keyword linking: mention a page title anywhere i
 - **Auto-linking**: Page titles automatically become links throughout the wiki
 - **Multi-user**: User authentication and role-based access
 - **Rich text editing**: ActionText editor with Trix for content creation
+- **Markdown export**: Request any page as Markdown with `.md`
 - **Tagging system**: Organize content with tags
 - **Version history**: Track changes with PaperTrail
 - **Search functionality**: Find content across all pages
 - **REST API**: Full API access for integrations and automation
 - **Modern UI**: Bootstrap 5 responsive design
-- **Rails 8 native**: Uses Solid Cache and Solid Cable
+- **Rails 8.1 native**: Uses Solid Cache, Solid Cable, Local CI, and Structured Event Reporting
 
 ## Technology Stack
 
-- **Ruby on Rails 8.0** - Modern web framework
+- **Ruby 4.0** - The latest stable Ruby with Prism parser and ZJIT
+- **Rails 8.1** - Modern full-stack web framework
 - **Solid Cache / Solid Cable** - Database-backed cache and cable (no Redis required)
 - **ActionText** - Rich text editing with Trix editor
 - **Bootstrap 5** - Responsive UI framework
 - **SQLite/PostgreSQL** - Database options for development/production
 - **Propshaft** - Rails 8 asset pipeline
 - **Importmaps** - ES6 modules without bundling
+
+### Rails 8.1 features showcased
+
+WikiGo is a living reference for the newest Rails capabilities:
+
+- **Local CI** (`bin/ci`) — run style, security, and test steps locally in one command
+- **Structured Event Reporter** — emit machine-readable events via `Rails.event.notify`
+- **Markdown rendering** — `GET /words/1.md` renders `Word#to_markdown` directly
+- **Solid Queue** — opt in for database-backed background jobs (job continuations ready)
 
 ## Quick Start
 
@@ -46,19 +57,14 @@ WikiGo's signature is automatic keyword linking: mention a page title anywhere i
    ```
    Visit http://localhost:3000
 
-3. **Local development**
+3. **Local development** (requires Ruby 4.0)
    ```bash
-   bundle install
-   rails db:create db:migrate db:seed
-   rails server
+   bin/setup
    ```
 
 ### Production Deployment
 
 WikiGo is designed to be simple to deploy with minimal infrastructure requirements.
-
-**Heroku Deployment**
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
 **Docker Deployment**
 ```bash
@@ -83,6 +89,20 @@ docker run -p 3000:3000 wikigo
 ## How It Works
 
 WikiGo's key feature is **automatic keyword linking**. When you create a page with a title like "Ruby on Rails", that exact phrase will automatically become a clickable link on any other page where it appears. This creates a natural, interconnected knowledge base without manual link management.
+
+## Testing
+
+Run the full test suite locally:
+
+```bash
+bin/rails test
+```
+
+Or run the complete local CI pipeline (style, security audit, tests):
+
+```bash
+bin/ci
+```
 
 ## REST API
 
@@ -131,7 +151,8 @@ curl -X POST \
 1. Fork the repository
 2. Create a feature branch
 3. Make your changes
-4. Submit a pull request
+4. Run `bin/ci` to verify style, security, and tests
+5. Submit a pull request
 
 ## License
 

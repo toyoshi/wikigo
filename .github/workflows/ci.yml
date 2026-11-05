@@ -17,6 +17,12 @@ jobs:
           ruby-version: .ruby-version
           bundler-cache: true
 
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes --no-install-recommends \
+            libvips-dev libsqlite3-dev libyaml-dev
+
       - name: Prepare database
         run: bin/rails db:prepare
         env:
