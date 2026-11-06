@@ -86,6 +86,8 @@ GEM
     acts-as-taggable-on (13.0.0)
       activerecord (>= 7.1, < 8.2)
       zeitwerk (>= 2.4, < 3.0)
+    addressable (2.9.2)
+      public_suffix (>= 2.0.2, < 8.0)
     base64 (0.3.0)
     bcrypt (3.1.22)
     bigdecimal (4.1.3)
@@ -101,6 +103,15 @@ GEM
       thor (~> 1.0)
     byebug (13.0.0)
       reline (>= 0.6.0)
+    capybara (3.40.0)
+      addressable
+      matrix
+      mini_mime (>= 0.1.3)
+      nokogiri (~> 1.11)
+      rack (>= 1.6.0)
+      rack-test (>= 0.6.3)
+      regexp_parser (>= 1.5, < 3.0)
+      xpath (~> 3.2)
     concurrent-ruby (1.3.8)
     connection_pool (3.0.2)
     crass (1.0.8)
@@ -192,6 +203,7 @@ GEM
       net-pop
       net-smtp
     marcel (1.2.1)
+    matrix (0.4.3)
     mini_magick (5.4.0)
       logger
     mini_mime (1.1.5)
@@ -242,6 +254,7 @@ GEM
       activerecord (>= 6.1)
       i18n (>= 0.5.0)
       railties (>= 6.1)
+    public_suffix (7.0.5)
     puma (8.0.2)
       nio4r (~> 2.0)
     racc (1.8.1)
@@ -303,6 +316,7 @@ GEM
       prism (>= 1.6.0)
       rbs (>= 4.0.0)
       tsort
+    regexp_parser (2.13.1)
     reline (0.7.0)
       io-console (~> 0.5)
     request_store (1.7.0)
@@ -354,6 +368,8 @@ GEM
       base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
+    xpath (3.2.0)
+      nokogiri (~> 1.8)
     zeitwerk (2.8.3)
 
 PLATFORMS
@@ -371,6 +387,7 @@ DEPENDENCIES
   brakeman (~> 8.1)
   bundler-audit (~> 0.9.3)
   byebug
+  capybara
   dartsass-rails (~> 0.5)
   devise
   diffy
@@ -387,6 +404,7 @@ DEPENDENCIES
   propshaft
   public_activity
   puma
+  rack-test
   rails (~> 8.1.4)
   rails-i18n (~> 8.0)
   ransack
