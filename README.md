@@ -163,4 +163,5 @@ This project is available under the MIT License.
 
 - Create an issue for bug reports or feature requests
 - Review the codebase — it's designed to be readable and educational
+- Contribution policy for humans: `CONTRIBUTING.md` (the reference-app standard, the contract, the workflow)
 - Agent guidance for AI-assisted contribution: `CLAUDE.md`
