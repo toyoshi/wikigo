@@ -9,20 +9,9 @@ class SettingTest < ActiveSupport::TestCase
     end
   end
 
-  test "exposes an accessor for openai_api_key" do
-    setting = Setting.new
-    assert_respond_to setting, :openai_api_key
-    assert_respond_to setting, :openai_api_key=
-  end
-
-  test "can be initialized with attributes like a plain ActiveModel" do
-    setting = Setting.new(openai_api_key: "sk-test")
-    assert_equal "sk-test", setting.openai_api_key
-  end
-
-  test "getters and setters simply hold in-memory values" do
-    setting = Setting.new
-    setting.openai_api_key = "sk-abc"
-    assert_equal "sk-abc", setting.openai_api_key
+  test "exposes typed string attributes mirroring the Option registry" do
+    setting = Setting.new(theme: "solarized")
+    assert_equal "solarized", setting.theme
+    assert_equal "WikiGo", Setting.new.site_title # registry default rides along
   end
 end

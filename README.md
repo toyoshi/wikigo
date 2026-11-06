@@ -42,7 +42,7 @@ WikiGo has two faces. It is a production-ready wiki whose signature is **automat
 | **Rmagick** | image_processing + libvips が現行 | — |
 | **spring / webpacker** | Rails 8 のスキャフォールド対象外。webpacker 残骸は #107 で削除済み | #121 |
 | **文字列ディスパッチの magic** | `method_missing` + `send` を参照コードに書かない (実際に #105 で priv-esc を修正した同型) | #114 |
-| **AI 編集 (main 線)** | OpenAI の例は main の目的から外れる。interface + fake に縮退 | #117 |
+| **AI 編集 (main 線)** | OpenAI の例は main の目的から外れる。`AiContentGenerator` は provider interface + deterministic Fake に縮退し、実装は `example/ai-editing` ブランチへ | 済み |
 | **beta 追従** | 追随先は stable のみ。Gemfile の制約 (`rails ~> 8.1.4`) が境界のゲート | — |
 | **Cloudflare Workers/Pages** | Rails は JS/WASM ランタイム外。載せ方を論じる前に崩れる前提。デプロイ先はコンテナ系 | #111 |
 
