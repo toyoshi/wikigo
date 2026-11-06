@@ -1,11 +1,10 @@
 class Setting
   include ActiveModel::Model
+  include ActiveModel::Attributes
 
-  Option.keys.each do |p|
-    attr_accessor p
+  # Form object mirroring Option's explicit registry (see Option::KNOWN_KEYS),
+  # so the settings form binds exactly the keys the model accepts.
+  Option::KNOWN_KEYS.each do |key, default|
+    attribute key, :string, default: default
   end
-  
-  # Add attr_accessor for any keys that might not be in Option.keys yet
-  attr_accessor :openai_api_key
-  
 end

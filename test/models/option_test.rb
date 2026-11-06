@@ -7,28 +7,35 @@ class OptionTest < ActiveSupport::TestCase
     assert_not_equal current_token, Option.update_registration_token
   end
 
-  test "keys returns the option_key of every stored option" do
-    assert_equal ["list_size_of_recent_words_parts"], Option.keys
+  test "known_keys returns the registry, not whatever rows happen to exist" do
+    assert_includes Option.known_keys, 'site_title'
+    assert_includes Option.known_keys, 'openai_api_key'
   end
 
-  test "reading an unknown key returns the column default instead of raising" do
-    # method_missing uses find_or_initialize_by, so an unset key yields an
-    # unsaved record whose option_value falls back to the "" column default.
-    assert_equal "", Option.some_key_that_does_not_exist
+  test "reading an unknown key fails loudly instead of magic" do
+    assert_raises(NoMethodError) do
+      Option.some_key_that_does_not_exist
+    end
   end
 
-  test "setting a value via method_missing creates or updates the option" do
-    Option.site_title = "My Wiki"
-    assert_equal "My Wiki", Option.site_title
+  test "setting a known value creates or updates exactly one row" do
+    Option.site_title = 'My Wiki'
+    assert_equal 'My Wiki', Option.site_title
 
-    Option.site_title = "Renamed Wiki"
-    assert_equal "Renamed Wiki", Option.site_title
-    assert_equal 1, Option.where(option_key: "site_title").count
+    Option.site_title = 'Renamed Wiki'
+    assert_equal 'Renamed Wiki', Option.site_title
+    assert_equal 1, Option.where(option_key: 'site_title').count
   end
 
-  test "values are always returned as strings" do
-    Option.numeric_option = 42
-    assert_equal "42", Option.numeric_option
+  test "unknown writers are rejected" do
+    assert_raises(NoMethodError) do
+      Option.numeric_option = 42
+    end
+  end
+
+  test "known values are always stored as strings" do
+    Option.list_size_of_recent_words_parts = 42
+    assert_equal '42', Option.list_size_of_recent_words_parts
   end
 
   test "all_with_hash builds a key/value hash of every option" do
@@ -36,11 +43,18 @@ class OptionTest < ActiveSupport::TestCase
     assert_equal "5", hash["list_size_of_recent_words_parts"]
   end
 
-  test "update_all writes multiple options at once" do
-    Option.update_all("list_size_of_recent_words_parts" => "9", "new_key" => "value")
+  test "update_all writes known options at once" do
+    Option.update_all("list_size_of_recent_words_parts" => "9", "site_title" => "Bulk Title")
 
     assert_equal "9", Option.list_size_of_recent_words_parts
-    assert_equal "value", Option.new_key
+    assert_equal "Bulk Title", Option.site_title
+  end
+
+  test "update_all refuses unknown keys instead of persisting junk" do
+    assert_raises(ArgumentError) do
+      Option.update_all("new_key" => "value")
+    end
+    assert_equal 0, Option.where(option_key: "new_key").count
   end
 
   test "existing fixture value is readable" do

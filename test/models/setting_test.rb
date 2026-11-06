@@ -3,13 +3,13 @@ require 'test_helper'
 class SettingTest < ActiveSupport::TestCase
   test "exposes an accessor for every known Option key" do
     setting = Setting.new
-    Option.keys.each do |key|
+    Option.known_keys.each do |key|
       assert_respond_to setting, key
       assert_respond_to setting, "#{key}="
     end
   end
 
-  test "exposes an accessor for openai_api_key even if not an Option yet" do
+  test "exposes an accessor for openai_api_key" do
     setting = Setting.new
     assert_respond_to setting, :openai_api_key
     assert_respond_to setting, :openai_api_key=
