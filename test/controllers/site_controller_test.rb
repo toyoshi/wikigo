@@ -47,6 +47,22 @@ class SiteControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "update_settings persists registry keys and ignores form noise" do
+    put site_update_settings_url, params: {
+      setting: {
+        site_title: 'Renamed Wiki',
+        list_size_of_recent_words_parts: '7',
+        commit: 'Update',
+        smuggled: 'x'
+      }
+    }
+    assert_redirected_to site_settings_path
+
+    assert_equal 'Renamed Wiki', Option.site_title
+    assert_equal '7', Option.list_size_of_recent_words_parts
+    assert_equal 0, Option.where(option_key: 'smuggled').count
+  end
+
   test "shoud get export and download" do
     get site_export_url
     assert_equal 'export.zip', response.header["Content-Disposition"].match("filename=\"(.*.zip)\"")[1]
