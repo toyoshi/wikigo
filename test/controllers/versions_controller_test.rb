@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class VersionsControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
-
   setup do
     @word = words(:one)
   end

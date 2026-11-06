@@ -3,6 +3,10 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'faraday'
 
+# has_secure_password (#110): the BCrypt default cost is deliberately slow;
+# the test suite drops it to BCrypt's minimum so digests don't dominate runtime.
+ActiveModel::SecurePassword.min_cost = true
+
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
   fixtures :all
@@ -11,6 +15,9 @@ class ActiveSupport::TestCase
 
   # perform_enqueued_jobs / assert_enqueued_jobs in every test.
   include ActiveJob::TestHelper
+
+  # Session/sign-in helpers (sign_in_as, sign_in, sign_out) for the auth stack (#110).
+require_relative 'test_helpers/session_test_helper'
 
   # Add more helper methods to be used by all tests here...
 

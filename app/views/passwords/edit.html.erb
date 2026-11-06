@@ -1,0 +1,19 @@
+<div class="page-header mb-4">
+  <h1 class="h2">Update your password</h1>
+</div>
+
+<%= form_with url: password_path(params[:token]), method: :put do |f| %>
+  <div class="field mb-3">
+    <%= f.label :password, 'New password', class: 'form-label' %>
+    <%= f.password_field :password, name: 'password', required: true, autofocus: true, autocomplete: "new-password", class: 'form-control' %>
+  </div>
+
+  <div class="field mb-3">
+    <%= f.label :password_confirmation, 'Repeat new password', class: 'form-label' %>
+    <%= f.password_field :password_confirmation, name: 'password_confirmation', required: true, autocomplete: "new-password", class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Save", class: 'btn btn-primary' %>
+  </div>
+<% end %>

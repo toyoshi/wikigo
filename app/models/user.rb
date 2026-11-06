@@ -1,8 +1,11 @@
 class User < ApplicationRecord
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+  # #110: Devise replaced by the Rails 8 authentication generator's stack —
+  # ActiveModel's has_secure_password (BCrypt digest in password_digest) for
+  # credentials, and a has_many :sessions of Session records for server-side
+  # sign-in state (user_agent + ip_address are the sign-in-tracking columns
+  # Devise used to keep on this table).
+  has_secure_password
+  has_many :sessions, dependent: :destroy
 
   enum :role, { editor: 0, admin: 99 }
 
@@ -18,16 +21,16 @@ class User < ApplicationRecord
   # like "good\nbad!!!" would incorrectly pass validation. \A/\z anchor to the
   # whole string and close that bypass.
   validates_format_of :username, with: /\A[a-zA-Z0-9_\.]*\z/
+  validates :email, uniqueness: { :case_sensitive => false }, allow_blank: true
+  validates_format_of :email, with: /\A[^@\s]+@[^@\s.]+\.[^@\s]+\z/, allow_blank: true
 
   after_save :keep_admin_exist
 
-  def self.find_for_database_authentication(warden_conditions)
-    conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions.to_hash).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
-    elsif conditions.has_key?(:username) || conditions.has_key?(:email)
-      where(conditions.to_hash).first
-    end
+  # Sign-in credential check for SessionsController: username or email (either
+  # case-insensitively) plus the password, verified against the BCrypt digest.
+  def self.authenticate(login:, password:)
+    user = where(["lower(username) = :value OR lower(email) = :value", { value: login.to_s.downcase }]).first
+    user if user&.authenticate_password(password.to_s)
   end
   
   # Generate a new API token for this user

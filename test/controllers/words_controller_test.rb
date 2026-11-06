@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class WordsControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
-
   setup do
     @user = users( :john ) 
     sign_in(@user)

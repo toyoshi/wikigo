@@ -102,29 +102,26 @@ class UserTest < ActiveSupport::TestCase
     assert other_admin.reload.admin?
   end
 
-  # --- find_for_database_authentication ---
+  # --- authenticate (replaces Devise's warden lookup, #110) ---
 
-  test "finds a user by username via the login virtual attribute" do
-    found = User.find_for_database_authentication(login: "JOHN")
-    assert_equal users(:john), found
+  test "authenticates by username case-insensitively" do
+    assert_equal users(:john), User.authenticate(login: "JOHN", password: "password")
   end
 
-  test "finds a user by email via the login virtual attribute" do
-    found = User.find_for_database_authentication(login: users(:john).email.upcase)
-    assert_equal users(:john), found
+  test "authenticates by email case-insensitively" do
+    assert_equal users(:john), User.authenticate(login: users(:john).email.upcase, password: "password")
   end
 
-  test "finds a user by username or email attribute directly" do
-    found = User.find_for_database_authentication(username: "bob")
-    assert_equal users(:bob), found
+  test "returns nil for an unknown login" do
+    assert_nil User.authenticate(login: "nobody-here", password: "password")
   end
 
-  test "returns nil when no login attribute matches" do
-    assert_nil User.find_for_database_authentication(login: "nobody-here")
+  test "returns nil for a wrong password" do
+    assert_nil User.authenticate(login: "john", password: "nope")
   end
 
-  test "returns nil when neither login, username nor email is supplied" do
-    assert_nil User.find_for_database_authentication(role: "admin")
+  test "returns nil for an empty password" do
+    assert_nil User.authenticate(login: "john", password: "")
   end
 
   # --- API token helpers ---

@@ -119,12 +119,6 @@ GEM
       railties (>= 6.0.0)
       sass-embedded (~> 1.63)
     date (3.6.0)
-    devise (5.0.4)
-      bcrypt (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 7.0)
-      responders
-      warden (~> 1.2.3)
     diffy (3.4.4)
     dotenv (3.2.0)
     dotenv-rails (3.2.0)
@@ -237,7 +231,6 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.7-x86_64-linux-gnu)
       racc (~> 1.4)
-    orm_adapter (0.5.0)
     paper_trail (17.0.0)
       activerecord (>= 7.1)
       request_store (~> 1.4)
@@ -327,9 +320,6 @@ GEM
       io-console (~> 0.5)
     request_store (1.7.0)
       rack (>= 1.4)
-    responders (3.2.1)
-      actionpack (>= 7.0)
-      railties (>= 7.0)
     ruby-vips (2.3.0)
       ffi (~> 1.12)
       logger
@@ -375,8 +365,6 @@ GEM
       concurrent-ruby (~> 1.0)
     uri (1.1.2)
     useragent (0.16.11)
-    warden (1.2.9)
-      rack (>= 2.0.9)
     websocket-driver (0.8.2)
       base64
       websocket-extensions (>= 0.1.0)
@@ -395,6 +383,7 @@ PLATFORMS
 DEPENDENCIES
   acts-as-taggable-on
   acts_as_favable!
+  bcrypt (~> 3.1)
   bootsnap
   bootstrap (~> 5.3)
   brakeman (~> 8.1)
@@ -402,7 +391,6 @@ DEPENDENCIES
   byebug
   capybara
   dartsass-rails (~> 0.5)
-  devise
   diffy
   dotenv-rails
   faraday

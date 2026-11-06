@@ -1,13 +1,40 @@
 class ApplicationController < ActionController::Base
+  # Resumes the server-side Session from the signed session_id cookie on
+  # every request (warden's job under Devise). Enforcement stays explicit —
+  # controllers gate with authenticate_user! like they gated with Devise's
+  # authenticate_user! — so the forced require_authentication callback itself
+  # is skipped application-wide.
+  include Authentication
+
   include HostConfiguration
 
   protect_from_forgery with: :exception
   before_action :set_paper_trail_whodunnit, :select_theme, :set_search_obj
-  before_action :configure_permitted_parameters, if: :devise_controller?
   before_action :set_host
 
+  helper_method :current_user, :user_signed_in?
+
+  # #110: Devise's warden helpers are gone; the authentication-generator
+  # pattern reads the Current session (set from the signed session_id cookie
+  # by the Authentication concern used by the auth controllers). Pages are
+  # public by default; controllers that need a user call authenticate_user!
+  # the same way they used Devise's authenticate_user! before.
+  def current_user
+    Current.session&.user
+  end
+
+  def user_signed_in?
+    Current.session.present?
+  end
+
+  def authenticate_user!
+    # The Authentication concern's flow: resume or stash-then-redirect.
+    require_authentication
+  end
+
   def authenthicate_admin!
-    raise 'Only Admin allowed access' unless current_user.admin?
+    authenticate_user! unless user_signed_in?
+    raise 'Only Admin allowed access' unless current_user&.admin?
   end
 
   def select_theme
@@ -21,12 +48,6 @@ class ApplicationController < ActionController::Base
   end
 
   protected
-
-  def configure_permitted_parameters
-    added_attrs = [:username, :email, :password, :password_confirmation, :remember_me]
-    devise_parameter_sanitizer.permit :sign_up, keys: added_attrs
-    devise_parameter_sanitizer.permit :account_update, keys: added_attrs
-  end
 
   def current_theme
     Option.theme

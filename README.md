@@ -25,7 +25,7 @@ WikiGo has two faces. It is a production-ready wiki whose signature is **automat
 | **PaperTrail (JSON serializer)** | 履歴の reify が Psych の制約に躓まない構成 (#82 参照) |
 | **minitest + fixtures** | テストは仕様書であり、それ自体が模範であるべき |
 
-計画・追跡は GitHub Issues が台帳です。Devise 置き換 (#110)。
+計画・追跡は GitHub Issues が台帳です。
 
 ### 明示的に採用しないもの (Non-goals)
 
@@ -33,7 +33,7 @@ WikiGo has two faces. It is a production-ready wiki whose signature is **automat
 
 | 対象 | 理由 | 追跡 |
 |------|------|------|
-| **Devise** | `has_secure_password` + session が公式推奨経路。本家の破壊的変更に振り回された実例あり (#101) | #110 |
+| **Devise** | `has_secure_password` + session が公式推奨経路 — #110 で置き換済み。本家の破壊的変更に振り回された実例あり (#101) | 済み |
 | **gon** | JS グローバルへのデータ流し込みは Hotwire 時代のアンチパタン。Turbo Streams / `data-*` 属性へ | #119 / #118 |
 | **Sidekiq / Redis** | 答えは database-backed の Solid Queue — webhook 配信が実 job として採用済み (#112) | 済み |
 | **RSpec / FactoryBot** | Rails 既定の minitest + fixtures を模範として維持 | — |

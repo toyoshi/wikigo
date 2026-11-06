@@ -1,0 +1,39 @@
+<div class="page-header mb-4">
+  <h1 class="h2">Edit Profile</h1>
+</div>
+
+<%= form_for @user, url: user_registration_path, method: :patch do |f| %>
+  <% if @user.errors.any? %>
+    <div class="alert alert-danger">
+      <ul class="mb-0">
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field mb-3">
+    <%= f.label :username, class: 'form-label' %>
+    <%= f.text_field :username, class: 'form-control' %>
+  </div>
+
+  <div class="field mb-3">
+    <%= f.label :email, class: 'form-label' %>
+    <%= f.email_field :email, class: 'form-control' %>
+  </div>
+
+  <div class="field mb-3">
+    <%= f.label :password, 'New password', class: 'form-label' %>
+    <%= f.password_field :password, autocomplete: "off", class: 'form-control' %>
+  </div>
+
+  <div class="field mb-3">
+    <%= f.label :password_confirmation, 'Repeat new password', class: 'form-label' %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Save", class: 'btn btn-primary' %>
+  </div>
+<% end %>
