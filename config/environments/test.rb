@@ -54,4 +54,10 @@ Rails.application.configure do
   # Encrypt Option's encrypted attributes on insert so the fixture can stay
   # plain text while reads go through the cryptor (#113).
   config.active_record.encryption.encrypt_fixtures = true
+
+  # The :test job adapter keeps enqueued jobs inline, but Solid Queue's own
+  # AR models still need the queue database pointed at like production —
+  # this is what lets the recurring.yml wiring be exercised from tests
+  # without booting a dispatcher (#138).
+  config.solid_queue.connects_to = { database: { writing: :queue } }
 end

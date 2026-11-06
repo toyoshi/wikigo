@@ -24,7 +24,10 @@ module Authentication
     end
 
     def find_session_by_cookie
-      Session.find_by(id: cookies.signed[:session_id]) if cookies.signed[:session_id]
+      record = Session.find_by(id: cookies.signed[:session_id]) if cookies.signed[:session_id]
+      # Server-side TTL wins over the permanent cookie (#138): an expired
+      # row reads as "not signed in" even while the cookie is still sent.
+      record unless record&.expired?
     end
 
     def request_authentication

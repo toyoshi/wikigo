@@ -17,6 +17,7 @@ WikiGo is a multi-user wiki engine built with Ruby on Rails 8 (Ruby 4.0). Its si
 
 ### Running the Application
 - `rails server` - Start the development server (no separate JS build step; importmap + Propshaft)
+- `SOLID_QUEUE_MODE=everything bin/jobs` - Solid Queue worker + dispatcher. The dispatcher's scheduler also fires the recurring tasks declared in `config/recurring.yml` (e.g. `Sessions::CleanupJob`, the daily expired-Session sweep, #138).
 
 ### Testing
 - `rails test` - Run the full test suite (Minitest)
