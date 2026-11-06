@@ -4,120 +4,115 @@
 
 **A simple, modern wiki engine — a wiki you can self-host with nothing but Rails and a single Docker command.**
 
-WikiGo's signature is automatic keyword linking: mention a page title anywhere in your content and it becomes a link. Built natively on **Ruby 4.0** and **Rails 8.1** with minimal infrastructure, WikiGo doubles as a **Rails reference app** that demonstrates the framework's latest features in a small, readable codebase.
+WikiGo has two faces. It is a production-ready wiki whose signature is **automatic keyword linking** — mention a page title anywhere in your content and it becomes a link. And it is a **Rails reference app**: living documentation of how modern Rails (Ruby 4.0 / Rails 8.1) is written, in a small, readable codebase. Everything in this repository is judged by one standard:
+
+> **Rails 本体が推奨しているか。読者に 1 分で説明できるか。**
+
+「新しいから足す」は動きません。依存が一つ増えることは、読者にとって負荷が一つ増えることです。
+
+## リファレンスアプリの姿勢
+
+### 採用している Rails 8.1 の型
+
+| 型 | WikiGo での実装 |
+|----|----------------|
+| **Local CI** | `bin/ci` (`config/ci.rb`) — style・security・tests を一本のコマンドで |
+| **Structured Event Reporter** | `Rails.event.notify` による machine-readable events (`config/initializers/event_reporter.rb`) |
+| **Markdown rendering** | `GET /words/1.md` が `Word#to_markdown` を直接レンダリング |
+| **Propshaft + importmap-rails + Hotwire** | JS ビルド工程なし。Turbo + Stimulus 正規の経路 |
+| **Solid Cache / Solid Cable** | Redis/Memcached 不要の database-backed デフォルト |
+| **ActionText (Trix)** | リッチテキストの本文は `has_rich_text` が唯一の真実 |
+| **PaperTrail (JSON serializer)** | 履歴の reify が Psych の制約に躓まない構成 (#82 参照) |
+| **minitest + fixtures** | テストは仕様書であり、それ自体が模範であるべき |
+
+計画・追跡は GitHub Issues が台帳です。Solid Queue による job 化 (#112)、attribute encryption (#113)、system tests (#115)。
+
+### 明示的に採用しないもの (Non-goals)
+
+「入っていないこと」も判断の産物です。以下は方針として入れません:
+
+| 対象 | 理由 | 追跡 |
+|------|------|------|
+| **Devise** | `has_secure_password` + session が公式推奨経路。本家の破壊的変更に振り回された実例あり (#101) | #110 |
+| **gon** | JS グローバルへのデータ流し込みは Hotwire 時代のアンチパタン。Turbo Streams / `data-*` 属性へ | #119 / #118 |
+| **Sidekiq / Redis** | database-backed の Solid Queue が答え | #112 |
+| **RSpec / FactoryBot** | Rails 既定の minitest + fixtures を模範として維持 | — |
+| **ViewComponent / StimulusReflex / htmx** | Hotwire 正規の経路に徹する | — |
+| **Pundit / CanCanCan** | ロール判定は controller concern の明示的な方法で足りる | — |
+| **Rmagick** | image_processing + libvips が現行 | — |
+| **spring / webpacker** | Rails 8 のスキャフォールド対象外。webpacker 残骸は #107 で削除済み | #121 |
+| **文字列ディスパッチの magic** | `method_missing` + `send` を参照コードに書かない (実際に #105 で priv-esc を修正した同型) | #114 |
+| **AI 編集 (main 線)** | OpenAI の例は main の目的から外れる。interface + fake に縮退 | #117 |
+| **beta 追従** | 追随先は stable のみ。Gemfile の制約 (`rails ~> 8.1.4`) が境界のゲート | — |
+| **Cloudflare Workers/Pages** | Rails は JS/WASM ランタイム外。載せ方を論じる前に崩れる前提。デプロイ先はコンテナ系 | #111 |
 
 ## Features
 
 <img src='https://cloud.githubusercontent.com/assets/188394/19829747/d9d0b680-9e24-11e6-9d1d-40e20604f170.png' width='500'>
 
-- **Auto-linking**: Page titles automatically become links throughout the wiki
-- **Multi-user**: User authentication and role-based access
-- **Rich text editing**: ActionText editor with Trix for content creation
-- **Markdown export**: Request any page as Markdown with `.md`
-- **Tagging system**: Organize content with tags
-- **Version history**: Track changes with PaperTrail
-- **Search functionality**: Find content across all pages
-- **REST API**: Full API access for integrations and automation
-- **Modern UI**: Bootstrap 5 responsive design
-- **Rails 8.1 native**: Uses Solid Cache, Solid Cable, Local CI, and Structured Event Reporting
-
-## Technology Stack
-
-- **Ruby 4.0** - The latest stable Ruby with Prism parser and ZJIT
-- **Rails 8.1** - Modern full-stack web framework
-- **Solid Cache / Solid Cable** - Database-backed cache and cable (no Redis required)
-- **ActionText** - Rich text editing with Trix editor
-- **Bootstrap 5** - Responsive UI framework
-- **SQLite/PostgreSQL** - Database options for development/production
-- **Propshaft** - Rails 8 asset pipeline
-- **Importmaps** - ES6 modules without bundling
-
-### Rails 8.1 features showcased
-
-WikiGo is a living reference for the newest Rails capabilities:
-
-- **Local CI** (`bin/ci`) — run style, security, and test steps locally in one command
-- **Structured Event Reporter** — emit machine-readable events via `Rails.event.notify`
-- **Markdown rendering** — `GET /words/1.md` renders `Word#to_markdown` directly
-- **Solid Queue** — opt in for database-backed background jobs (job continuations ready)
+- **Auto-linking**: ページタイトルが全ページ上で自動的にリンック化する名物機能
+- **Multi-user**: 認証とロール付きアクセスの模範実装
+- **Rich text editing**: ActionText + Trix による編集
+- **Markdown export**: `/words/1.md` で任意ページを Markdown 出力 (#82 で履歴表示も修正)
+- **Tagging system**: acts-as-taggable-on によるタグ
+- **Version history**: PaperTrail による履歴・ロールバック
+- **Search**: HTML タグにヒットしない本文検索 (`body_plain_text`, #83)
+- **REST API**: Bearer token による完全な API
+- **Modern UI**: Bootstrap 5 / Propshaft / importmap
+- **Rails 8.1 native**: Solid Cache・Solid Cable・Local CI・Structured Event Reporter
 
 ## Quick Start
 
-### Development
+### Local development (requires Ruby 4.0)
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/toyoshi/wikigo.git
-   cd wikigo
-   ```
+```bash
+git clone https://github.com/toyoshi/wikigo.git
+cd wikigo
+bin/setup          # 依存関係のインストールと db:prepare
+bin/rails server
+```
 
-2. **Using Docker (Recommended)**
-   ```bash
-   docker-compose up
-   ```
-   Visit http://localhost:3000
+### Docker (Recommended)
 
-3. **Local development** (requires Ruby 4.0)
-   ```bash
-   bin/setup
-   ```
+```bash
+docker-compose up
+```
 
-### Production Deployment
+Visit http://localhost:3000
 
-WikiGo is designed to be simple to deploy with minimal infrastructure requirements.
+### 変更 before push
 
-**Docker Deployment**
+```bash
+bin/ci             # gem audit / brakeman / tests / seeds を全部回す
+```
+
+## Deployment
+
+SQLite in development/test, PostgreSQL in production (`DATABASE_URL` が primary/cache/cable の三本を引き込む構成)。
+
 ```bash
 docker build -t wikigo .
 docker run -p 3000:3000 wikigo
 ```
 
-## Configuration
+Kamal を用いた公式ツールでのデプロイ導線と `/up` ヘルスチェックは **#111** で追跡中。Railway 導線 (#80) は owner トリッジで deferred。
 
-### Environment Variables
+## Testing & Quality Gates
 
-- `RAILS_ENV` - Set to `production` for production deployment
-- `SECRET_KEY_BASE` - Rails secret key (auto-generated)
-- `DATABASE_URL` - PostgreSQL connection string for production
-
-### Optional Features
-
-- **Image uploads**: Configure Active Storage for file attachments
-- **Email notifications**: Set up Action Mailer for user notifications
-- **Custom themes**: Modify Bootstrap variables in `app/assets/stylesheets/`
-
-## How It Works
-
-WikiGo's key feature is **automatic keyword linking**. When you create a page with a title like "Ruby on Rails", that exact phrase will automatically become a clickable link on any other page where it appears. This creates a natural, interconnected knowledge base without manual link management.
-
-## Testing
-
-Run the full test suite locally:
+リファレンスアプリにとってテストと CI は機能ではなく**ドキュメント**です。
 
 ```bash
-bin/rails test
+bin/rails test     # suite 全体 (Minitest)
+bin/ci             # gem audit + brakeman + tests + seeds
 ```
 
-Or run the complete local CI pipeline (style, security audit, tests):
-
-```bash
-bin/ci
-```
+- テスト名は仕様語で書き、意図を持つものは Issue 番号を残す — e.g. `"search does not match html tags stored in the body (#83)"`
+- GitHub Actions (`.github/workflows/ci.yml`) が `rails test` と `bundle-audit` をゲート
+- dependabot 設定は in-tree (`.github/dependabot.yml`, #108): security 即時・週次 patch/minor
 
 ## REST API
 
-WikiGo provides a comprehensive REST API for programmatic access to all wiki functionality. Perfect for integrations, automation, and building custom applications.
-
-### API Features
-
-- **Full CRUD operations** for wiki pages (Words)
-- **Search and filtering** capabilities
-- **Tag management** and filtering by tags
-- **Bearer token authentication** for secure access
-- **Pagination and sorting** for large datasets
-- **Comprehensive error handling** with detailed responses
-
-### Quick API Example
+WikiGo provides a comprehensive REST API for programmatic access to all wiki functionality.
 
 ```bash
 # Get all pages
@@ -136,23 +131,17 @@ curl -X POST \
      https://your-wikigo-instance.com/api/v1/words
 ```
 
-### API Documentation
-
 📖 **[Complete REST API Documentation](./WikiGo-REST-API-Documentation.md)**
-
-- Authentication setup
-- All available endpoints
-- Request/response examples
-- Error handling
-- SDK examples in multiple languages
 
 ## Contributing
 
 1. Fork the repository
 2. Create a feature branch
-3. Make your changes
+3. Make your changes — and keep them explainable in one minute
 4. Run `bin/ci` to verify style, security, and tests
 5. Submit a pull request
+
+The policy above (Non-goals の一覧と判断基準) is contract. 迷う変更に迷う PR は、まず Issue で方針を相談してください — non-goals の追記・更新は #120 で管理します。
 
 ## License
 
@@ -161,5 +150,5 @@ This project is available under the MIT License.
 ## Support
 
 - Create an issue for bug reports or feature requests
-- Check the wiki for documentation and examples
-- Review the codebase - it's designed to be readable and educational
+- Review the codebase — it's designed to be readable and educational
+- Agent guidance for AI-assisted contribution: `CLAUDE.md`
