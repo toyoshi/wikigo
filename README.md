@@ -22,6 +22,7 @@ release tag (現 v0.1.0 = Rails 8.1.4.1 / Ruby 4.0.8) で、各時点の Rails
 |----|----------------|
 | **Local CI** | `bin/ci` (`config/ci.rb`) — style・security・tests を一本のコマンドで |
 | **Structured Event Reporter** | `Rails.event.notify` による machine-readable events (`config/initializers/event_reporter.rb`) |
+| **Active Record Query Logs** | 全 SQL に SQLCommenter comment tag (`docs/query_logs.md`) — どの request/job が叩いたか query 単体から復元 (#139) |
 | **Markdown rendering** | `GET /words/1.md` が `Word#to_markdown` を直接レンダリング |
 | **Propshaft + importmap-rails + Hotwire** | JS ビルド工程なし。Turbo + Stimulus 正規の経路 |
 | **Solid Cache / Solid Cable / Solid Queue** | Redis なしの database-backed 三昧セット (ActiveJob バックエンド含む) |
