@@ -23,7 +23,6 @@ gem 'rubyzip'
 
 gem 'devise'
 gem 'paper_trail'
-gem 'paper_trail-association_tracking'
 gem 'diffy'
 gem 'kaminari'
 
@@ -46,8 +45,6 @@ end
 group :development do
   gem 'sqlite3', '~> 2.0'
   gem 'listen'
-  gem 'spring'
-  gem 'spring-watcher-listen'
   gem 'dotenv-rails'
 end
 
