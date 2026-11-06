@@ -28,4 +28,23 @@ class WordsUpdateTest < ActiveSupport::TestCase
       Words::Update.new(@john, @word.to_param, { body: 'updated' }).call
     end
   end
+
+  # The before_commit gate on Word (#137): the queue lives in a separate
+  # database, so a job enqueued before a rollback could never be unsent.
+  test "does not enqueue the webhook when the caller's transaction rolls back" do
+    assert_no_enqueued_jobs do
+      ActiveRecord::Base.transaction do
+        Words::Update.new(@john, @word.to_param, { body: 'rolled back' }).call
+        raise ActiveRecord::Rollback
+      end
+    end
+  end
+
+  test "enqueues the webhook when the caller's transaction commits" do
+    assert_enqueued_jobs(1, only: Webhooks::SendJob) do
+      ActiveRecord::Base.transaction do
+        Words::Update.new(@john, @word.to_param, { body: 'committed' }).call
+      end
+    end
+  end
 end

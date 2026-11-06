@@ -18,6 +18,14 @@ class Word < ApplicationRecord
   before_save :sync_body_snapshots
   # Prevent deletion of the home page (ID=1)
   before_destroy :prevent_home_page_deletion
+  # Webhook delivery rides on commit success (#137): services record the
+  # intent with queue_webhook before the write and the enqueue fires only
+  # when the transaction that carries it really commits. A rollback (or a
+  # failed save) leaves the queue untouched, so an event that never happened
+  # is never delivered. Outside any explicit transaction the save's own
+  # transaction commits trivially and the behaviour matches the old inline
+  # enqueue.
+  before_commit :enqueue_queued_webhook
 
   # === Scopes ===
   # Search the body content. Runs against body_plain_text (saved at write
@@ -91,6 +99,12 @@ class Word < ApplicationRecord
   end
 
   # === Instance methods ===
+  # Record the intent to deliver a webhook for this record's next commit
+  # (see the before_commit callback above). Call before the save.
+  def queue_webhook(action, user)
+    @queued_webhook = [ action, user ]
+  end
+
   def to_param
     title_to_param
   end
@@ -115,6 +129,14 @@ EOS
   end
 
   private
+
+  # One-shot drain of the queued webhook intent (see queue_webhook).
+  def enqueue_queued_webhook
+    return unless @queued_webhook
+    action, user = @queued_webhook
+    @queued_webhook = nil
+    Webhooks::SendJob.perform_later(action, id, user.id)
+  end
 
   # Copy the ActionText body into the plain-text and HTML snapshot columns.
   # * body_plain_text feeds the search scopes so HTML tags never match (#83).
