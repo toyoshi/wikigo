@@ -36,6 +36,14 @@ COPY . .
 # Run bundle install again to ensure all gems including git sources are available
 RUN bundle install
 
+# Precompile assets at build time, not in the entrypoint (#111): a Kamal
+# deployment must be a complete, bootable artifact, and the /up health check
+# going green immediately depends on it not compiling assets on first request.
+# Dummy boot-time credentials only — real ones arrive as runtime secrets.
+RUN RAILS_ENV=production SECRET_KEY_BASE=dummy_precompile_only \
+    DATABASE_URL=sqlite3:tmp/precompile_dummy.sqlite3 \
+    bundle exec rails assets:precompile
+
 # Copy and make entrypoint script executable
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh

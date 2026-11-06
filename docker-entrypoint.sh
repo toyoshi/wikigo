@@ -34,12 +34,6 @@ bundle exec rails db:migrate
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] Seeding database..."
 bundle exec rails db:seed
 
-# Precompile assets if needed (development mode)
-if [ "$RAILS_ENV" = "production" ]; then
-  echo "[$(date '+%Y-%m-%d %H:%M:%S')] Precompiling assets..."
-  bundle exec rails assets:precompile
-fi
-
 echo "[$(date '+%Y-%m-%d %H:%M:%S')] Starting Rails server..."
 
 # Set default port if not provided by Railway

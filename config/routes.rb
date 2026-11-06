@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  # Health check endpoint for deploy orchestrators and load balancers —
+  # the same route the Rails 8 app template ships (#111). Renders 200 "OK"
+  # when the app is up; Kamal's proxy polls it before cutting traffic over.
+  get 'up' => 'rails/health#show', as: :rails_health_check
+
   # Sitemap
   get '/sitemap.xml', to: 'sitemap#index', defaults: { format: 'xml' }
   
