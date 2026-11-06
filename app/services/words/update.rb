@@ -21,7 +21,7 @@ module Words
         @word.favorites.find_or_create_by(user: @user)
 
         #Send webhook
-        Webhooks::Send.new('update', @word, @user).call
+        Webhooks::SendJob.perform_later('update', @word.id, @user.id)
       end
 
       Result.new(r, @word)

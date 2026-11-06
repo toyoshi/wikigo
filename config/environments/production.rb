@@ -51,7 +51,8 @@ Rails.application.configure do
 
   # Removed SolidQueue background job configuration
   # Changed to synchronous webhook processing to eliminate complexity
-  # config.active_job.queue_adapter = :solid_queue
+  config.active_job.queue_adapter = :solid_queue
+  config.solid_queue.connects_to = { database: { writing: :queue } }
   # config.solid_queue.connects_to = { database: { writing: :queue } }
 
   # Ignore bad email addresses and do not raise email delivery errors.
