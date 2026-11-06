@@ -1,8 +1,6 @@
 require 'test_helper'
 
 class ApiTokensControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
-
   setup do
     @admin = users(:john) # role: admin
     @editor = users(:bob) # role: editor

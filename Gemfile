@@ -20,7 +20,6 @@ gem 'jbuilder'
 
 gem 'rubyzip'
 
-gem 'devise'
 gem 'paper_trail'
 gem 'diffy'
 gem 'kaminari'
@@ -61,3 +60,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem "brakeman", "~> 8.1", group: :development
 
 gem "bundler-audit", "~> 0.9.3", group: :development
+
+gem "bcrypt", "~> 3.1"

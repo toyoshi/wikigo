@@ -1,0 +1,14 @@
+<div class="page-header mb-4">
+  <h1 class="h2">Forgot your password?</h1>
+</div>
+
+<%= form_with url: passwords_path do |f| %>
+  <div class="field mb-3">
+    <%= f.label :email, class: 'form-label' %>
+    <%= f.email_field :email, name: 'email', required: true, autofocus: true, class: 'form-control' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit "Email reset instructions", class: 'btn btn-primary' %>
+  </div>
+<% end %>

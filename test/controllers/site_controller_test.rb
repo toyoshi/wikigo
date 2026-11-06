@@ -2,8 +2,6 @@ require 'test_helper'
 require 'zip'
 
 class SiteControllerTest < ActionDispatch::IntegrationTest
-  include Devise::Test::IntegrationHelpers
-
   setup do
     @user = users( :john ) 
     sign_in(@user)

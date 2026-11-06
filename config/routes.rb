@@ -41,18 +41,20 @@ Rails.application.routes.draw do
     resources :api_tokens, only: [:index, :create, :destroy]
     resources :webhooks, except: [:show]
 
-    devise_for :users, skip: :registrations
-    devise_scope :user do
-      resource :registration,
-        only: [:new, :create, :edit, :update],
-        path: 'users',
-        path_names: { new: 'sign_up' },
-        controller: 'users/registrations',
-        as: :user_registration do
-          get :cancel
-        end
-    end
   end
+
+  # Sign in/out and password reset (#110): the Rails 8 authentication
+  # generator's controllers on top of ActiveModel's has_secure_password
+  # replace Devise. The view-facing helper names (new_user_session_path,
+  # destroy_user_session_path) are kept stable so the layouts didn't churn.
+  get    'signin',   to: 'sessions#new',     as: :new_user_session
+  post   'signin',   to: 'sessions#create'
+  delete 'signout',  to: 'sessions#destroy', as: :destroy_user_session
+  resources :passwords, param: :token, only: %i[new create edit update]
+
+  # Invitation-token-gated sign up (custom flow, predates this app's Devise)
+  resource :user_registration, controller: 'users/registrations',
+    path: 'users/registration', only: %i[new create edit update]
 
   root to: 'words#show', id: 1
 

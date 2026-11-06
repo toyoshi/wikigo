@@ -1,17 +1,19 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-# This model initially had no columns defined. If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
 #
+# password_digest is hashed by ERB with BCrypt at load time (#110, the
+# has_secure_password replacement for Devise). Cost 4 keeps the fixture suite
+# fast; every fixture user's password is "password".
+
+<% PASSWORD_DIGEST = BCrypt::Password.create("password", cost: 4).to_s %>
+
 john:
   username: "john"
   email: "john@example.com"
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  password_digest: <%= PASSWORD_DIGEST %>
   role: 'admin'
 
 bob:
   username: "bob"
   email: "bob@example.com"
-  encrypted_password: <%= Devise::Encryptor.digest(User, 'password') %>
+  password_digest: <%= PASSWORD_DIGEST %>
   role: 'editor'
