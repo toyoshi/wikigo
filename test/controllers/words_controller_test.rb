@@ -8,6 +8,16 @@ class WordsControllerTest < ActionDispatch::IntegrationTest
     @word = words(:one)
   end
 
+  test "an expired server-side session no longer authenticates (#138)" do
+    sign_in(@user)
+    Current.session.update!(expires_at: 1.minute.ago)
+
+    post words_url, params: { word: { title: 'Expired Session Word' } }
+
+    assert_redirected_to new_user_session_path
+    assert_nil Word.find_by(title: 'Expired Session Word')
+  end
+
   test "should get index" do
     get words_index_url
     assert_response :success
