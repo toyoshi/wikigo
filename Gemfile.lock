@@ -231,8 +231,6 @@ GEM
     paper_trail (17.0.0)
       activerecord (>= 7.1)
       request_store (~> 1.4)
-    paper_trail-association_tracking (2.4.1)
-      paper_trail (>= 12.0)
     pg (1.7.0-aarch64-linux)
     pg (1.7.0-aarch64-linux-musl)
     pg (1.7.0-arm64-darwin)
@@ -341,10 +339,6 @@ GEM
       activejob (>= 7.2)
       activerecord (>= 7.2)
       railties (>= 7.2)
-    spring (4.7.0)
-    spring-watcher-listen (2.1.0)
-      listen (>= 2.7, < 4.0)
-      spring (>= 4)
     sqlite3 (2.10.2-aarch64-linux-gnu)
     sqlite3 (2.10.2-aarch64-linux-musl)
     sqlite3 (2.10.2-arm64-darwin)
@@ -398,7 +392,6 @@ DEPENDENCIES
   nokogiri
   ostruct
   paper_trail
-  paper_trail-association_tracking
   pg
   propshaft
   public_activity
@@ -409,8 +402,6 @@ DEPENDENCIES
   rubyzip
   solid_cable
   solid_cache
-  spring
-  spring-watcher-listen
   sqlite3 (~> 2.0)
   stimulus-rails
   turbo-rails

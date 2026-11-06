@@ -1,5 +1,3 @@
-PaperTrail.config.track_associations = false
-
 # Store serialized versions as JSON rather than YAML.
 #
 # The YAML serializer breaks PaperTrail#reify on Ruby 4.0 / Psych 4: versioned
