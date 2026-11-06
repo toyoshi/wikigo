@@ -7,6 +7,10 @@ module Words
     end
 
     def call
+      # Queue the webhook intent before the write: it rides on commit
+      # success (#137), so a rollback or a failed save never enqueues.
+      @word.queue_webhook('update', @user)
+
       #Save the word
       r = @word.update(@params)
 
@@ -19,9 +23,6 @@ module Words
 
         #Add to fav
         @word.favorites.find_or_create_by(user: @user)
-
-        #Send webhook
-        Webhooks::SendJob.perform_later('update', @word.id, @user.id)
       end
 
       Result.new(r, @word)
