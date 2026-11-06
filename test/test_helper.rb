@@ -9,6 +9,9 @@ class ActiveSupport::TestCase
   fixtures 'acts_as_taggable_on/tags'
   fixtures 'acts_as_taggable_on/taggings'
 
+  # perform_enqueued_jobs / assert_enqueued_jobs in every test.
+  include ActiveJob::TestHelper
+
   # Add more helper methods to be used by all tests here...
 
   # Temporarily replaces a singleton method (e.g. a class method) on

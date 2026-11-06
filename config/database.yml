@@ -13,6 +13,10 @@ development:
   primary:
     <<: *default
     database: db/development.sqlite3
+  queue:
+    <<: *default
+    database: storage/development_queue.sqlite3
+    migrations_paths: db/queue_migrate
   cache:
     <<: *default
     database: storage/development_cache.sqlite3
@@ -29,6 +33,10 @@ test:
   primary:
     <<: *default
     database: db/test.sqlite3
+  queue:
+    <<: *default
+    database: storage/test_queue.sqlite3
+    migrations_paths: db/queue_migrate
   cache:
     <<: *default
     database: storage/test_cache.sqlite3
@@ -40,6 +48,9 @@ test:
 
 production:
   primary:
+    url: <%= ENV['DATABASE_URL'] %>
+    pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  queue:
     url: <%= ENV['DATABASE_URL'] %>
     pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   cache:

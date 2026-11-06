@@ -59,7 +59,11 @@ class WordsCreateTest < ActiveSupport::TestCase
 
     result = nil
     stub_faraday_new(stubs) do
-      result = Words::Create.new(@john, { title: 'Webhook Word' }).call
+      # Webhooks::SendJob runs inline here; in production the Solid Queue
+      # dispatcher picks it up off the queue database.
+      perform_enqueued_jobs do
+        result = Words::Create.new(@john, { title: 'Webhook Word' }).call
+      end
     end
 
     assert result.success?
@@ -76,9 +80,8 @@ class WordsCreateTest < ActiveSupport::TestCase
   test "does not send a webhook when creation fails" do
     Webhook.create!(title: 'Hook One', url: 'https://hooks.example.com/one')
 
-    never_called = ->(*) { flunk 'Webhooks::Send should not run when word creation fails' }
     result = nil
-    with_stubbed_singleton_method(Webhooks::Send, :new, never_called) do
+    assert_no_enqueued_jobs do
       result = Words::Create.new(@john, { title: '' }).call
     end
 
