@@ -76,6 +76,9 @@ is this?"** Releases are how that stays true.
 ### Database
 - SQLite3 in development/test, PostgreSQL in production (Railway)
 - Solid Cache / Solid Cable (database-backed; no Redis)
+- New migrations are pinned `ActiveRecord::Migration[8.1]` (what the 8.1
+  generators emit). Existing files keep their historical pin — never
+  re-pin old migrations; the class version is frozen semantics, not style.
 
 ### Frontend
 - ERB templates
