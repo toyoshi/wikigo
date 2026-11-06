@@ -1,0 +1,57 @@
+# Kamal deployment config (#111) — Rails' official deploy tool.
+#
+# The image is built from the repo Dockerfile (build-time asset precompile,
+# entrypoint runs migrations). Hosts/secrets are deliberately env-supplied so
+# nothing deploy-specific is committed here — copy to .kamal.yml, fill in, and
+# keep server details in your own infra repo.
+#
+#   kamal doctor   # verify config + connectivity
+#   kamal bootstrap
+#   kamal deploy
+#
+# Secrets (kamal secrets): SECRET_KEY_BASE, DATABASE_URL, RAILS_MASTER_KEY.
+
+service:
+  workers: 1
+
+image: ghcr.io/OWNER/wikigo
+
+registry:
+  server: ghcr.io
+  username:
+    - KAMAL_REGISTRY_USERNAME
+  access_token:
+    - KAMAL_REGISTRY_PASSWORD
+
+servers:
+  all:
+    hosts:
+      - HOST_1
+    env:
+      clear:
+        RAILS_ENV: production
+        PORT: "3000"
+      secrets:
+        - SECRET_KEY_BASE
+        - DATABASE_URL
+        - RAILS_MASTER_KEY
+
+proxy:
+  ssl: true
+  hosts:
+    - wiki.example.com
+
+# Production is PostgreSQL via DATABASE_URL (primary/cache/cable share it).
+# A Postgres accessory is the zero-infrastructure option; remove it when the
+# DATABASE_URL points at a managed database instead.
+#
+# accessories:
+#   db:
+#     image: postgres:17-alpine
+#     hosts:
+#       - HOST_1
+#     env:
+#       clear:
+#         POSTGRES_DB: wikgo_production
+#       secrets:
+#         - POSTGRES_PASSWORD

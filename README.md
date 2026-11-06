@@ -25,7 +25,7 @@ WikiGo has two faces. It is a production-ready wiki whose signature is **automat
 | **PaperTrail (JSON serializer)** | 履歴の reify が Psych の制約に躓まない構成 (#82 参照) |
 | **minitest + fixtures** | テストは仕様書であり、それ自体が模範であるべき |
 
-計画・追跡は GitHub Issues が台帳です。Kamal デプロイ (#111)、Devise 置き換 (#110)。
+計画・追跡は GitHub Issues が台帳です。Devise 置き換 (#110)。
 
 ### 明示的に採用しないもの (Non-goals)
 
@@ -95,7 +95,15 @@ docker build -t wikigo .
 docker run -p 3000:3000 wikigo
 ```
 
-Kamal を用いた公式ツールでのデプロイ導線と `/up` ヘルスチェックは **#111** で追跡中。Railway 導線 (#80) は owner トリッジで deferred。
+Rails 公式の **Kamal** が既定のデプロイ回答です (#111)。`kamal.yml.sample` を `.kamal.yml` にコピーして hosts/image を埋め、secrets に `SECRET_KEY_BASE`・`DATABASE_URL`・`RAILS_MASTER_KEY` を登録したら `kamal bootstrap && kamal deploy`。アセットの precompile はビルド段にあり (#111)、コンテナは起動直後から完全体です。
+
+```bash
+kamal doctor       # 設定と疎通の点検
+kamal bootstrap    # 初回のみ
+kamal deploy
+```
+
+ヘルスチェックは `/up` (Rails 既定の `Rails::HealthController`、public・認証な)。Kamal proxy がトラフィック切替前にポーリングします。Railway 誘導 (#80) は owner トリッジで deferred のまま併存判断。
 
 ## Testing & Quality Gates
 
