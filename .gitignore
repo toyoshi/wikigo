@@ -73,3 +73,12 @@ yarn-debug.log*
 
 # Claude Code agent worktrees
 /.claude/worktrees/
+
+# Ignore key files for decrypting credentials and more.
+/config/*.key
+
+# The dev/test key set for attribute encryption is a committed fixture key
+# (#113): credentials.yml.enc + master.key boot the app from a clean clone.
+# Production supplies its own encrypted credentials (RAILS_MASTER_KEY).
+!/config/master.key
+

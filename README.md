@@ -25,7 +25,7 @@ WikiGo has two faces. It is a production-ready wiki whose signature is **automat
 | **PaperTrail (JSON serializer)** | 履歴の reify が Psych の制約に躓まない構成 (#82 参照) |
 | **minitest + fixtures** | テストは仕様書であり、それ自体が模範であるべき |
 
-計画・追跡は GitHub Issues が台帳です。attribute encryption (#113)、Kamal デプロイ (#111)、Devise 置き換 (#110)。
+計画・追跡は GitHub Issues が台帳です。Kamal デプロイ (#111)、Devise 置き換 (#110)。
 
 ### 明示的に採用しないもの (Non-goals)
 
@@ -59,7 +59,7 @@ WikiGo has two faces. It is a production-ready wiki whose signature is **automat
 - **Search**: HTML タグにヒットしない本文検索 (`body_plain_text`, #83)
 - **REST API**: Bearer token による完全な API
 - **Modern UI**: Bootstrap 5 / Propshaft / importmap
-- **Rails 8.1 native**: Solid Cache・Solid Cable・Solid Queue・Local CI・Structured Event Reporter
+- **Rails 8.1 native**: Solid Cache・Solid Cable・Solid Queue・Attribute Encryption (`Option#encrypts`)・Local CI・Structured Event Reporter
 
 ## Quick Start
 

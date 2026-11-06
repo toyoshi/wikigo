@@ -57,6 +57,18 @@ class OptionTest < ActiveSupport::TestCase
     assert_equal 0, Option.where(option_key: "new_key").count
   end
 
+  test "option values are encrypted at rest (#113)" do
+    Option.openai_api_key = 'sk-super-secret-value'
+
+    raw = ActiveRecord::Base.connection.select_value(
+      "SELECT option_value FROM options WHERE option_key = 'openai_api_key'")
+
+    assert_not_equal 'sk-super-secret-value', raw.to_s
+    assert_not_includes raw.to_s, 'sk-super-secret-value'
+    # Reads stay transparent through the model.
+    assert_equal 'sk-super-secret-value', Option.openai_api_key
+  end
+
   test "existing fixture value is readable" do
     assert_equal "5", Option.list_size_of_recent_words_parts
   end
