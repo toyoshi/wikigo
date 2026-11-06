@@ -48,6 +48,8 @@ group :development do
 end
 
 group :test do
+  gem 'capybara'  # system tests (rack_test driver)
+  gem 'rack-test'
 end
 
 group :production do
