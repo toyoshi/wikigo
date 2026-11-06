@@ -33,6 +33,22 @@ WikiGo is a multi-user wiki engine built with Ruby on Rails 8 (Ruby 4.0). Its si
 - `bin/ci` - Rails 8.1 Local CI (`config/ci.rb`): runs gem audit, brakeman, tests, and seeds locally.
 - GitHub Actions (`.github/workflows/ci.yml`) runs `rails test` and `bundle-audit` on push/PR.
 
+## Releases & the Reference Point
+
+WikiGo is a reference app: **a tag must answer "which Rails's way of writing
+is this?"** Releases are how that stays true.
+
+- `main` floats with Rails; **tags are the citation**. The latest tag is the
+  reference point readers should pin.
+- On a Rails minor bump (or Ruby minor): open the freshness/upgrade PR, merge
+  it green, then (1) add a `CHANGELOG.md` section opening with the reference
+  point (Ruby/Rails versions, `Gemfile.lock` at the tag = source of truth),
+  (2) `git tag -a vMAJOR.MINOR.0 -m "the Rails X.Y reference point"`,
+  (3) `git push --tags`, (4) `gh release create` with the changelog section
+  verbatim as notes.
+- The changelog section — not the git log — is the human record: which types
+  were adopted or retired at that point (issue numbers as evidence).
+
 ## Architecture Overview
 
 ### Core Models

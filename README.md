@@ -12,6 +12,10 @@ WikiGo has two faces. It is a production-ready wiki whose signature is **automat
 
 ## リファレンスアプリの姿勢
 
+**時点固定**: `main` は Rails を追従して流動します。参照すべき固定点は最新の
+release tag (現 v0.1.0 = Rails 8.1.4.1 / Ruby 4.0.8) で、各時点の Rails
+バージョンと採用機能は `CHANGELOG.md` が引掛です。
+
 ### 採用している Rails 8.1 の型
 
 | 型 | WikiGo での実装 |
