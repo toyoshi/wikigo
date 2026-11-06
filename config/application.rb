@@ -16,6 +16,9 @@ module Wikigo
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
 
+
+    # Attribute encryption (#113): Option#encrypts :option_value reads its
+    # primary_key from config/credentials.yml (active_record_encryption entry).
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

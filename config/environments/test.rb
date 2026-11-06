@@ -50,4 +50,8 @@ Rails.application.configure do
 
   # Raise error when a before_action's only/except options reference missing actions.
   config.action_controller.raise_on_missing_callback_actions = true
+
+  # Encrypt Option's encrypted attributes on insert so the fixture can stay
+  # plain text while reads go through the cryptor (#113).
+  config.active_record.encryption.encrypt_fixtures = true
 end

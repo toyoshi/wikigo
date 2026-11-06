@@ -1,6 +1,18 @@
 class Option < ApplicationRecord
   include RegistrationToken
 
+  # At-rest encryption for every stored value (#113). The registry includes
+  # secrets (openai_api_key today), and a value-level allow list would only
+  # recreate the bug class this exists to prevent: one forgotten column name
+  # silently stores a secret in the clear. Non-secret values ride along
+  # happily; reads stay transparent.
+  #
+  # The encryptor derives its primary key from SECRET_KEY_BASE. To rotate,
+  # add a previous key via config.active_record.encryptions.schemes or
+  # key_rotation (ActiveRecord::Encryption) — old rows decrypt under the old
+  # key and re-encrypt under the new one on next write.
+  encrypts :option_value
+
   # Explicit registry of every known setting.
   #
   # This replaces a method_missing + send string dispatch that accepted any
