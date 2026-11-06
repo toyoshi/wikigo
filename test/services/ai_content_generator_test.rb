@@ -1,11 +1,18 @@
 require 'test_helper'
 
 class AiContentGeneratorTest < ActiveSupport::TestCase
+  # Captured at class-load: main boots with the Fake installed; the
+  # example/ai-editing branch boots with OpenAI. Every test pins the provider
+  # it needs and teardown returns to whatever this boot defaulted to, so the
+  # file is order-independent on both branches.
+  DEFAULT_PROVIDER = AiContentGenerator.provider
+
   teardown do
-    AiContentGenerator.provider = AiContentGenerator::Fake
+    AiContentGenerator.provider = DEFAULT_PROVIDER
   end
 
   test "ships a deterministic fake provider so the feature works keyless" do
+    AiContentGenerator.provider = AiContentGenerator::Fake
     result = AiContentGenerator.new('Ruby').call
 
     assert result.success?
@@ -14,6 +21,7 @@ class AiContentGeneratorTest < ActiveSupport::TestCase
   end
 
   test "the fake fails a blank title rather than inventing content" do
+    AiContentGenerator.provider = AiContentGenerator::Fake
     result = AiContentGenerator.new('').call
 
     assert_not result.success?

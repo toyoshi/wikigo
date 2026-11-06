@@ -30,6 +30,7 @@ class Option < ApplicationRecord
     'html_append_head' => '',
     'html_append_body' => '',
     'user_registration_token' => '',
+    'openai_api_key' => '',
   }.freeze
 
   # @api public
