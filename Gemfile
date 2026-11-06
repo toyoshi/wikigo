@@ -18,7 +18,6 @@ gem 'bootsnap', require: false
 gem 'puma'
 gem 'jbuilder'
 
-gem 'gon', '~> 8.0'
 gem 'rubyzip'
 
 gem 'devise'
@@ -49,7 +48,6 @@ group :development do
 end
 
 group :test do
-  gem 'ostruct' # Ruby 4.0: no longer a default gem, used by words_import_test
 end
 
 group :production do

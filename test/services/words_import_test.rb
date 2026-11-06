@@ -1,12 +1,13 @@
 require 'test_helper'
 require 'zip'
-require 'ostruct'
 
 class WordsImportTest < ActiveSupport::TestCase
   # Mimics the uploaded-file object the controller hands to the service: it only
   # needs to respond to #tempfile with something Zip::File can open.
+  UploadedArchive = Struct.new(:tempfile)
+
   def archive_for(zip_path)
-    OpenStruct.new(tempfile: File.new(zip_path))
+    UploadedArchive.new(File.new(zip_path))
   end
 
   def build_zip(entries)

@@ -1,7 +1,6 @@
 class WordsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :tags, :tag]
   before_action :set_word, only: [:show, :version, :edit, :destroy, :ai_edit]
-  before_action :set_tags, only: [:new, :create, :edit, :update]
 
   # GET /words
   # GET /words.json
@@ -124,10 +123,6 @@ class WordsController < ApplicationController
       # Word.find handles both numeric IDs and title-based slugs,
       # raising RecordNotFound (404) when nothing matches.
       @word = Word.find(params[:id])
-    end
-
-    def set_tags
-      gon.all_tag_list = ActsAsTaggableOn::Tag.all.pluck(:name)
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
