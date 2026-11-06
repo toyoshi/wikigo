@@ -9,7 +9,7 @@ class OptionTest < ActiveSupport::TestCase
 
   test "known_keys returns the registry, not whatever rows happen to exist" do
     assert_includes Option.known_keys, 'site_title'
-    assert_includes Option.known_keys, 'openai_api_key'
+    assert_includes Option.known_keys, 'user_registration_token'
   end
 
   test "reading an unknown key fails loudly instead of magic" do
@@ -58,15 +58,17 @@ class OptionTest < ActiveSupport::TestCase
   end
 
   test "option values are encrypted at rest (#113)" do
-    Option.openai_api_key = 'sk-super-secret-value'
+    # The invitation token is the registry's secret-shaped value: like every
+    # stored value it must not be readable out of the database file.
+    Option.user_registration_token = 'invite-super-secret-value'
 
     raw = ActiveRecord::Base.connection.select_value(
-      "SELECT option_value FROM options WHERE option_key = 'openai_api_key'")
+      "SELECT option_value FROM options WHERE option_key = 'user_registration_token'")
 
-    assert_not_equal 'sk-super-secret-value', raw.to_s
-    assert_not_includes raw.to_s, 'sk-super-secret-value'
+    assert_not_equal 'invite-super-secret-value', raw.to_s
+    assert_not_includes raw.to_s, 'invite-super-secret-value'
     # Reads stay transparent through the model.
-    assert_equal 'sk-super-secret-value', Option.openai_api_key
+    assert_equal 'invite-super-secret-value', Option.user_registration_token
   end
 
   test "existing fixture value is readable" do
