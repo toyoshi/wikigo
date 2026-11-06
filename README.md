@@ -27,6 +27,7 @@ release tag (現 v0.1.0 = Rails 8.1.4.1 / Ruby 4.0.8) で、各時点の Rails
 | **Propshaft + importmap-rails + Hotwire** | JS ビルド工程なし。Turbo + Stimulus 正規の経路 |
 | **Solid Cache / Solid Cable / Solid Queue** | Redis なしの database-backed 三昧セット (ActiveJob バックエンド含む) |
 | **トランザクション・コールバック** | `before_commit` ゲート (#137) — webhook の enqueue はコミット成功後にだけ走り、ロールバックは幽霊配信を残さない |
+| **Rate Limiting** | Active Controller の `rate_limit` — サインイン・パスワード再送の暴走防止 (`to: 10, within: 3.minutes`、#110 の生成物) |
 | **ActionText (Trix)** | リッチテキストの本文は `has_rich_text` が唯一の真実 |
 | **PaperTrail (JSON serializer)** | 履歴の reify が Psych の制約に躓まない構成 (#82 参照) |
 | **minitest + fixtures** | テストは仕様書であり、それ自体が模範であるべき |
